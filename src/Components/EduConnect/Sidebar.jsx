@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../Helpers/Logo";
 import MoreVert from "../Icons/MoreVert";
 import { educonnectlinks } from "../../Data/menuLinks.jsx";
 
 function Sidebar() {
   const menu = educonnectlinks;
+  const location = useLocation();
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
 
   return (
     <div className="w-full h-full flex flex-col bg-edu-main-color">
@@ -22,7 +26,7 @@ function Sidebar() {
               <Link
                 key={idx}
                 to={item.link}
-                className="flex items-center gap-[6px] py-2 px-3 rounded-[6px] text-[16px] text-gray-100 font-medium hover:bg-[#6BCA9C] transition-all"
+                className={`flex items-center gap-[6px] py-2 px-3 rounded-[6px] text-[16px] text-gray-100 font-medium hover:bg-[#6BCA9C] transition-all ${isActive(`${item.link}`) ? 'bg-[#6BCA9C]' : ''}`}
               >
                 {item.icon && (
                   <span className="flex items-center justify-center w-5 h-5 text-red-800">

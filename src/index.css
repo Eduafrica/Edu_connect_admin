@@ -21,6 +21,12 @@
   .input{
     @apply w-full border-[1px] outline-none rounded-[8px] py-[10px] px-[14px] border-gray-300 bg-white shadow-sm text-gray-500 placeholder:text-gray-500 text-sm font-normal
   }
+  .pad1{
+    @apply p-8
+  }
+  .title{
+    @apply text-off-black text-[30px] font-semibold
+  }
 }
 
 .loader{

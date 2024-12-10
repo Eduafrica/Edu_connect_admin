@@ -6,6 +6,7 @@ import ForgotPassword from "./Pages/Authorization/ForgotPassword"
 import ResetPassword from "./Pages/Authorization/ResetPassword"
 import ResetPasswordSuccess from "./Pages/Authorization/ResetPasswordSuccess"
 import EduConnectDashboard from "./Pages/EduConnect/EduConnectDashboard"
+import EduConnectTestimonies from "./Pages/EduConnect/EduConnectTestimonies"
 
 function App() {
   return (
@@ -22,6 +23,8 @@ function App() {
 
           {/**EDU CONNECT */}
           <Route path="/edu-connect/dashboard" element={<EduConnectDashboard />} />
+          <Route path="/edu-connect/testimonies" element={<EduConnectTestimonies />} />
+
         </Routes>
       </BrowserRouter>
     </div>

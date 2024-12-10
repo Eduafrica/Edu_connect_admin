@@ -12,6 +12,7 @@ export default {
 
         'error': '#D92D20',
         'bgColor': 'fcfbfb',
+        'off-black': '#14142B',
 
         'gray-100': '#F2F4F7',
         'gray-300': '#D0D5DD',
