@@ -1,12 +1,13 @@
+import { data } from "react-router-dom";
+import ContactUsCard from "../../Components/EduConnect/ContactUsCard";
 import Navbar from "../../Components/EduConnect/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
-import TestimoniesCard from "../../Components/EduConnect/TestimoniesCard";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
-import { useFetchTestimonials } from "../../Helpers/educonnect/fetch.hooks";
+import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
 
-function EduConnectTestimonies() {
-  const { data: testimoniesData, isFetching } = useFetchTestimonials()
-  const data = testimoniesData?.data || []
+function EduConnectContactUs() {
+    const { data: contactUsData, isFetching } = useFetchContactMessage()
+    const data = contactUsData?.data || []
   return (
     <div className="page flex-row">
 
@@ -37,7 +38,7 @@ function EduConnectTestimonies() {
 
             {/**BOTTOM */}
             <div className="">
-                 <TestimoniesCard testimonytData={data} loading={isFetching} />
+                 <ContactUsCard contactUsData={data} loading={isFetching} />
             </div>
 
         </div>
@@ -49,4 +50,4 @@ function EduConnectTestimonies() {
   );
 }
 
-export default EduConnectTestimonies;
+export default EduConnectContactUs;

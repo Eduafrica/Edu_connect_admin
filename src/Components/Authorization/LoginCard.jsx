@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "../Helpers/Button"
 import LoadingBtn from "../Helpers/LoadingBtn"
-import { login } from "../../Helpers/api"
+import { login } from "../../Helpers/educonnect/api"
 
 function LoginCard({ setErrorText, setSuccessText, }) {
     const [ formData, setFormData ] = useState({})

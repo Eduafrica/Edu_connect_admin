@@ -7,10 +7,21 @@ import ResetPassword from "./Pages/Authorization/ResetPassword"
 import ResetPasswordSuccess from "./Pages/Authorization/ResetPasswordSuccess"
 import EduConnectDashboard from "./Pages/EduConnect/EduConnectDashboard"
 import EduConnectTestimonies from "./Pages/EduConnect/EduConnectTestimonies"
+import EduConnectTestimoniesInfo from "./Pages/EduConnect/EduConnectTestimoniesInfo"
+import { Toaster } from 'react-hot-toast'
+import EduConnectContactUs from "./Pages/EduConnect/EduConnectContactUs"
+import EducConnectContactUsInfo from "./Pages/EduConnect/EducConnectContactUsInfo"
+import EduConnectFaq from "./Pages/EduConnect/EduConnectFaq"
+import { useState } from "react"
+import EduConnectFaqForm from "./Pages/EduConnect/EduConnectFaqForm"
+import EduconnectSettings from "./Pages/EduConnect/EduconnectSettings"
 
 function App() {
+  const [ educonnectFaqId, setEduconnectFaqId ] = useState()
+
   return (
     <div className='app'>
+      <Toaster></Toaster>
       <BrowserRouter>
         <Routes>
           <Route path="/*" element={<Login />} />
@@ -24,6 +35,12 @@ function App() {
           {/**EDU CONNECT */}
           <Route path="/edu-connect/dashboard" element={<EduConnectDashboard />} />
           <Route path="/edu-connect/testimonies" element={<EduConnectTestimonies />} />
+          <Route path="/edu-connect/testimonies/info/:id" element={<EduConnectTestimoniesInfo />} />
+          <Route path="/edu-connect/contact-us" element={<EduConnectContactUs />} />
+          <Route path="/edu-connect/contact-us/info/:id" element={<EducConnectContactUsInfo />} />
+          <Route path="/edu-connect/faq" element={<EduConnectFaq setEduconnectFaqId={setEduconnectFaqId} />} />
+          <Route path="/edu-connect/faq/faq-form" element={<EduConnectFaqForm educonnectFaqId={educonnectFaqId} setEduconnectFaqId={setEduconnectFaqId} />} />
+          <Route path="/edu-connect/settings" element={<EduconnectSettings />} />
 
         </Routes>
       </BrowserRouter>

@@ -15,9 +15,13 @@ export default {
         'off-black': '#14142B',
 
         'gray-100': '#F2F4F7',
+        'gray-200': '#EAECF0',
         'gray-300': '#D0D5DD',
         'text-500': '#667085',
+        'text-600': '#475467',
         'gray-700': '#344054',
+        'gray-900': '#101828',
+
       },
       screens: {
         'medium-pc' : {'max': '1300px'},

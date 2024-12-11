@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "../Helpers/Button"
 import LoadingBtn from "../Helpers/LoadingBtn"
-import { forgotPassword } from "../../Helpers/api"
+import { forgotPassword } from "../../Helpers/educonnect/api"
 
 function ForgotPasswordCard({ setErrorText, setSuccessText, }) {
     const [ formData, setFormData ] = useState({})

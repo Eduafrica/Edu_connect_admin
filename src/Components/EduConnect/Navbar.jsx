@@ -2,7 +2,7 @@ import ProfileImg from '../../assets/image/profile.png'
 
 function Navbar() {
   return (
-    <div className="fixed w-[calc(100vw-280px)] h-[60px] bg-white border-b-[1px] border-[#D9DBE9] pt-3 pb-3 px-6 flex">
+    <div className="fixed z-[999] w-[calc(100vw-280px)] h-[60px] bg-white border-b-[1px] border-[#D9DBE9] pt-3 pb-3 px-6 flex">
         
         <div className="ml-auto flex items-center gap-2">
             <div className="w-[34px] h-[34px] rounded-full">

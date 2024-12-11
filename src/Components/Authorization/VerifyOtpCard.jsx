@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../Helpers/Button";
 import LoadingBtn from "../Helpers/LoadingBtn";
-import { verifyOtp } from "../../Helpers/api";
+import { verifyOtp } from "../../Helpers/educonnect/api";
 
 function VerifyOtpCard({ setErrorText, setSuccessText }) {
   const navigate = useNavigate();
