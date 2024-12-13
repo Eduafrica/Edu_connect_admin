@@ -1,10 +1,11 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Button from "../Helpers/Button"
 import LoadingBtn from "../Helpers/LoadingBtn"
-import { register } from "../../Helpers/educonnect/api"
+import { register } from "../../Helpers/api"
 
 function RegisterCard({ setErrorText, setSuccessText, }) {
+  const navigate = useNavigate()
     const [ formData, setFormData ] = useState({})
     const [ showPassword, setShowPassword ] = useState(false)
     
@@ -48,8 +49,22 @@ function RegisterCard({ setErrorText, setSuccessText, }) {
         try {
             setLoading(true)
             const res = await register(formData)
+            if(res.success){
+              setSuccessText('')
+              setTimeout(() => {
+                setSuccessText()
+              }, 2500)
 
-            //navigate with verify otp with email as res.data
+              navigate('/verifyOtp', {
+                state: { email: res.email },
+              });
+            } else {
+              setErrorText(res.data)
+              setTimeout(() => {
+                setErrorText()
+              }, 2500)
+              return
+            }
         } catch (error) {
             
         } finally {

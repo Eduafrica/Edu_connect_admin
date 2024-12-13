@@ -167,16 +167,18 @@ function ContactUsCard({ contactUsData, loading }) {
                 return (
                   <tr key={item?._id} className="border-t border-gray-200">
                     {/* Course Column */}
-                    <td className="px-6 py-4">
-                      <div className="font-semibold text=-[14px] text-[#364152]">
+                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
                         {item?.firstName}
+                      <div className="font-semibold text=-[14px] text-[#364152]">
                       </div>
                       <div className="text-[14px] font-normal text-gray-600">
-                        {item?.lastName}
                       </div>
                     </td>
+                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
+                        {item?.lastName}
+                    </td>
                     {/* Order Amount Column */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
                         {item?.messageId}
                     </td>
                     {/* contact details */}
@@ -186,7 +188,7 @@ function ContactUsCard({ contactUsData, loading }) {
                       </div>
                     </td>
                     {/* Image */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
                           {item?.phoneNumber}
                     </td>
                     <td className="px-6 text-center py-4 text-[13px] text-[#121212] font-normal">
@@ -197,7 +199,7 @@ function ContactUsCard({ contactUsData, loading }) {
                         {formattedTime}
                       </p>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
                           {truncateText(item?.message, 14)}
                           <Link to={`/edu-connect/contact-us/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
                       </td>

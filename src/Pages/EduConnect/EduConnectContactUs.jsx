@@ -1,6 +1,6 @@
 import { data } from "react-router-dom";
 import ContactUsCard from "../../Components/EduConnect/ContactUsCard";
-import Navbar from "../../Components/EduConnect/Navbar";
+import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
@@ -26,7 +26,7 @@ function EduConnectContactUs() {
             {/**TOP */}
             <div className="flex flex-col gap-[30px]">
 
-                <DashBoardLinks name={'educonnect'} />
+                <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <h1 className="title">
 

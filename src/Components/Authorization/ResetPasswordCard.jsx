@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "../Helpers/Button"
 import LoadingBtn from "../Helpers/LoadingBtn"
-import { login, resetPassword } from "../../Helpers/educonnect/api"
+import { resetPassword } from "../../Helpers/api"
 
 function ResetPasswordCard({ setErrorText, setSuccessText, }) {
     const [ formData, setFormData ] = useState({})

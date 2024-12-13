@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Button from "../Helpers/Button";
 import LoadingBtn from "../Helpers/LoadingBtn";
-import { verifyOtp } from "../../Helpers/educonnect/api";
+import { resendOtp, verifyOtp } from "../../Helpers/api";
 
 function VerifyOtpCard({ setErrorText, setSuccessText }) {
   const navigate = useNavigate();
@@ -12,6 +12,9 @@ function VerifyOtpCard({ setErrorText, setSuccessText }) {
   const [loading, setLoading] = useState(false);
   const [resendAvailable, setResendAvailable] = useState(false);
   const [countdown, setCountdown] = useState(60);
+
+  const location = useLocation();
+  const { email } = location.state || {};
 
   useEffect(() => {
     const storedExpireTime = localStorage.getItem("resendOtpExpireTime");
@@ -98,7 +101,7 @@ function VerifyOtpCard({ setErrorText, setSuccessText }) {
       setErrorText("Enter correct code");
       setTimeout(() => {
         setErrorText();
-      }, 2000);
+      }, 2500);
       return;
     }
 
@@ -109,14 +112,16 @@ function VerifyOtpCard({ setErrorText, setSuccessText }) {
         setSuccessText(res?.data);
         setTimeout(() => {
           setSuccessText();
-        }, 2000);
-        navigate("/success");
+        }, 2500);
+        navigate("/login");
       } else {
         setErrorText(res?.data);
         setTimeout(() => {
           setErrorText();
-        }, 2000);
+        }, 2500);
+        return
       }
+      return
     } catch (error) {
       console.error(error);
     } finally {
@@ -124,10 +129,31 @@ function VerifyOtpCard({ setErrorText, setSuccessText }) {
     }
   };
 
-  const handleResendOtp = () => {
+  const handleResendOtp = async () => {
     startResendCountdown();
     try {
       // API call to resend OTP
+      if(!email){
+        setErrorText('Email Address is required');
+        setTimeout(() => {
+          setErrorText();
+        }, 2500);
+        return
+      }
+      const res = await resendOtp({ email })
+      if (res.success) {
+        setSuccessText(res?.data);
+        setTimeout(() => {
+          setSuccessText();
+        }, 2500);
+        return
+      } else {
+        setErrorText(res?.data);
+        setTimeout(() => {
+          setErrorText();
+        }, 2500);
+        return
+      }
     } catch (error) {
       console.error(error);
     }
@@ -183,7 +209,12 @@ function VerifyOtpCard({ setErrorText, setSuccessText }) {
       </div>
 
       <div>
-        {loading ? <LoadingBtn /> : <Button onClick={handleSubmit} text={"Verify"} />}
+        {loading ? 
+          <LoadingBtn /> : 
+          <div className="" onClick={handleSubmit}>
+              <Button onClick={handleSubmit} text={"Verify"} />
+          </div>
+          }
       </div>
 
       <div className="text-xs font-medium text-text-color-3">

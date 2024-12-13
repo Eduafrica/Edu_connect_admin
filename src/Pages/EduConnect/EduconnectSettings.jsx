@@ -1,12 +1,17 @@
 import { useState } from "react";
-import Navbar from "../../Components/EduConnect/Navbar";
+import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import MenuList from "../../Components/Helpers/MenuList";
 import MyDetails from "../../Components/EduConnect/MyDetails";
 import Password from "../../Components/EduConnect/Password";
+import ErrorCard from "../../Components/Helpers/ErrorCard";
+import SuccessCard from "../../Components/Helpers/SuccessCard";
 
 function EduconnectSettings() {
+    const [ errorText, setErrorText ] = useState()
+    const [ successMsg, setSuccessMsg ] = useState()
+
     const data = [
         {
             name: 'My details',
@@ -24,6 +29,16 @@ function EduconnectSettings() {
     };
   return (
     <div className="page flex-row">
+      {
+        errorText && (
+          <ErrorCard errorText={errorText} />
+        )
+      }
+      {
+        successMsg && (
+          <SuccessCard successText={successMsg} />
+        )
+      }
 
       {/* Sidebar */}
       <div className="fixed w-[280px] h-[100vh] left-0 top-0">
@@ -39,7 +54,7 @@ function EduconnectSettings() {
         <div className="bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[30px]">
 
-              <DashBoardLinks name={'educonnect'} />
+              <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <h1 className="title">
                   Settings
@@ -54,13 +69,13 @@ function EduconnectSettings() {
 
                     {
                         activeCard === 'mydetails' && (
-                            <MyDetails />
+                            <MyDetails setErrorText={setErrorText} setSuccessMsg={setSuccessMsg} />
                         )
                     }
 
                     {
                         activeCard === 'password' && (
-                            <Password />
+                            <Password setErrorText={setErrorText} setSuccessMsg={setSuccessMsg} />
                         )
                     }
 

@@ -1,13 +1,18 @@
 import { useState } from "react"
 import Button from "../Helpers/Button"
-import { updateUser } from "../../Helpers/educonnect/api"
 import { useNavigate } from "react-router-dom"
 import LoadingBtn from "../Helpers/LoadingBtn"
+import { updateUser } from "../../Helpers/api"
+import { useDispatch, useSelector } from "react-redux"
+import { signInSuccess } from "../../Redux/Admin/adminSlice"
 
-function MyDetails() {
+function MyDetails({ setErrorText, setSuccessMsg }) {
+    const dispatch = useDispatch()
     const navigate = useNavigate()
-    const user = {}
-    const [ formData, setFormData ] = useState({})
+    const data = useSelector((state) => state.admin)
+    const user = data?.currentAdmin
+
+    const [ formData, setFormData ] = useState({ id: user?._id })
     const handleChange = (e) =>{
         setFormData({ ...formData, [e.target.id]: e.target.value })
     }
@@ -21,6 +26,19 @@ function MyDetails() {
         try {
             setLoading(true)
             const res = await updateUser(formData)
+            if(res.success){
+                setSuccessMsg(res.msg)
+                setTimeout(() => {
+                    setSuccessMsg()
+                }, 2500)
+
+                dispatch(signInSuccess(res.data))
+            } else {
+                setErrorText(res.data)
+                setTimeout(() => {
+                    setErrorText()
+                }, 2500)
+            }
         } catch (error) {
             
         } finally {
@@ -85,7 +103,7 @@ function MyDetails() {
                 <p className="text-[14px] text-[#344054] font-medium">Role</p>
             </div>
             <div className="flex items-center gap-6 w-[512px]">
-                <input disabled readOnly value={''} type="text" className="input" />
+                <input disabled readOnly value={user?.role} type="text" className="input" />
             </div>
         </div>
 

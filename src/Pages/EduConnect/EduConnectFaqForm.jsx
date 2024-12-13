@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import Navbar from "../../Components/EduConnect/Navbar";
+import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import Button from "../../Components/Helpers/Button";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
@@ -41,7 +41,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
         }
         try {
             setLoading(false)
-            const res = await educonnectFaqId ? updateFaq(formData) : newFaq(formData)
+            const res = educonnectFaqId ? await updateFaq(formData) : await newFaq(formData)
             if(res.success){
                 toast.success(res.data)
                 navigate('/edu-connect/faq')
@@ -49,7 +49,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
                 toast.error(res.data)
             }
         } catch (error) {
-            
+            console.log('object', error)
         } finally {
             setLoading(false)
         }
@@ -76,7 +76,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
         <div className="relative bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[39px] items-center">
 
-              <DashBoardLinks name={'educonnect'} />
+              <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <div className="flex items-center justify-center gap-8 flex-col">
                     <h2 className="text-gray-900 text-[36px] font-semibold text-center">Frequently asked questions</h2>
@@ -88,7 +88,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
 
                     <input id="question" defaultValue={faqData?.question} onChange={handleChange} className="input" />
 
-                    <textarea id="answer" defaultValue={faqData?.answer} className="input h-[176px] resize-none"></textarea>
+                    <textarea id="answer" defaultValue={faqData?.answer} onChange={handleChange} className="input h-[176px] resize-none"></textarea>
                 </div>
 
                 <div className="w-[299px]">

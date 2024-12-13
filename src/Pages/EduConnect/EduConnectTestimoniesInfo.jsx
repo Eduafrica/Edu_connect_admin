@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import Navbar from "../../Components/EduConnect/Navbar";
+import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Button from "../../Components/Helpers/Button";
@@ -105,7 +105,7 @@ function EduConnectTestimoniesInfo() {
         <div className="bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[30px]">
 
-              <DashBoardLinks name={'educonnect'} />
+              <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">

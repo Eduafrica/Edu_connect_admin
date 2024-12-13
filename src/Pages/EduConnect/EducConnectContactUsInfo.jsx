@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import Navbar from "../../Components/EduConnect/Navbar";
+import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Button from "../../Components/Helpers/Button";
@@ -9,6 +9,8 @@ import { replyMessage } from "../../Helpers/educonnect/api";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import toast from "react-hot-toast";
 import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
+import LoadingBtn from "../../Components/Helpers/LoadingBtn";
+import Spinner from "../../Components/Helpers/Spinner";
 
 function EducConnectContactUsInfo() {
     const loc = useLocation()
@@ -24,6 +26,9 @@ function EducConnectContactUsInfo() {
     const [ loading, setLoading ] = useState(false)
 
     const handleReplyMessage = async () => {
+        if(loading){
+            return
+        }
         try {
             setLoading(true)
             const res = await replyMessage(formData)
@@ -60,7 +65,7 @@ function EducConnectContactUsInfo() {
         <div className="bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[30px]">
 
-              <DashBoardLinks name={'educonnect'} />
+              <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
@@ -94,44 +99,59 @@ function EducConnectContactUsInfo() {
                         <h2 className="text-[#344054] text-[16px] font-semibold">Contact us Info</h2>
                     </div>
 
-                    <div className="flex flex-col gap-4 mr-auto mt-8">
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">First Name</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.firstName}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Last Name</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.lastName}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Message Id</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.messageId}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Email</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.email}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Phone number</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.phoneNumber}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Testimony Date</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{formattedDate}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">message</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.message}</p>
-                        </div>
-                        <div className="flex items-start gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Reply messgae</p>
-                            <div className="flex flex-col gap-5">
-                                <textarea onChange={handleChange} id="replyMsg" className="input resize-none w-[250px] h-[150px]"></textarea>
-
-                                <Button text={'Send reply'} onCLick={handleReplyMessage} />
+                    {
+                        isFetching ? (
+                            <div className="flex items-center justify-center">
+                                <Spinner />
                             </div>
-                        </div>
-                    </div>
+                        ) : (
+                            <div className="flex flex-col gap-4 mr-auto mt-8">
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[190px]">First Name</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.firstName}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[190px]">Last Name</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.lastName}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[190px]">Message Id</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.messageId}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[190px]">Email</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.email}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[190px]">Phone number</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.phoneNumber}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[190px]">Testimony Date</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{formattedDate}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[190px]">message</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{messageData?.message}</p>
+                                </div>
+                                <div className="flex items-start gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[190px]">Reply messgae</p>
+                                    <div className="flex flex-col gap-5">
+                                        <textarea onChange={handleChange} id="replyMsg" defaultValue={messageData?.reply} className="input resize-none w-[250px] h-[150px]"></textarea>
+
+                                        {
+                                            loading ? (
+                                                <LoadingBtn />
+                                            ) : (
+                                                <Button text={'Send reply'} onCLick={handleReplyMessage} />
+                                            )
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+
 
                 </div>
 

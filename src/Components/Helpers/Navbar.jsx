@@ -1,6 +1,10 @@
+import { useSelector } from 'react-redux'
 import ProfileImg from '../../assets/image/profile.png'
 
 function Navbar() {
+    const data = useSelector((state) => state.admin)
+    const user = data?.currentAdmin
+
   return (
     <div className="fixed z-[999] w-[calc(100vw-280px)] h-[60px] bg-white border-b-[1px] border-[#D9DBE9] pt-3 pb-3 px-6 flex">
         
@@ -10,8 +14,8 @@ function Navbar() {
             </div>
 
             <div className="flex flex-col">
-                <p className='text-[12px] font-medium text-[#3F9243]'>Staff</p>
-                <p className='font-normal text-[14px] text-[#929292]'>Lateef Akinyemi</p>
+                <p className='text-[12px] font-medium text-[#3F9243]'>{user?.role}</p>
+                <p className='font-normal text-[14px] text-[#929292]'>{user?.firstName} {user?.lastName}</p>
             </div>
 
             <span className='w-[3px] h-[100%] bg-[#D9DBE9]'></span>

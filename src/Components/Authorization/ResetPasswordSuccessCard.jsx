@@ -2,7 +2,6 @@ import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import Button from "../Helpers/Button"
 import LoadingBtn from "../Helpers/LoadingBtn"
-import { login } from "../../Helpers/educonnect/api"
 
 function ResetPasswordSuccessCard({ setErrorText, setSuccessText, }) {
     const navigate = useNavigate()

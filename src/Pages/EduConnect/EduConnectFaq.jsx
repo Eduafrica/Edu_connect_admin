@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import FaqCard from "../../Components/EduConnect/FaqCard";
-import Navbar from "../../Components/EduConnect/Navbar";
+import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import Button from "../../Components/Helpers/Button";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
@@ -38,7 +38,7 @@ function EduConnectFaq({ setEduconnectFaqId }) {
         <div className="bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[39px] items-center">
 
-              <DashBoardLinks name={'educonnect'} />
+              <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <div className="flex items-center justify-center gap-8 flex-col">
                     <h2 className="text-gray-900 text-[36px] font-semibold text-center">Frequently asked questions</h2>

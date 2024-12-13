@@ -1,7 +1,6 @@
 import { useState } from "react"
 import Logo from "../../Components/Helpers/Logo"
 import Swiper from "../../Components/Helpers/Swiper"
-import LoginCard from "../../Components/Authorization/LoginCard"
 import ErrorCard from "../../Components/Helpers/ErrorCard"
 import SuccessCard from "../../Components/Helpers/SuccessCard"
 import VerifyOtpCard from "../../Components/Authorization/VerifyOtpCard"

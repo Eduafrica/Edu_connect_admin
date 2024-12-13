@@ -15,6 +15,7 @@ import EduConnectFaq from "./Pages/EduConnect/EduConnectFaq"
 import { useState } from "react"
 import EduConnectFaqForm from "./Pages/EduConnect/EduConnectFaqForm"
 import EduconnectSettings from "./Pages/EduConnect/EduconnectSettings"
+import AcnDasboard from "./Pages/AfricanChlidNetwork/AcnDasboard"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -26,6 +27,7 @@ function App() {
         <Routes>
           <Route path="/*" element={<Login />} />
           <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verifyOtp" element={<VerifyOtp />} />
           <Route path="/forgotPassword" element={<ForgotPassword />} />
@@ -42,6 +44,11 @@ function App() {
           <Route path="/edu-connect/faq/faq-form" element={<EduConnectFaqForm educonnectFaqId={educonnectFaqId} setEduconnectFaqId={setEduconnectFaqId} />} />
           <Route path="/edu-connect/settings" element={<EduconnectSettings />} />
 
+          {/**AFRICAN CHILD NETWORK */}
+          <Route path="/acn/dashboard" element={<AcnDasboard />} />
+
+          
+          
         </Routes>
       </BrowserRouter>
     </div>

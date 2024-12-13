@@ -1,10 +1,14 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Button from "../Helpers/Button"
 import LoadingBtn from "../Helpers/LoadingBtn"
-import { login } from "../../Helpers/educonnect/api"
+import { login } from "../../Helpers/api"
+import { signInSuccess } from "../../Redux/Admin/adminSlice"
+import { useDispatch } from "react-redux"
 
 function LoginCard({ setErrorText, setSuccessText, }) {
+    const navigate = useNavigate()
+    const dispatch = useDispatch()
     const [ formData, setFormData ] = useState({})
     const [ showPassword, setShowPassword ] = useState(false)
     
@@ -35,6 +39,29 @@ function LoginCard({ setErrorText, setSuccessText, }) {
         try {
             setLoading(true)
             const res = await login(formData)
+            if(res.verified === false){
+              setSuccessText(res.data)
+              setTimeout(() => {
+                setSuccessText()
+              }, 2500)
+
+              navigate('/verifyOtp')
+            }else if(res.success && res.verified){
+              setSuccessText(res.msg)
+              setTimeout(() => {
+                setSuccessText()
+              }, 2500)
+
+              localStorage.setItem('educonnecttoken', res?.token)
+              dispatch(signInSuccess(res?.data))
+              navigate('/edu-connect/dashboard')
+            } else {
+              setErrorText(res.data)
+              setTimeout(() => {
+                setErrorText()
+              }, 2500)
+              return
+            }
         } catch (error) {
             
         } finally {

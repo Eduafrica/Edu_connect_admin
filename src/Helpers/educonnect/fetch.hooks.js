@@ -58,7 +58,7 @@ export function useFetchFaq(query){
     useEffect(() => {
         const fetchFaqData = async () => {
             try {
-                const { data, status} = !query ? await axios.get(`/educonnect/faq/getAllFaq`, {withCredentials: true}) : await axios.get(`/educonnect/faq/getAFaq${query}`, {withCredentials: true})
+                const { data, status} = !query ? await axios.get(`/educonnect/faq/getAllFaq`, {withCredentials: true}) : await axios.get(`/educonnect/faq/getAFaq/${query}`, {withCredentials: true})
                 //console.log('Data from Hooks>>>', data, 'STATUS', status)
 
                 if(status === 200){

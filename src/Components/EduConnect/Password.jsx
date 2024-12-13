@@ -1,12 +1,10 @@
 import { useState } from "react"
-import ErrorCard from "../Helpers/ErrorCard"
-import { updatePassword } from "../../Helpers/educonnect/api"
 import Button from "../Helpers/Button"
-import SuccessCard from "../Helpers/SuccessCard"
 import LoadingBtn from "../Helpers/LoadingBtn"
 import { useNavigate } from "react-router-dom"
+import { updatePassword } from "../../Helpers/api"
 
-function Password() {
+function Password({ setErrorText, setSuccessMsg }) {
     const navigate = useNavigate()
     const [ formData, setFormData ] = useState({})
     const handleChange = (e) =>{
@@ -14,37 +12,43 @@ function Password() {
     }
 
     const [ loading, setLoading ] = useState(false)
-    const [ error, setError ] = useState()
-    const [ successMsg, setSuccessMsg ] = useState()
     const handleUpdatePassword = async () => {
         if(!formData?.currentPassword){
-            setError('Enter Current Password')
+            setErrorText('Enter Current Password')
             setTimeout(() => {
-                setError()
+                setErrorText()
             }, 2500)
             return
         }
         if(!formData?.password){
-            setError('Enter New Password')
+            setErrorText('Enter New Password')
             setTimeout(() => {
-                setError()
+                setErrorText()
             }, 2500)
             return
         }
         if(!formData?.confirmPassword){
-            setError('Confirm new password')
+            setErrorText('Confirm new password')
             setTimeout(() => {
-                setError()
+                setErrorText()
             }, 2500)
             return
         }
         try {
             setLoading(true)
-            //const res = await updatePassword(formData)
-            setSuccessMsg(res?.data || 'Password Change')
-            setTimeout(() => {
-                setSuccessMsg()
-            }, 2500)
+            const res = await updatePassword(formData)
+            if(res.success){
+                setSuccessMsg(res?.data || 'Password Change')
+                setTimeout(() => {
+                    setSuccessMsg()
+                }, 2500)
+            } else {
+                setErrorText(res.data)
+                setTimeout(() => {
+                    setErrorText()
+                }, 2500)
+                return
+            }
         } catch (error) {
             
         } finally {
@@ -57,16 +61,6 @@ function Password() {
     }
   return (
     <div className="relative px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm flex flex-col gap-16">
-        {
-            error && (
-                <ErrorCard errorText={error} />
-            )
-        }
-        {
-            successMsg && (
-                <SuccessCard successText={successMsg} />
-            )
-        }
         <div className="flex mt-8 items-start gap-4 justify-between border-b-[1px] border-[#EAECF0] pb-4">
             <div className="flex flex-col gap-1">
                 <h3 className="text-[18px] font-semibold text-[#101828]">Password</h3>
@@ -87,8 +81,9 @@ function Password() {
             <div className="w-[280px] flex flex-col">
                 <p className="text-[14px] text-[#344054] font-medium">New password</p>
             </div>
-            <div className="flex items-center gap-6 w-[512px]">
+            <div className="flex flex-col items-center gap-6 w-[512px]">
                 <input onChange={handleChange} id="password" placeholder="******" type="text" className="input" />
+                <p className="text-[13px] font-normal text-[#475467]">New password must be contain atleast one special character and 8 character in lenght.</p>
             </div>
         </div>
 

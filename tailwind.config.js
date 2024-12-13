@@ -6,9 +6,14 @@ export default {
         'edu-main-color': '#00BF63',
         'edu-main-hover-color': '#008F4A',
 
+        'acn-main-color': '#000000',
+        'acn-main-hover-color': '#008F4A',
+
         'text-color': '#384250',
         'text-color-1': '#6C737F',
         'text-color-3': '#727475',
+
+        'white': '#fff',
 
         'error': '#D92D20',
         'bgColor': 'fcfbfb',

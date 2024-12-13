@@ -1,16 +1,12 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Logo from "../Helpers/Logo";
 import MoreVert from "../Icons/MoreVert";
-import { educonnectlinks } from "../../Data/menuLinks.jsx";
+import { acnlinks } from "../../Data/menuLinks.jsx";
 import { useState } from "react";
-import { logout } from "../../Helpers/api.js";
-import { useDispatch } from "react-redux";
-import { signOut } from "../../Redux/Admin/adminSlice.js";
+import LogoImg from '../../assets/image/acnLogo.png'
 
 function Sidebar() {
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
-  const menu = educonnectlinks;
+  const menu = acnlinks;
   const location = useLocation();
   const isActive = (path) => {
     return location.pathname === path;
@@ -23,11 +19,11 @@ function Sidebar() {
 
   const siteLinks = [
     {
-      name: "Edu Africa",
+      name: "Edu Connect",
       link: ''
     },
     {
-      name: "Africa Child Network",
+      name: "Edu Africa",
       link: ''
     },
     {
@@ -36,31 +32,13 @@ function Sidebar() {
     }
   ]
 
-  const [ loading, setLoading ] = useState(false)
-  const handleLogout = async () => {
-    if(loading){
-      return
-    }
-    try {
-      setLoading(true)
-      const res = await logout()
-      if(res.success){
-        dispatch(signOut())
-        navigate('/')
-      }
-    } catch (error) {
-      console.log(error)
-    } finally {
-      setLoading(false)
-    }
-  }
   return (
-    <div className="w-full h-full flex flex-col bg-edu-main-color">
+    <div className="w-full h-full flex flex-col bg-acn-main-color">
       <div className="flex flex-col gap-6 pt-5">
         <div className="flex flex-col gap-[50px]">
           {/* LOGO */}
           <div className="relative flex items-center gap-[10px] px-[30px]">
-            <Logo white={true} style={`!w-[147.01px] !h-[42.32px]`} />
+            <Logo img={LogoImg} white={true} style={`!w-[147.01px] !h-[42.32px]`} />
             <div onClick={toggleShowMenu} className="cursor-pointer">
               <MoreVert color={"white"} />
             </div>
@@ -103,7 +81,7 @@ function Sidebar() {
       </div>
           {/**LOGOUT */}
           <div className="mt-auto mb-[32px] flex flex-col gap-1 px-4">
-            <div onClick={handleLogout} className=" px-[16px] cursor-pointer flex items-center gap-6 rounded-[6px] text-[16px] text-gray-100 font-medium hover:text-error transition-all">
+            <div className=" px-[16px] cursor-pointer flex items-center gap-6 rounded-[6px] text-[16px] text-gray-100 font-medium hover:text-error transition-all">
               <span className="flex items-center justify-center w-5 h-5 text-red-800">
                   <svg
                   width="100%"

@@ -1,12 +1,10 @@
 import Navbar from "../../Components/Helpers/Navbar";
-import Sidebar from "../../Components/EduConnect/Sidebar";
-import TestimoniesCard from "../../Components/EduConnect/TestimoniesCard";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
-import { useFetchTestimonials } from "../../Helpers/educonnect/fetch.hooks";
+import Sidebar from "../../Components/ACN/Sidebar";
+import Stats from "../../Components/ACN/Stats";
 
-function EduConnectTestimonies() {
-  const { data: testimoniesData, isFetching } = useFetchTestimonials()
-  const data = testimoniesData?.data || []
+function AcnDasboard() {
+
   return (
     <div className="page flex-row">
 
@@ -22,22 +20,22 @@ function EduConnectTestimonies() {
         </div>
 
         <div className="bg-bgColor pad1 flex flex-col gap-[39px]">
-            {/**TOP */}
             <div className="flex flex-col gap-[30px]">
 
-                <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
+              <DashBoardLinks name={'acn'} color={`text-acn-main-color border-acn-main-color`} />
 
                 <h1 className="title">
-
+                  Dashboard
                 </h1>
 
-                <div className=""></div>
+                <div className="">
+                  <Stats />
+                </div>
 
             </div>
 
-            {/**BOTTOM */}
-            <div className="">
-                 <TestimoniesCard testimonytData={data} loading={isFetching} />
+            <div className="mt-8">
+                {/**fetch dat table two table */}
             </div>
 
         </div>
@@ -49,4 +47,4 @@ function EduConnectTestimonies() {
   );
 }
 
-export default EduConnectTestimonies;
+export default AcnDasboard;
