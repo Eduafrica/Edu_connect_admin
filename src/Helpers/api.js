@@ -92,3 +92,34 @@ export async function logout() {
         return res?.data
     }
 }
+
+
+export async function toggleBlacklist({ id }) {
+    try {
+        const res = await axios.post('/testimony/toggleBlacklist', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to process request'
+        return res?.data
+    }
+}
+
+export async function toggleApproveTestimony({ id }) {
+    try {
+        const res = await axios.post('/testimony/toggleApproveTestimony', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to process request'
+        return res?.data
+    }
+}
+
+export async function deleteTestimony({ id }) {
+    try {
+        const res = await axios.post('/testimony/deleteTestimony', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to process request'
+        return res?.data
+    }
+}

@@ -1,10 +1,11 @@
-import ContactUsCard from "../../Components/EduConnect/ContactUsCard";
 import Navbar from "../../Components/Helpers/Navbar";
-import Sidebar from "../../Components/EduConnect/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
-import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
+import Sidebar from "../../Components/ACN/Sidebar";
+import ContactUsCard from "../../Components/ACN/ContactUsCard";
+import { useFetchContactMessage } from "../../Helpers/acn/fetch.hooks";
+import Stats from "../../Components/ACN/Stats";
 
-function EduConnectContactUs() {
+function AcnContactUs() {
     const { data: contactUsData, isFetching } = useFetchContactMessage()
     const data = contactUsData?.data || []
   return (
@@ -25,19 +26,21 @@ function EduConnectContactUs() {
             {/**TOP */}
             <div className="flex flex-col gap-[30px]">
 
-                <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
+                <DashBoardLinks name={'acn'} color={`text-acn-main-color border-acn-main-color`} />
 
                 <h1 className="title">
-                  Contact Us
+                    Contact us
                 </h1>
 
-                <div className=""></div>
+                <div className="">
+                    <Stats />
+                </div>
 
             </div>
 
             {/**BOTTOM */}
             <div className="">
-                 <ContactUsCard contactUsData={data} loading={isFetching} showFilter={true} showMenuList={true} showPagination={true} showSearch={true} />
+                 <ContactUsCard contactUsData={data} loading={isFetching} showFilter={true} showMenuList={false} showPagination={true} showSearch={true} />
             </div>
 
         </div>
@@ -49,4 +52,4 @@ function EduConnectContactUs() {
   );
 }
 
-export default EduConnectContactUs;
+export default AcnContactUs;

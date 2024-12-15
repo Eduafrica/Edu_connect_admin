@@ -1,12 +1,13 @@
-import ContactUsCard from "../../Components/EduConnect/ContactUsCard";
 import Navbar from "../../Components/Helpers/Navbar";
-import Sidebar from "../../Components/EduConnect/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
-import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
+import Sidebar from "../../Components/ACN/Sidebar";
+import TestimoniesCard from "../../Components/ACN/TestimoniesCard";
+import Stats from "../../Components/ACN/Stats";
+import { useFetchTestimonials } from "../../Helpers/fetch.hooks";
 
-function EduConnectContactUs() {
-    const { data: contactUsData, isFetching } = useFetchContactMessage()
-    const data = contactUsData?.data || []
+function AcnTestimonies() {
+  const { data: testimoniesData, isFetching } = useFetchTestimonials({ all: false, website: true, id: 'acn' })
+  const data = testimoniesData?.data || []
   return (
     <div className="page flex-row">
 
@@ -25,19 +26,21 @@ function EduConnectContactUs() {
             {/**TOP */}
             <div className="flex flex-col gap-[30px]">
 
-                <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
+                <DashBoardLinks name={'acn'} color={`text-acn-main-color border-acn-main-color`} />
 
                 <h1 className="title">
-                  Contact Us
+                  Testimonies
                 </h1>
 
-                <div className=""></div>
+                <div className="">
+                  <Stats />
+                </div>
 
             </div>
 
             {/**BOTTOM */}
             <div className="">
-                 <ContactUsCard contactUsData={data} loading={isFetching} showFilter={true} showMenuList={true} showPagination={true} showSearch={true} />
+                 <TestimoniesCard testimonytData={data} loading={isFetching} showFilter={true} showMenuList={false} showPagination={true} showSearch={true}  />
             </div>
 
         </div>
@@ -49,4 +52,4 @@ function EduConnectContactUs() {
   );
 }
 
-export default EduConnectContactUs;
+export default AcnTestimonies;

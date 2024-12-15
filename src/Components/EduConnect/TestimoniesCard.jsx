@@ -182,9 +182,11 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                   <tr key={item?._id} className="border-t border-gray-200">
                     {/* Course Column */}
                     <td className="px-6 py-4">
-                      <div className="font-semibold text=-[14px] text-[#364152]">
+                      <div className="font-normal text=-[14px] text-[#364152]">
                         {item?.firstName}
                       </div>
+                    </td>
+                    <td className="px-6 py-4">
                       <div className="text-[14px] font-normal text-gray-600">
                         {item?.lastName}
                       </div>
@@ -193,10 +195,10 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                     <td className="px-6 py-4">
                         {item?.userId}
                     </td>
-                    {/* contact details */}
+                    {/* pasition */}
                     <td className="px-6 py-4">
                       <div className="text-[14px] font-normal text-gray-600 flex-col">
-                        {item?.phoneNumber}
+                        {item?.position}
                       </div>
                     </td>
                     {/* Image */}
@@ -236,15 +238,15 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                           <div
                               className={`py-[5px] px-[10px] rounded-[100px] ${
                                   item?.blocked === true
-                                  ? "bg-[#FEF3F2] text-error"// Pending style
-                                  : item?.approved === true
-                                  ? "bg-[#05A75312] text-primary-color" // Successful style
-                                  : item?.approved === false
+                                  ? "bg-[#D8E0E5] text-[#585858]"// Pending style
+                                  : item?.active === true
+                                  ? "bg-[#05A75312] text-[#05A753]" // Successful style
+                                  : item?.active === false
                                   ? "bg-[#FEF3F2] text-error"
                                   : "bg-[#D8E0E5] text-[#585858]" // Inactive or other status style
                               }`}
                           >
-                              {item?.isBlocked ? 'Blacklisted' : 'Active' }
+                              {item?.blocked ? 'Blacklisted' : item?.active ? 'Active' : 'In Active' }
                           </div>
 
                           <div>

@@ -1,22 +1,21 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Helpers/Navbar";
-import Sidebar from "../../Components/EduConnect/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Button from "../../Components/Helpers/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useState } from "react";
-import { deleteTestimony, toggleApproveTestimony, toggleBlacklist } from "../../Helpers/api";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import toast from "react-hot-toast";
+import Sidebar from "../../Components/ACN/Sidebar";
+import { deleteTestimony, toggleApproveTestimony, toggleBlacklist } from "../../Helpers/api";
 import { useFetchTestimonials } from "../../Helpers/fetch.hooks";
 
-function EduConnectTestimoniesInfo() {
-    const loc = useLocation()
+function AcnTestimoniesInfo() {
     const navigate = useNavigate()
+    const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
 
     const { data: testimoniesData, isFetching } = useFetchTestimonials({ id: pathName, all: false, website: false })
-
 
     const testimonyData = testimoniesData?.data || {}
 
@@ -78,7 +77,7 @@ function EduConnectTestimoniesInfo() {
                 const res = await deleteTestimony({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
-                    navigate('/edu-connect/contact-us')
+                    navigate('/acn/testimonies')
                 } else {
                     toast.error(res.data)
                 }
@@ -133,7 +132,7 @@ function EduConnectTestimoniesInfo() {
                                     testimonyData?.blocked
                                         ? "bg-[#D8E0E5] text-[#585858]" // Blacklisted style
                                         : testimonyData?.active
-                                        ? "bg-[#05A75312] text-primary-color" // Active style
+                                        ? "bg-[#05A75312] text-[#05A753]" // Active style
                                         : "bg-[#FEF3F2] text-error" // Inactive style
                                     }`}
                                 >
@@ -156,7 +155,7 @@ function EduConnectTestimoniesInfo() {
                                 testimonyData?.blocked
                                     ? "bg-[#D8E0E5] text-[#585858]" // Blacklisted style
                                     : testimonyData?.active
-                                    ? "bg-[#05A75312] text-[#05A753]" // Active style
+                                    ? "bg-[#05A75312] text-primar" // Active style
                                     : "bg-[#FEF3F2] text-error" // Inactive style
                                 }`}
                             >
@@ -228,4 +227,4 @@ function EduConnectTestimoniesInfo() {
   );
 }
 
-export default EduConnectTestimoniesInfo;
+export default AcnTestimoniesInfo;

@@ -3,11 +3,13 @@ import Sidebar from "../../Components/EduConnect/Sidebar";
 import Stats from "../../Components/EduConnect/Stats";
 import TestimoniesCard from "../../Components/EduConnect/TestimoniesCard";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
-import { useFetchTestimonials } from "../../Helpers/educonnect/fetch.hooks";
+import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
+import ContactUsCard from "../../Components/EduConnect/ContactUsCard";
 
 function EduConnectDashboard() {
-  const { data: testimoniesData, isFetching } = useFetchTestimonials()
-  const data = testimoniesData?.data || []
+  const { data: contactUsData, isFetching } = useFetchContactMessage()
+  const data = contactUsData?.data || []
+  const spliceData = data?.splice(0, 5)
 
   return (
     <div className="page flex-row">
@@ -39,7 +41,7 @@ function EduConnectDashboard() {
             </div>
 
             <div className="mt-8">
-              <TestimoniesCard showMenuList={false} text={`Top contact messages`} showSearch={false} showFilter={false} showPagination={false} testimonytData={data} loading={isFetching} />
+              <ContactUsCard showMenuList={false} text={`Top contact messages`} showSearch={false} showFilter={false} showPagination={false} contactUsData={spliceData} loading={isFetching} />
             </div>
 
         </div>

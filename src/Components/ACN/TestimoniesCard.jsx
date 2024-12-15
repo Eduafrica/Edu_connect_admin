@@ -4,10 +4,11 @@ import MenuList from "../Helpers/MenuList";
 import Filter from "../Helpers/Filter";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import { Link } from "react-router-dom";
-import { truncateText } from "../../Helpers/truncateText";
+import { FiMoreVertical } from "react-icons/fi";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 import Spinner from "../Helpers/Spinner";
 
-function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
+function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
   const data = menuOption;
   const [ filterValue, setFilterValue ] = useState()
   const [activeCard, setActiveCard] = useState(data[0].slug);
@@ -20,10 +21,10 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
   const itemsPerPage = 6;
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil((contactUsData?.length || 0) / itemsPerPage);
+  const totalPages = Math.ceil((testimonytData?.length || 0) / itemsPerPage);
 
   // Get the current page's data
-  const currentData = contactUsData?.slice(
+  const currentData = testimonytData?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -90,7 +91,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
         </>
       );
     }
-  };  
+  };
   
   return (
     <div className="p">
@@ -111,8 +112,8 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
             <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
           </div>
 
-          <div className="flex w-full items-center justify-between">
-            
+              <div className="flex w-full items-center justify-between">
+                
                 {/**Search */}
                 {
                   showSearch && (
@@ -135,7 +136,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                     </div>
                   )
                 }
-          </div>
+              </div>
         </div>
 
         {/**BODY */}
@@ -150,59 +151,80 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                 Last Name
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Message ID
+                User ID
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Email
+                Position
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Phone number
+                Image
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
                 Date & Time
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                message
+                Status
               </th>
             </tr>
           </thead>
           <tbody>
             {
               loading ? (
-                <div className="flex items-center justify-center w-full m-auto">
+                <div className="flex items-center justify-center w-full">
                   <Spinner />
                 </div>
-              ) : 
+              ) :
               currentData?.map((item) => {
                 const { formattedDate, formattedTime } = formatDateAndTime(
                   item?.createdAt
                 );
                 return (
                   <tr key={item?._id} className="border-t border-gray-200">
-                    {/* Course Column */}
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                        {item?.firstName}
+                    {/* firstname */}
+                    <td className="px-6 py-4">
                       <div className="font-semibold text=-[14px] text-[#364152]">
+                        {item?.firstName}
                       </div>
+                    </td>
+                    {/**last name */}
+                    <td className="px-6 py-4">
                       <div className="text-[14px] font-normal text-gray-600">
+                        {item?.lastName}
                       </div>
                     </td>
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                        {item?.lastName}
+                    {/* user id */}
+                    <td className="px-6 py-4">
+                        {item?.userId}
                     </td>
-                    {/* Order Amount Column */}
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                        {item?.messageId}
-                    </td>
-                    {/* contact details */}
+                    {/* postion */}
                     <td className="px-6 py-4">
                       <div className="text-[14px] font-normal text-gray-600 flex-col">
-                        {item?.email}
+                        {item?.position}
                       </div>
                     </td>
                     {/* Image */}
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                          {item?.phoneNumber}
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2">
+                        {item.img ? (
+                          <img
+                            src={item.img}
+                            alt={`${item.firstName} user`}
+                            className="w-[32px] h-[32px] rounded-full"
+                          />
+                        ) : (
+                          <div className="w-[32px] h-[32px] rounded-full bg-gray-300 flex items-center justify-center text-gray-800 font-bold">
+                            {item.firstName.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                        <div>
+                          <div className="text-[14px] font-semibold text-gray-900">
+                            {item.firstName}
+                          </div>
+                          <div className="text-[14px] font-normal text-gray-600">
+                            {item.email}
+                          </div>
+                        </div>
+                      </div>
                     </td>
                     <td className="px-6 text-center py-4 text-[13px] text-[#121212] font-normal">
                       <p className="text-[13px] font-normal text-[#121212]">
@@ -212,9 +234,37 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                         {formattedTime}
                       </p>
                     </td>
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
-                          {truncateText(item?.message, 14)}
-                          <Link to={`/edu-connect/contact-us/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
+                    <td className="px-6 py-4">
+                    <div className="relative cursor-pointer flex items-center justify-center gap-2 group">
+                          <div
+                              className={`py-[5px] px-[10px] rounded-[100px] ${
+                                  item?.blocked === true
+                                  ? "bg-[#FEF3F2] text-error"// Pending style
+                                  : item?.active === true
+                                  ? "bg-[#05A75312] text-[#05A753]" // Successful style
+                                  : item?.active === false
+                                  ? "bg-[#FEF3F2] text-error"
+                                  : "bg-[#D8E0E5] text-[#585858]" // Inactive or other status style
+                              }`}
+                          >
+                             {item?.blocked ? 'Blacklisted' : item?.active ? 'Active' : 'In Active' }
+                          </div>
+
+                          <div>
+                            <FiMoreVertical />
+                          </div>
+
+                          {/* MODAL POPUP, visible only on hover */}
+                          <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
+                            <Link
+                              to={`/acn/testimonies/info/${item?._id}`}
+                              className="flex items-center gap-3 text-sm text-primary-color"
+                            >
+                              <MdOutlineRemoveRedEye />
+                              View
+                            </Link>
+                          </div>
+                        </div>
                       </td>
                   </tr>
                 )
@@ -224,7 +274,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
         </table>
         
       </div>
-
+      
       {/* Pagination Controls */}
       {
         showPagination && (
@@ -288,4 +338,4 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
   );
 }
 
-export default ContactUsCard;
+export default TestimoniesCard;

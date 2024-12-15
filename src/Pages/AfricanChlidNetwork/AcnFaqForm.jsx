@@ -1,21 +1,21 @@
 import { useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Helpers/Navbar";
-import Sidebar from "../../Components/EduConnect/Sidebar";
+import Sidebar from "../../Components/ACN/Sidebar";
 import Button from "../../Components/Helpers/Button";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import { useState } from "react";
-import { newFaq, updateFaq } from "../../Helpers/educonnect/api";
+import { newFaq, updateFaq } from "../../Helpers/acn/api";
 import toast from "react-hot-toast";
 import ErrorCard from "../../Components/Helpers/ErrorCard";
 import LoadingBtn from "../../Components/Helpers/LoadingBtn";
-import { useFetchFaq } from "../../Helpers/educonnect/fetch.hooks";
+import { useFetchFaq } from "../../Helpers/acn/fetch.hooks";
 
-function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
+function AcnFaqForm({ acnFaqId, setAcnFaqId }) {
     const navigate = useNavigate()
-    const { data: educonnectfaq, isFetching } = useFetchFaq(educonnectFaqId)
+    const { data: educonnectfaq, isFetching } = useFetchFaq(acnFaqId)
     const faqData = educonnectfaq?.data || {}
 
-    const [ formData, setFormData ] = useState({ id: educonnectFaqId ? educonnectFaqId : '' })
+    const [ formData, setFormData ] = useState({ id: acnFaqId ? acnFaqId : '' })
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value })
     }
@@ -25,7 +25,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
         if(loading){
             return
         }
-        if(!educonnectFaqId){
+        if(!acnFaqId){
             if(!formData?.question){
                 setError('Provide a Question')
                 setTimeout(() => {
@@ -43,10 +43,10 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
         }
         try {
             setLoading(false)
-            const res = educonnectFaqId ? await updateFaq(formData) : await newFaq(formData)
+            const res = acnFaqId ? await updateFaq(formData) : await newFaq(formData)
             if(res.success){
                 toast.success(res.data)
-                navigate('/edu-connect/faq')
+                navigate('/acn/faq')
             } else {
                 toast.error(res.data)
             }
@@ -78,7 +78,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
         <div className="relative bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[39px] items-center">
 
-              <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
+              <DashBoardLinks name={'acn'} color={`text-acn-main-color border-acn-main-color`} />
 
                 <div className="flex items-center justify-center gap-8 flex-col">
                     <h2 className="text-gray-900 text-[36px] font-semibold text-center">Frequently asked questions</h2>
@@ -96,9 +96,9 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
                 <div className="w-[299px]">
                     {
                         loading ? (
-                            <LoadingBtn />
+                            <LoadingBtn style={`!bg-acn-main-color`} />
                         ) : (
-                            <Button onCLick={handleSave} text={`Save`}  />
+                            <Button onCLick={handleSave} text={`Save`} style={`!bg-acn-main-color`}  />
                         )
                     }
                 </div>
@@ -113,4 +113,4 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
   );
 }
 
-export default EduConnectFaqForm;
+export default AcnFaqForm;

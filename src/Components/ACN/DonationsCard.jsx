@@ -4,10 +4,9 @@ import MenuList from "../Helpers/MenuList";
 import Filter from "../Helpers/Filter";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import { Link } from "react-router-dom";
-import { truncateText } from "../../Helpers/truncateText";
 import Spinner from "../Helpers/Spinner";
 
-function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
+function DonationsCard({ donationData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
   const data = menuOption;
   const [ filterValue, setFilterValue ] = useState()
   const [activeCard, setActiveCard] = useState(data[0].slug);
@@ -20,10 +19,10 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
   const itemsPerPage = 6;
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil((contactUsData?.length || 0) / itemsPerPage);
+  const totalPages = Math.ceil((donationData?.length || 0) / itemsPerPage);
 
   // Get the current page's data
-  const currentData = contactUsData?.slice(
+  const currentData = donationData?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -108,7 +107,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[140px] w-full">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Donations` }</h2>
           </div>
 
           <div className="flex w-full items-center justify-between">
@@ -150,7 +149,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                 Last Name
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Message ID
+                Donation ID
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
                 Email
@@ -162,7 +161,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                 Date & Time
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                message
+                Amount
               </th>
             </tr>
           </thead>
@@ -192,7 +191,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                     </td>
                     {/* Order Amount Column */}
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                        {item?.messageId}
+                        {item?.donationId}
                     </td>
                     {/* contact details */}
                     <td className="px-6 py-4">
@@ -213,8 +212,8 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                       </p>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
-                          {truncateText(item?.message, 14)}
-                          <Link to={`/edu-connect/contact-us/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
+                          {item?.amount.toLocaleString()}
+                          <Link to={`/acn/donation/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
                       </td>
                   </tr>
                 )
@@ -288,4 +287,4 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
   );
 }
 
-export default ContactUsCard;
+export default DonationsCard;

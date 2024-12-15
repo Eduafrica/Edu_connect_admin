@@ -4,6 +4,8 @@ import MenuList from "../Helpers/MenuList";
 import Filter from "../Helpers/Filter";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import { Link } from "react-router-dom";
+import { FiMoreVertical } from "react-icons/fi";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 import { truncateText } from "../../Helpers/truncateText";
 import Spinner from "../Helpers/Spinner";
 
@@ -214,7 +216,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
                           {truncateText(item?.message, 14)}
-                          <Link to={`/edu-connect/contact-us/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
+                          <Link to={`/acn/contact-us/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
                       </td>
                   </tr>
                 )

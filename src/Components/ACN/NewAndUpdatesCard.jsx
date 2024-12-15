@@ -4,11 +4,12 @@ import MenuList from "../Helpers/MenuList";
 import Filter from "../Helpers/Filter";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import { Link } from "react-router-dom";
-import { truncateText } from "../../Helpers/truncateText";
+import { FiMoreVertical } from "react-icons/fi";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
 import Spinner from "../Helpers/Spinner";
 
-function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
-  const data = menuOption;
+function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
+    const data = menuOption;
   const [ filterValue, setFilterValue ] = useState()
   const [activeCard, setActiveCard] = useState(data[0].slug);
 
@@ -20,10 +21,10 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
   const itemsPerPage = 6;
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil((contactUsData?.length || 0) / itemsPerPage);
+  const totalPages = Math.ceil((newsData?.length || 0) / itemsPerPage);
 
   // Get the current page's data
-  const currentData = contactUsData?.slice(
+  const currentData = newsData?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -90,7 +91,31 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
         </>
       );
     }
-  };  
+  };
+
+
+  const colorOptions = [
+    { 
+        bgColor: '#ECFDF3',
+        textColor: '#027A48',
+    },
+    { 
+        bgColor: '#FDF2FA',
+        textColor: '#C11574',
+    },
+    { 
+        bgColor: '#FFF1F3',
+        textColor: '#C01048',
+    },
+    { 
+        bgColor: '#F0F9FF',
+        textColor: '#026AA2',
+    },
+    { 
+        bgColor: '#F8F9FC',
+        textColor: '#363F72',
+    },
+  ]
   
   return (
     <div className="p">
@@ -111,8 +136,8 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
             <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
           </div>
 
-          <div className="flex w-full items-center justify-between">
-            
+              <div className="flex w-full items-center justify-between">
+                
                 {/**Search */}
                 {
                   showSearch && (
@@ -135,7 +160,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                     </div>
                   )
                 }
-          </div>
+              </div>
         </div>
 
         {/**BODY */}
@@ -144,65 +169,82 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
           <thead className="rounded-t-[12px]">
             <tr className="bg-[#F9F9F9] border-b-[1px] rounded-t-[12px]">
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                First Name
+                Title
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Last Name
+                Writer
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Message ID
+                Writer ID
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Email
+                Category
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Phone number
+                Image
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
                 Date & Time
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                message
+                Status
               </th>
             </tr>
           </thead>
           <tbody>
             {
               loading ? (
-                <div className="flex items-center justify-center w-full m-auto">
+                <div className="flex items-center justify-center w-full">
                   <Spinner />
                 </div>
-              ) : 
+              ) :
               currentData?.map((item) => {
                 const { formattedDate, formattedTime } = formatDateAndTime(
                   item?.createdAt
                 );
                 return (
                   <tr key={item?._id} className="border-t border-gray-200">
-                    {/* Course Column */}
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                        {item?.firstName}
-                      <div className="font-semibold text=-[14px] text-[#364152]">
-                      </div>
-                      <div className="text-[14px] font-normal text-gray-600">
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                        {item?.lastName}
-                    </td>
-                    {/* Order Amount Column */}
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                        {item?.messageId}
-                    </td>
-                    {/* contact details */}
+                    {/* title */}
                     <td className="px-6 py-4">
-                      <div className="text-[14px] font-normal text-gray-600 flex-col">
-                        {item?.email}
+                      <div className="font-normal text-[14px] text-[#364152]">
+                        {item?.title}
                       </div>
+                    </td>
+                    {/**writer names */}
+                    <td className="px-6 py-4">
+                      <div className="text-[14px] font-normal text-gray-600">
+                        {item?.writers}
+                      </div>
+                    </td>
+                    {/* writer id */}
+                    <td className="px-6 py-4 text-[14px] text-[#13693B]">
+                        {item?.postId}
+                    </td>
+                    {/* categories */}
+                    <td className="px-6 py-4">
+                        <div className="flex items-center flex-wrap gap-2">
+                            {
+                                <div className={`text-[14px] font-normal py-[2px] px-[10px] rounded-[16px]`}>
+                                    {item?.postion}
+                                </div>
+                            }
+                        </div>
                     </td>
                     {/* Image */}
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                          {item?.phoneNumber}
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2">
+                        {item.writerImg ? (
+                          <img
+                            src={item.writerImg}
+                            alt={`${item.writers} user`}
+                            className="w-[32px] h-[32px] rounded-full"
+                          />
+                        ) : (
+                          <div className="w-[32px] h-[32px] rounded-full bg-gray-300 flex items-center justify-center text-gray-800 font-bold">
+                            {item?.writers?.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                      </div>
                     </td>
                     <td className="px-6 text-center py-4 text-[13px] text-[#121212] font-normal">
                       <p className="text-[13px] font-normal text-[#121212]">
@@ -212,9 +254,47 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                         {formattedTime}
                       </p>
                     </td>
-                    <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
-                          {truncateText(item?.message, 14)}
-                          <Link to={`/edu-connect/contact-us/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
+                    <td className="px-6 py-4">
+                    <div className="relative cursor-pointer flex items-center justify-center gap-2 group">
+                          <div
+                              className={`py-[5px] px-[10px] rounded-[100px] ${
+                                  item?.active === false
+                                  ? "bg-[#FEF3F2] text-error"// Pending style
+                                  : item?.active === true
+                                  ? "bg-[#05A75312] text-success" // Successful style
+                                  : item?.active === false
+                                  ? "bg-[#FEF3F2] text-error"
+                                  : "bg-[#D8E0E5] text-[#585858]" // Inactive or other status style
+                              }`}
+                          >
+                              {item?.active ? 'Active' : 'In Active' }
+                          </div>
+
+                          <div>
+                            <FiMoreVertical />
+                          </div>
+
+                          {/* MODAL POPUP, visible only on hover */}
+                          <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[115px]">
+                            <Link
+                              to={`/acn/testimonies/info/${item?._id}`}
+                              className="py-[2px] px-[6px] font-normal items-center gap-3 text-sm text-[#585858]"
+                            >
+                              View
+                            </Link>
+                            <Link
+                              to={`/acn/testimonies/info/${item?._id}`}
+                              className="py-[2px] px-[6px] font-normal items-center gap-3 text-sm text-[#585858]"
+                            >
+                              Edit
+                            </Link>
+                            <p className="cursor-pointer py-[2px] px-[6px] font-normal items-center gap-3 text-sm text-[#F81414]" >
+                              Delete
+                            </p>
+                          </div>
+
+
+                        </div>
                       </td>
                   </tr>
                 )
@@ -224,7 +304,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
         </table>
         
       </div>
-
+      
       {/* Pagination Controls */}
       {
         showPagination && (
@@ -288,4 +368,4 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
   );
 }
 
-export default ContactUsCard;
+export default NewAndUpdatesCard;

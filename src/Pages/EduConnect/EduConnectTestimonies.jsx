@@ -2,11 +2,12 @@ import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import TestimoniesCard from "../../Components/EduConnect/TestimoniesCard";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
-import { useFetchTestimonials } from "../../Helpers/educonnect/fetch.hooks";
+import { useFetchTestimonials } from "../../Helpers/fetch.hooks";
 
 function EduConnectTestimonies() {
-  const { data: testimoniesData, isFetching } = useFetchTestimonials()
+  const { data: testimoniesData, isFetching } = useFetchTestimonials({ all: false, website: true, id: 'educonnect' })
   const data = testimoniesData?.data || []
+
   return (
     <div className="page flex-row">
 
@@ -37,7 +38,7 @@ function EduConnectTestimonies() {
 
             {/**BOTTOM */}
             <div className="">
-                 <TestimoniesCard testimonytData={data} loading={isFetching} />
+                 <TestimoniesCard testimonytData={data} loading={isFetching} showFilter={true} showMenuList={true} showPagination={true} showSearch={true}  />
             </div>
 
         </div>

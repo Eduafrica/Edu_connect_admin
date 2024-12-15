@@ -12,10 +12,12 @@ export default {
         'text-color': '#384250',
         'text-color-1': '#6C737F',
         'text-color-3': '#727475',
+        'text-color-4': '#202224',
 
         'white': '#fff',
 
         'error': '#D92D20',
+        'success': '#05A753',
         'bgColor': 'fcfbfb',
         'off-black': '#14142B',
 

@@ -64,7 +64,7 @@ function Sidebar() {
               <Link
                 key={idx}
                 to={item.link}
-                className={`flex items-center gap-[6px] py-2 px-3 rounded-[6px] text-[16px] text-gray-100 font-medium hover:bg-[#6BCA9C] transition-all ${isActive(`${item.link}`) ? 'bg-[#6BCA9C]' : ''}`}
+                className={`flex items-center gap-[6px] py-2 px-3 rounded-[6px] text-[16px] text-gray-100 font-medium hover:bg-[#FEFCFC52] transition-all ${isActive(`${item.link}`) ? 'bg-[#FEFCFC52]' : ''}`}
               >
                 {item.icon && (
                   <span className="flex items-center justify-center w-5 h-5 text-red-800">
