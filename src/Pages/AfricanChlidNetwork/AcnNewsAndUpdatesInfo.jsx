@@ -8,19 +8,17 @@ import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import toast from "react-hot-toast";
 import Sidebar from "../../Components/ACN/Sidebar";
 import { deleteTestimony, toggleApproveTestimony, toggleBlacklist } from "../../Helpers/api";
-import { useFetchTestimonials } from "../../Helpers/fetch.hooks";
 
-function AcnTestimoniesInfo() {
+function AcnNewsAndUpdatesInfo() {
     const navigate = useNavigate()
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
 
-    const { data: testimoniesData, isFetching } = useFetchTestimonials({ id: pathName, all: false, website: false })
 
-    const testimonyData = testimoniesData?.data || {}
+    const postData = {}
 
     const [ loading, setLoading ] = useState(false)
-    const handleBlock = async () => {
+    const handleToggleActive = async () => {
         if(loading){
             return;
         }
@@ -29,29 +27,6 @@ function AcnTestimoniesInfo() {
             try {
                 setLoading(true)
                 const res = await toggleBlacklist({ id: pathName })
-                if(res.success){
-                    toast.success(res.data)
-                    window.location.reload()
-                } else {
-                    toast.error(res.data)
-                }
-            } catch (error) {
-                
-            } finally {
-                setLoading(false)
-            }
-        }
-    }
-
-    const handleApprove = async () => {
-        if(loading){
-            return;
-        }
-        const confirm = window.confirm('Are you sure you want to approve this testimony?')
-        if(confirm){
-            try {
-                setLoading(true)
-                const res = await toggleApproveTestimony({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
                     window.location.reload()
@@ -89,8 +64,35 @@ function AcnTestimoniesInfo() {
         }
     }
 
+    const handleEdit = (id) => {
+        navigate(`/acn/news-and-updates/post-form/${pathName}`)
+    }
+
+    const colorOptions = [
+        { 
+            bgColor: '#ECFDF3',
+            textColor: '#027A48',
+        },
+        { 
+            bgColor: '#FDF2FA',
+            textColor: '#C11574',
+        },
+        { 
+            bgColor: '#FFF1F3',
+            textColor: '#C01048',
+        },
+        { 
+            bgColor: '#F0F9FF',
+            textColor: '#026AA2',
+        },
+        { 
+            bgColor: '#F8F9FC',
+            textColor: '#363F72',
+        },
+      ]
+
     const { formattedDate, formattedTime } = formatDateAndTime(
-        testimonyData?.createdAt
+        postData?.createdAt
       );
   return (
     <div className="page flex-row">
@@ -120,48 +122,48 @@ function AcnTestimoniesInfo() {
                         <div className="">
                             <div className="flex items-center gap-[6px]">
                             <div className="flex items-center gap-4">
-                                {testimonyData?.profileImg ? (
+                                {postData?.writerImg ? (
                                 <img
-                                    src={testimonyData?.profileImg}
-                                    alt={`${testimonyData?.firstName}'s profile`}
+                                    src={postData?.writerImg}
+                                    alt={`${postData?.writers}'s profile`}
                                     className="w-[45px] h-[45px] rounded-full"
                                 />
                                 ) : (
                                 <div
                                     className={`w-[45px] h-[45px] rounded-full flex items-center justify-center text-gray-800 font-bold ${
-                                    testimonyData?.blocked
+                                    postData?.blocked
                                         ? "bg-[#D8E0E5] text-[#585858]" // Blacklisted style
-                                        : testimonyData?.active
+                                        : postData?.active
                                         ? "bg-[#05A75312] text-[#05A753]" // Active style
                                         : "bg-[#FEF3F2] text-error" // Inactive style
                                     }`}
                                 >
-                                    {testimonyData?.firstName?.charAt(0).toUpperCase()}
+                                    {postData?.writers?.charAt(0).toUpperCase()}
                                 </div>
                                 )}
 
                                 <div className="flex  flex-col">
                                 <h2 className="text-lg text-[#14142B] font-semibold">
-                                    {testimonyData?.firstName} {testimonyData?.lastName}
+                                    {postData?.writers}
                                 </h2>
                                 <p className="text-xs font-normal text-[12px] text-[#929292]">
-                                    {testimonyData?.email}
+                                    {postData?.email}
                                 </p>
                                 </div>
                             </div>
 
                             <div
                                 className={`py-[5px] px-[10px] rounded-[100px] font-semibold ${
-                                testimonyData?.blocked
+                                postData?.blocked
                                     ? "bg-[#D8E0E5] text-[#585858]" // Blacklisted style
-                                    : testimonyData?.active
+                                    : postData?.active
                                     ? "bg-[#05A75312] text-primar" // Active style
                                     : "bg-[#FEF3F2] text-error" // Inactive style
                                 }`}
                             >
-                                {testimonyData?.blocked
+                                {postData?.blocked
                                 ? "Blacklisted"
-                                : testimonyData?.active
+                                : postData?.active
                                 ? "Active"
                                 : "Inactive"}
                             </div>
@@ -169,9 +171,16 @@ function AcnTestimoniesInfo() {
                         </div>
                     </div>
 
-                    <div onClick={handleBlock} className="w-fit">
-                        <Button style={`!bg-error !border-none`} text={`Blacklist`} />
+                    <div className="flex items-center gap-[14px]">
+                        <div onClick={() => handleEdit(postData?._id)} className="w-fit">
+                            <Button style={`!bg-acn-main-color !text-white !border-none`} text={`Edit`} />
+                        </div>
+                        
+                        <div onClick={handleDelete} className="w-fit">
+                            <Button style={`!bg-transparent !text-error !border-[2px] !font-semibold !text-[16px] !border-error`} text={`Delete`} />
+                        </div>
                     </div>
+
                 </div>
 
                 <div className="card1 flex flex-col">
@@ -181,39 +190,54 @@ function AcnTestimoniesInfo() {
 
                     <div className="flex flex-col gap-4 mr-auto mt-8">
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">First Name</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.firstName}</p>
+                            <p className="text-start text-sm font-medium text-[#929292]">Title</p>
+                            <p className="text-start text-sm font-medium text-[#1F2A37]">{postData?.title}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Last Name</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.lastName}</p>
+                            <p className="text-start text-sm font-medium text-[#929292]">Writer's Name</p>
+                            <p className="text-start text-sm font-medium text-[#1F2A37]">{postData?.writers}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">User Id</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.userId}</p>
+                            <p className="text-start text-sm font-medium text-[#929292]">Post Id</p>
+                            <p className="text-start text-sm font-medium text-[#1F2A37]">{postData?.postId}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Postion</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.position}</p>
+                            <p className="text-start text-sm font-medium text-[#929292]">Categories</p>
+                            <p className="text-start text-sm font-medium text-[#1F2A37]">
+                            {
+                          postData?.category?.map((i, idx) => {
+                            const randomColor = colorOptions[Math.floor(Math.random() * colorOptions.length)];
+                            return (
+                              <div
+                                key={idx}
+                                className="text-[14px] font-normal py-[2px] px-[10px] rounded-[16px]"
+                                style={{
+                                  backgroundColor: randomColor.bgColor,
+                                  color: randomColor.textColor,
+                                }}
+                              >
+                                {i}
+                              </div>
+                            );
+                          })
+                        }
+                            </p>
                         </div>
                         <div className="flex items-center gap-4">
                             <p className="text-start text-sm font-medium text-[#929292]">Testimony Date</p>
                             <p className="text-start text-sm font-medium text-[#1F2A37]">{formattedDate}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">messgae</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.testimony}</p>
+                            <p className="text-start text-sm font-medium text-[#929292]">Post</p>
+                            <p className="text-start text-sm font-medium text-[#1F2A37]">{postData?.post}</p>
                         </div>
                     </div>
 
                 </div>
 
                 <div className="flex gap-[56px]">
-                    <div onClick={handleApprove} className="">
-                        <Button text={`Add to website`} />
-                    </div>
-                    <div onClick={handleDelete} className="">
-                        <Button text={`Remove from website`} style={`!bg-error !border-none`} />
+                    <div onClick={handleToggleActive} className="">
+                        <Button text={`${postData?.active ? 'Make Inactive' : 'Make Active'}`} style={`!bg-error !border-none`} />
                     </div>
                 </div>
 
@@ -227,4 +251,4 @@ function AcnTestimoniesInfo() {
   );
 }
 
-export default AcnTestimoniesInfo;
+export default AcnNewsAndUpdatesInfo;

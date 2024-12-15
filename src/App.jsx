@@ -25,6 +25,8 @@ import AcnFaq from "./Pages/AfricanChlidNetwork/AcnFaq"
 import AcnFaqForm from "./Pages/AfricanChlidNetwork/AcnFaqForm"
 import AcnNewsAndUpdates from "./Pages/AfricanChlidNetwork/AcnNewsAndUpdates"
 import AcnTestimoniesInfo from "./Pages/AfricanChlidNetwork/AcnTestimoniesInfo"
+import AcnNewsAndUpdatesInfo from "./Pages/AfricanChlidNetwork/AcnNewsAndUpdatesInfo"
+import AcnNewsAndUpdatesForm from "./Pages/AfricanChlidNetwork/AcnNewsAndUpdatesForm"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -67,6 +69,8 @@ function App() {
           <Route path="/acn/faq/faq-form" element={<AcnFaqForm acnFaqId={acnFaqId} setAcnFaqId={setAcnFaqId} />} />
           <Route path="/acn/annual-report" element={<AcnFaq />} />
           <Route path="/acn/news-and-updates" element={<AcnNewsAndUpdates />} />
+          <Route path="/acn/news-and-updates/info/:id" element={<AcnNewsAndUpdatesInfo />} />
+          <Route path="/acn/news-and-updates/post-form/:id" element={<AcnNewsAndUpdatesForm />} />
 
           
           

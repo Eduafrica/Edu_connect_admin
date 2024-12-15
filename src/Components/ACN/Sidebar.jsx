@@ -1,12 +1,18 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../Helpers/Logo";
 import MoreVert from "../Icons/MoreVert";
 import { acnlinks } from "../../Data/menuLinks.jsx";
 import { useState } from "react";
 import LogoImg from '../../assets/image/acnLogo.png'
+import { logout } from "../../Helpers/api.js";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { signOut } from "../../Redux/Admin/adminSlice.js";
 
 function Sidebar() {
+  const dispatch = useDispatch()
   const menu = acnlinks;
+  const navigate = useNavigate()
   const location = useLocation();
   const isActive = (path) => {
     return location.pathname === path;
@@ -31,6 +37,25 @@ function Sidebar() {
       link: ''
     }
   ]
+
+  const [ loading, setLoading ] = useState(false)
+  const handleLogout = async () => {
+    if(loading){
+      return
+    }
+    try {
+      const res = await logout()
+      if(res.success){
+        toast.success(res.data)
+        dispatch(signOut())
+        navigate('/')
+      } else {
+        toast.error(res.data)
+      }
+    } catch (error) {
+      
+    }
+  }
 
   return (
     <div className="w-full h-full flex flex-col bg-acn-main-color">

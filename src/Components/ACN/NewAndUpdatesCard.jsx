@@ -3,13 +3,15 @@ import { menuOption } from "../../Data/menu";
 import MenuList from "../Helpers/MenuList";
 import Filter from "../Helpers/Filter";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FiMoreVertical } from "react-icons/fi";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import Spinner from "../Helpers/Spinner";
+import Button from "../Helpers/Button";
 
 function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
     const data = menuOption;
+    const navigete = useNavigate()
   const [ filterValue, setFilterValue ] = useState()
   const [activeCard, setActiveCard] = useState(data[0].slug);
 
@@ -116,6 +118,10 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
         textColor: '#363F72',
     },
   ]
+
+  const handleNavigate = () => {
+    navigete('/acn/news-and-updates/post-form/noid')
+  }
   
   return (
     <div className="p">
@@ -129,10 +135,10 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
         )
       }
 
-      <div className="px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
+      <div className="px-4 w-full py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
-          <div className="flex items-center min-w-[140px] w-full">
+          <div className="flex items-center min-w-[140px]">
             <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
           </div>
 
@@ -155,8 +161,10 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
                 {/**Filter */}
                 {
                   showFilter && (
-                    <div className="">
+                    <div className="flex items-center gap-5">
                       <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
+
+                      <Button onCLick={handleNavigate} text={`+ Add New`} style={`!bg-acn-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
                     </div>
                   )
                 }
@@ -205,33 +213,45 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
                 return (
                   <tr key={item?._id} className="border-t border-gray-200">
                     {/* title */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 flex-1">
                       <div className="font-normal text-[14px] text-[#364152]">
                         {item?.title}
                       </div>
                     </td>
                     {/**writer names */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 flex-1">
                       <div className="text-[14px] font-normal text-gray-600">
                         {item?.writers}
                       </div>
                     </td>
                     {/* writer id */}
-                    <td className="px-6 py-4 text-[14px] text-[#13693B]">
+                    <td className="px-6 py-4 flex-1 text-[14px] text-[#13693B]">
                         {item?.postId}
                     </td>
                     {/* categories */}
-                    <td className="px-6 py-4">
-                        <div className="flex items-center flex-wrap gap-2">
-                            {
-                                <div className={`text-[14px] font-normal py-[2px] px-[10px] rounded-[16px]`}>
-                                    {item?.postion}
-                                </div>
-                            }
+                    <td className="px-6 py-4 flex-1 flex flex-wrap">
+                        <div className="flex items-center flex-wrap gap-1">
+                        {
+                          item?.category?.map((i, idx) => {
+                            const randomColor = colorOptions[Math.floor(Math.random() * colorOptions.length)];
+                            return (
+                              <div
+                                key={idx}
+                                className="text-[14px] font-normal py-[2px] px-[10px] rounded-[16px]"
+                                style={{
+                                  backgroundColor: randomColor.bgColor,
+                                  color: randomColor.textColor,
+                                }}
+                              >
+                                {i}
+                              </div>
+                            );
+                          })
+                        }
                         </div>
                     </td>
                     {/* Image */}
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 flex-1 items-center justify-center">
                       <div className="flex items-center gap-2">
                         {item.writerImg ? (
                           <img
@@ -246,7 +266,7 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
                         )}
                       </div>
                     </td>
-                    <td className="px-6 text-center py-4 text-[13px] text-[#121212] font-normal">
+                    <td className="px-6 flex-1 text-center py-4 text-[13px] text-[#121212] font-normal">
                       <p className="text-[13px] font-normal text-[#121212]">
                         {formattedDate}
                       </p>
@@ -254,7 +274,7 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
                         {formattedTime}
                       </p>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-6 py-4 flex-1">
                     <div className="relative cursor-pointer flex items-center justify-center gap-2 group">
                           <div
                               className={`py-[5px] px-[10px] rounded-[100px] ${
@@ -277,13 +297,13 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
                           {/* MODAL POPUP, visible only on hover */}
                           <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[115px]">
                             <Link
-                              to={`/acn/testimonies/info/${item?._id}`}
+                              to={`/acn/news-and-updates/info/${item?._id}`}
                               className="py-[2px] px-[6px] font-normal items-center gap-3 text-sm text-[#585858]"
                             >
                               View
                             </Link>
                             <Link
-                              to={`/acn/testimonies/info/${item?._id}`}
+                              to={`/acn/news-and-updates/post-form/${item?._id}`}
                               className="py-[2px] px-[6px] font-normal items-center gap-3 text-sm text-[#585858]"
                             >
                               Edit

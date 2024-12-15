@@ -100,7 +100,7 @@ export function useFetchFaq(query){
     return faqData
 }
 
-//FETCH ACN FAQ
+//FETCH ACN NEWS AND UPDATES
 export function useFetchNewsAndUpdates(query){
     const [ newsData, setNewsData] = useState({ isFetching: true, data: null, status: null, serverError: null, })
     useEffect(() => {
@@ -123,3 +123,4 @@ export function useFetchNewsAndUpdates(query){
 
     return newsData
 }
+
