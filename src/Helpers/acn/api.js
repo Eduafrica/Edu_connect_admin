@@ -53,3 +53,23 @@ export async function deleteFaq({ id }) {
         return res?.data
     }
 }
+
+export async function toggleNewsAndUpdateActiveState({ id }) {
+    try {
+        const res = await axios.post('/acn/newsAndUpdates/toggleActive', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to toggle newsletter active state'
+        return res?.data
+    }
+}
+
+export async function deleteNewsAndUpdate({ id }) {
+    try {
+        const res = await axios.post('/acn/newsAndUpdates/deleteNewsAndUpdate', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to delete newsletter'
+        return res?.data
+    }
+}

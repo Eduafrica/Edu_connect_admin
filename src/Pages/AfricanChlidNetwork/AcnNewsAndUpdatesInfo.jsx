@@ -7,26 +7,27 @@ import { useState } from "react";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import toast from "react-hot-toast";
 import Sidebar from "../../Components/ACN/Sidebar";
-import { deleteTestimony, toggleApproveTestimony, toggleBlacklist } from "../../Helpers/api";
+import { useFetchNewsAndUpdates } from "../../Helpers/acn/fetch.hooks";
+import { deleteNewsAndUpdate, toggleNewsAndUpdateActiveState } from "../../Helpers/acn/api";
 
 function AcnNewsAndUpdatesInfo() {
     const navigate = useNavigate()
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
+    const { data: newsAndUpdateData, isFetching } = useFetchNewsAndUpdates(pathName)
 
-
-    const postData = {}
+    const postData = newsAndUpdateData?.data || {}
 
     const [ loading, setLoading ] = useState(false)
     const handleToggleActive = async () => {
         if(loading){
             return;
         }
-        const confirm = window.confirm('Are you sure you want to blacklist this testimony?')
+        const confirm = window.confirm('Are you sure you want to update the active status?')
         if(confirm){
             try {
                 setLoading(true)
-                const res = await toggleBlacklist({ id: pathName })
+                const res = await toggleNewsAndUpdateActiveState({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
                     window.location.reload()
@@ -45,14 +46,14 @@ function AcnNewsAndUpdatesInfo() {
         if(loading){
             return;
         }
-        const confirm = window.confirm('Are you sure you want to delete this testimony?')
+        const confirm = window.confirm('Are you sure you want to delete this post?')
         if(confirm){
             try {
                 setLoading(true)
-                const res = await deleteTestimony({ id: pathName })
+                const res = await deleteNewsAndUpdate({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
-                    navigate('/acn/testimonies')
+                    navigate('/acn/news-and-updates')
                 } else {
                     toast.error(res.data)
                 }
@@ -115,7 +116,7 @@ function AcnNewsAndUpdatesInfo() {
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
-                        <Link to={`/acn-connect/testimonies`} className="">
+                        <Link to={`/acn/news-and-updates`} className="">
                             <IoIosArrowBack />
                         </Link>
 
@@ -157,7 +158,7 @@ function AcnNewsAndUpdatesInfo() {
                                 postData?.blocked
                                     ? "bg-[#D8E0E5] text-[#585858]" // Blacklisted style
                                     : postData?.active
-                                    ? "bg-[#05A75312] text-primar" // Active style
+                                    ? "bg-[#05A75312] text-success" // Active style
                                     : "bg-[#FEF3F2] text-error" // Inactive style
                                 }`}
                             >
@@ -190,20 +191,20 @@ function AcnNewsAndUpdatesInfo() {
 
                     <div className="flex flex-col gap-4 mr-auto mt-8">
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Title</p>
+                            <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Title</p>
                             <p className="text-start text-sm font-medium text-[#1F2A37]">{postData?.title}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Writer's Name</p>
+                            <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Writer's Name</p>
                             <p className="text-start text-sm font-medium text-[#1F2A37]">{postData?.writers}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Post Id</p>
+                            <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Post Id</p>
                             <p className="text-start text-sm font-medium text-[#1F2A37]">{postData?.postId}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Categories</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">
+                            <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Categories</p>
+                            <p className="text-start text-sm font-medium text-[#1F2A37] flex items-center gap-2 flex-wrap">
                             {
                           postData?.category?.map((i, idx) => {
                             const randomColor = colorOptions[Math.floor(Math.random() * colorOptions.length)];
@@ -224,11 +225,11 @@ function AcnNewsAndUpdatesInfo() {
                             </p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Testimony Date</p>
+                            <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Testimony Date</p>
                             <p className="text-start text-sm font-medium text-[#1F2A37]">{formattedDate}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Post</p>
+                            <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Post</p>
                             <p className="text-start text-sm font-medium text-[#1F2A37]">{postData?.post}</p>
                         </div>
                     </div>
