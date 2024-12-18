@@ -197,14 +197,14 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                     {/* contact details */}
                     <td className="px-6 py-4">
                       <div className="text-[14px] font-normal text-gray-600 flex-col">
-                        {item?.email}
+                        {truncateText(item?.email, 6)}
                       </div>
                     </td>
                     {/* Image */}
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
                           {item?.phoneNumber}
                     </td>
-                    <td className="px-6 text-center py-4 text-[13px] text-[#121212] font-normal">
+                    <td className="px-6 text-start py-4 text-[13px] text-[#121212] font-normal">
                       <p className="text-[13px] font-normal text-[#121212]">
                         {formattedDate}
                       </p>
@@ -213,8 +213,9 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                       </p>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
-                          {truncateText(item?.message, 14)}
-                          <Link to={`/edu-connect/contact-us/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
+                          <Link to={`/edu-connect/contact-us/info/${item?._id}`} className="">
+                            {truncateText(item?.message, 2)}
+                          </Link>
                       </td>
                   </tr>
                 )

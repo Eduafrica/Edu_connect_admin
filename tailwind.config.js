@@ -24,6 +24,7 @@ export default {
         'gray-100': '#F2F4F7',
         'gray-200': '#EAECF0',
         'gray-300': '#D0D5DD',
+        'gray-400': '#98A2B3',
         'text-500': '#667085',
         'text-600': '#475467',
         'gray-700': '#344054',

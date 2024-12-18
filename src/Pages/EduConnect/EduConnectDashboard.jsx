@@ -5,12 +5,15 @@ import TestimoniesCard from "../../Components/EduConnect/TestimoniesCard";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
 import ContactUsCard from "../../Components/EduConnect/ContactUsCard";
+import Graph from "../../Components/EduConnect/Graph";
+import { useState } from "react";
 
 function EduConnectDashboard() {
   const { data: contactUsData, isFetching } = useFetchContactMessage()
   const data = contactUsData?.data || []
   const spliceData = data?.splice(0, 5)
 
+  const [ selectedDateValue, setSelectedDateValue ] = useState()
   return (
     <div className="page flex-row">
 
@@ -37,6 +40,8 @@ function EduConnectDashboard() {
                 <div className="">
                   <Stats />
                 </div>
+
+                <Graph selectedDateValue={selectedDateValue} setSelectedDateValue={setSelectedDateValue} />
 
             </div>
 
