@@ -67,7 +67,7 @@ function MyDetails({ setErrorText, setSuccessMsg }) {
         </div>
       </div>
 
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-5 mb-8">
 
         <div className="flex items-start gap-8">
             <div className="w-[280px] flex flex-col">
@@ -79,6 +79,7 @@ function MyDetails({ setErrorText, setSuccessMsg }) {
             </div>
         </div>
 
+
         <div className="flex items-start gap-8">
             <div className="w-[280px] flex flex-col">
                 <p className="text-[14px] text-[#344054] font-medium">Name</p>
@@ -89,6 +90,8 @@ function MyDetails({ setErrorText, setSuccessMsg }) {
             </div>
         </div>
 
+        <hr className="border-[#EAECF0]" />
+
         <div className="flex items-start gap-8">
             <div className="w-[280px] flex flex-col">
                 <p className="text-[14px] text-[#344054] font-medium">Email</p>
@@ -97,6 +100,8 @@ function MyDetails({ setErrorText, setSuccessMsg }) {
                 <input defaultValue={user?.email} onChange={handleChange} id="email" type="text" className="input" />
             </div>
         </div>
+
+        <hr className=" border-[#EAECF0]" />
 
         <div className="flex items-start gap-8">
             <div className="w-[280px] flex flex-col">
@@ -107,6 +112,8 @@ function MyDetails({ setErrorText, setSuccessMsg }) {
             </div>
         </div>
 
+        <hr className="border-[#EAECF0]" />
+
         <div className="flex items-start gap-8">
             <div className="w-[280px] flex flex-col">
                 <p className="text-[14px] text-[#344054] font-medium">Country</p>
@@ -115,6 +122,8 @@ function MyDetails({ setErrorText, setSuccessMsg }) {
                 <input defaultValue={user?.country} onChange={handleChange} id="country" type="text" className="input" />
             </div>
         </div>
+
+        <hr className="border-[#EAECF0]" />
 
         <div className="flex items-start gap-8">
             <div className="w-[280px] flex flex-col">
@@ -125,12 +134,15 @@ function MyDetails({ setErrorText, setSuccessMsg }) {
             </div>
         </div>
 
+        <hr className="border-[#EAECF0]" />
+
         <div className="flex items-start gap-8">
             <div className="w-[280px] flex flex-col">
                 <p className="text-[14px] text-[#344054] font-medium">Bio</p>
             </div>
-            <div className="flex items-center gap-6 w-[512px]">
+            <div className="flex items-center gap-[6px] w-[512px] flex-col">
                 <textarea defaultValue={user?.bio} onChange={handleChange} id="bio" className="input h-[180px] resize-none"></textarea>
+                <p className="text-start w-full text-[13px] font-normal text-[#475467]">275 characters left</p>
             </div>
         </div>
 

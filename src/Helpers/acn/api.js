@@ -73,3 +73,23 @@ export async function deleteNewsAndUpdate({ id }) {
         return res?.data
     }
 }
+
+export async function newNewsAndUpdate({ id }) {
+    try {
+        const res = await axios.post('/acn/newsAndUpdates/newNewsAndUpdate', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to create newsletter'}
+        return res?.data
+    }
+}
+
+export async function updateNewsAndUpdate({ id }) {
+    try {
+        const res = await axios.post('/acn/newsAndUpdates/updateNewsAndUpdate', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to update newsletter'}
+        return res?.data
+    }
+}

@@ -1,9 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NewsAndUpdatesForm from "./Helpers/NewsAndUpdatesForm";
 import Button from "../Helpers/Button";
+import { newNewsAndUpdate, updateNewsAndUpdate } from "../../Helpers/acn/api";
 
-function AcnNewsForm() {
+function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
+    const loc = useLocation()
+    const pathName = loc.pathname.split('/')[4]
     const [ formData, setFormData ] = useState({})
 
     const handleChange = (e) => {
@@ -12,7 +15,17 @@ function AcnNewsForm() {
 
     const [ submitting, setSubmitting ] = useState(false)
     const handleSubmitPost = async () => {
-
+      try {
+        setSubmitting(true)
+        const res = await pathName === 'noid' ? newNewsAndUpdate : updateNewsAndUpdate
+        if(res.success){
+          
+        }
+      } catch (error) {
+        
+      } finally {
+        setSubmitting(false)
+      }
     }
 
   return (

@@ -6,12 +6,30 @@ import Stats from "../../Components/ACN/Stats";
 import NewAndUpdatesCard from "../../Components/ACN/NewAndUpdatesCard";
 import { newsandupdates } from "../../Data/newsandupdates";
 import AcnNewsForm from "../../Components/ACN/AcnNewsForm";
+import { useState } from "react";
+import SuccessCard from "../../Components/Helpers/SuccessCard";
 
 function AcnNewsAndUpdatesForm() {
   const { data: newsAndUpdateData, isFetching } = useFetchNewsAndUpdates()
   const data = newsAndUpdateData?.data || newsandupdates || []
+  
+  const [ successMsg, setSuccessMsg ] = useState()
+  const [ errorMsg, setErrorMsg ] = useState()
+
   return (
-    <div className="page flex-row h-full">
+    <div className="page flex-row h-full relative">
+
+      {
+        successMsg && (
+          <SuccessCard successText={setSuccessMsg} />
+        )
+      }
+
+      {
+        errorMsg && (
+          <ErrorCard errorMsg={errorMsg} />
+        )
+      }
 
       {/* Sidebar */}
       <div className="fixed w-[280px] h-[100vh] left-0 top-0">
@@ -38,7 +56,7 @@ function AcnNewsAndUpdatesForm() {
 
             {/**BOTTOM */}
             <div className="h-full">
-                 <AcnNewsForm />
+                 <AcnNewsForm setErrorMsg={setErrorMsg} setSuccessMsg={setSuccessMsg} />
             </div>
 
         </div>
