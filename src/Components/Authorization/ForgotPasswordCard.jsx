@@ -13,7 +13,6 @@ function ForgotPasswordCard({ setErrorText, setSuccessText, }) {
 
     const [ loading, setLoading ] = useState(false)
     const handleForgotPassword = async () => {
-        console.log('iowd')
         if(!formData?.email){
             setErrorText('Enter email')
             setTimeout(() => {

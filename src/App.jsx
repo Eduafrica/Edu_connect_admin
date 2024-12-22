@@ -48,6 +48,8 @@ import EduAfricaDashboard from "./Pages/EduAfrica/EduAfricaDashboard"
 import EduAfricaContactUs from "./Pages/EduAfrica/EduAfricaContactUs"
 import EduAfricaContactUsInfo from "./Pages/EduAfrica/EduAfricaContactUsInfo"
 import EduAfricaSettings from "./Pages/EduAfrica/EduAfricaSettings"
+import AcnTeams from "./Pages/AfricanChlidNetwork/AcnTeams"
+import AcnTeamsInfo from "./Pages/AfricanChlidNetwork/AcnTeamsInfo"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -64,7 +66,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/verifyOtp" element={<VerifyOtp />} />
-          <Route path="/forgotPassword" element={<ForgotPassword />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
           <Route path="/resetPasswordSuccess" element={<ResetPasswordSuccess />} />
 
@@ -96,6 +98,8 @@ function App() {
           <Route path="/acn/news-and-updates" element={<AcnNewsAndUpdates />} />
           <Route path="/acn/news-and-updates/info/:id" element={<AcnNewsAndUpdatesInfo />} />
           <Route path="/acn/news-and-updates/post-form/:id" element={<AcnNewsAndUpdatesForm />} />
+          <Route path="/acn/team" element={<AcnTeams />} />
+          <Route path="/acn/team/info/:id" element={<AcnTeamsInfo />} />
           <Route path="/acn/settings" element={<AcnSettings />} />
           
           {/**AFRICAN CHILD NETWORK */}

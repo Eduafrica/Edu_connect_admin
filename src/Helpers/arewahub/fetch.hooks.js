@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import axios from 'axios'
 
-axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
+//axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
 //axios.defaults.baseURL = 'https://apostle.onrender.com/api'
+axios.defaults.baseURL = 'https://edu-connect-admin-server.onrender.com/api'
 
 //FETCH AREWA HUB PRODUCTS
 export function useFetchProducts(query){

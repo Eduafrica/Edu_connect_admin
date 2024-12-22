@@ -26,15 +26,15 @@ function Sidebar() {
   const siteLinks = [
     {
       name: "Edu Connect",
-      link: ''
+      link: '/edu-connect/dashboard'
     },
     {
       name: "Edu Africa",
-      link: ''
+      link: '/edu-africa/dashboard'
     },
     {
       name: "African Child Network",
-      link: ''
+      link: '/acn.dashboard'
     }
   ]
 

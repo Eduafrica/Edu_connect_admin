@@ -8,31 +8,32 @@ import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import toast from "react-hot-toast";
 import Sidebar from "../../Components/ACN/Sidebar";
 import { deleteTestimony, toggleApproveTestimony, toggleBlacklist } from "../../Helpers/api";
-import { useFetchTestimonials } from "../../Helpers/fetch.hooks";
 import Spinner from "../../Components/Helpers/Spinner";
+import { useFetchTeamMembers } from "../../Helpers/acn/fetch.hooks";
+import { deleteTeamMember, toggleTeamActiveStatus } from "../../Helpers/acn/api";
 
-function AcnTestimoniesInfo() {
+function AcnTeamsInfo() {
     const navigate = useNavigate()
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
 
-    const { data: testimoniesData, isFetching } = useFetchTestimonials({ id: pathName, all: false, website: false })
+    const { data: teamMemberData, isFetching } = useFetchTeamMembers(pathName)
 
-    const testimonyData = testimoniesData?.data || {}
+    const teamData = teamMemberData?.data || {}
 
     const [ loading, setLoading ] = useState(false)
-    const handleBlock = async () => {
+    const handleDelete = async () => {
         if(loading){
             return;
         }
-        const confirm = window.confirm('Are you sure you want to blacklist this testimony?')
+        const confirm = window.confirm('Are you sure you want to delete this testimony?')
         if(confirm){
             try {
                 setLoading(true)
-                const res = await toggleBlacklist({ id: pathName })
+                const res = await deleteTeamMember({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
-                    window.location.reload()
+                    navigate('/acn/team')
                 } else {
                     toast.error(res.data)
                 }
@@ -48,11 +49,11 @@ function AcnTestimoniesInfo() {
         if(loading){
             return;
         }
-        const confirm = window.confirm('Are you sure you want to approve this testimony?')
+        const confirm = window.confirm('Are you sure you want to update this status?')
         if(confirm){
             try {
                 setLoading(true)
-                const res = await toggleApproveTestimony({ id: pathName })
+                const res = await toggleTeamActiveStatus({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
                     window.location.reload()
@@ -67,31 +68,9 @@ function AcnTestimoniesInfo() {
         }
     }
 
-    const handleDelete = async () => {
-        if(loading){
-            return;
-        }
-        const confirm = window.confirm('Are you sure you want to delete this testimony?')
-        if(confirm){
-            try {
-                setLoading(true)
-                const res = await deleteTestimony({ id: pathName })
-                if(res.success){
-                    toast.success(res.data)
-                    navigate('/acn/testimonies')
-                } else {
-                    toast.error(res.data)
-                }
-            } catch (error) {
-                
-            } finally {
-                setLoading(false)
-            }
-        }
-    }
 
     const { formattedDate, formattedTime } = formatDateAndTime(
-        testimonyData?.createdAt
+        teamData?.createdAt
       );
   return (
     <div className="page flex-row">
@@ -121,48 +100,48 @@ function AcnTestimoniesInfo() {
                         <div className="">
                             <div className="flex items-center gap-[6px]">
                             <div className="flex items-center gap-4">
-                                {testimonyData?.profileImg ? (
+                                {teamData?.iamge ? (
                                 <img
-                                    src={testimonyData?.profileImg}
-                                    alt={`${testimonyData?.firstName}'s profile`}
+                                    src={teamData?.iamge}
+                                    alt={`${teamData?.firstName}'s profile`}
                                     className="w-[45px] h-[45px] rounded-full"
                                 />
                                 ) : (
                                 <div
                                     className={`w-[45px] h-[45px] rounded-full flex items-center justify-center text-gray-800 font-bold ${
-                                    testimonyData?.blocked
+                                    teamData?.blocked
                                         ? "bg-[#D8E0E5] text-[#585858]" // Blacklisted style
-                                        : testimonyData?.active
+                                        : teamData?.active
                                         ? "bg-[#05A75312] text-[#05A753]" // Active style
                                         : "bg-[#FEF3F2] text-error" // Inactive style
                                     }`}
                                 >
-                                    {testimonyData?.firstName?.charAt(0).toUpperCase()}
+                                    {teamData?.firstName?.charAt(0).toUpperCase()}
                                 </div>
                                 )}
 
                                 <div className="flex  flex-col">
                                 <h2 className="text-lg text-[#14142B] font-semibold">
-                                    {testimonyData?.firstName} {testimonyData?.lastName}
+                                    {teamData?.firstName} {teamData?.lastName}
                                 </h2>
                                 <p className="text-xs font-normal text-[12px] text-[#929292]">
-                                    {testimonyData?.email}
+                                    {teamData?.email}
                                 </p>
                                 </div>
                             </div>
 
                             <div
                                 className={`py-[5px] px-[10px] rounded-[100px] font-semibold ${
-                                testimonyData?.blocked
+                                teamData?.blocked
                                     ? "bg-[#D8E0E5] text-[#585858]" // Blacklisted style
-                                    : testimonyData?.active
+                                    : teamData?.active
                                     ? "bg-[#05A75312] text-[#05A753]" // Active style
                                     : "bg-[#FEF3F2] text-error" // Inactive style
                                 }`}
                             >
-                                {testimonyData?.blocked
+                                {teamData?.blocked
                                 ? "Blacklisted"
-                                : testimonyData?.active
+                                : teamData?.active
                                 ? "Active"
                                 : "Inactive"}
                             </div>
@@ -170,8 +149,8 @@ function AcnTestimoniesInfo() {
                         </div>
                     </div>
 
-                    <div onClick={handleBlock} className="w-fit">
-                        <Button style={`!bg-error !border-none`} text={`Blacklist`} />
+                    <div onClick={handleDelete} className="w-fit">
+                        <Button style={`!bg-error !border-none`} text={`Delete`} />
                     </div>
                 </div>
 
@@ -187,27 +166,27 @@ function AcnTestimoniesInfo() {
                             <div className="flex flex-col gap-4 mr-auto mt-8">
                                 <div className="flex items-center gap-4">
                                     <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">First Name</p>
-                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.firstName}</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{teamData?.firstName}</p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Last Name</p>
-                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.lastName}</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{teamData?.lastName}</p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">User Id</p>
-                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.userId}</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{teamData?.teamMemberId}</p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Postion</p>
-                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.position}</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{teamData?.position}</p>
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Testimony Date</p>
                                     <p className="text-start text-sm font-medium text-[#1F2A37]">{formattedDate}</p>
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">messgae</p>
-                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.testimony}</p>
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Testimony</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{teamData?.testimony}</p>
                                 </div>
                             </div>
                         )
@@ -219,7 +198,7 @@ function AcnTestimoniesInfo() {
                     <div onClick={handleApprove} className="">
                         <Button text={`Add to website`} style={`!bg-acn-main-color`} />
                     </div>
-                    <div onClick={handleDelete} className="">
+                    <div onClick={handleApprove} className="">
                         <Button text={`Remove from website`} style={`!bg-error !border-none`} />
                     </div>
                 </div>
@@ -234,4 +213,4 @@ function AcnTestimoniesInfo() {
   );
 }
 
-export default AcnTestimoniesInfo;
+export default AcnTeamsInfo;

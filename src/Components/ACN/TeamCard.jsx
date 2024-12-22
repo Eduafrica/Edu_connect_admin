@@ -8,7 +8,7 @@ import { FiMoreVertical } from "react-icons/fi";
 import { MdOutlineRemoveRedEye } from "react-icons/md";
 import Spinner from "../Helpers/Spinner";
 
-function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
+function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
   const data = menuOption;
   const [ filterValue, setFilterValue ] = useState()
   const [activeCard, setActiveCard] = useState(data[0].slug);
@@ -21,10 +21,10 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
   const itemsPerPage = 6;
 
   // Calculate the total number of pages
-  const totalPages = Math.ceil((testimonytData?.length || 0) / itemsPerPage);
+  const totalPages = Math.ceil((teamData?.length || 0) / itemsPerPage);
 
   // Get the current page's data
-  const currentData = testimonytData?.slice(
+  const currentData = teamData?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -109,7 +109,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[140px] ">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${testimonytData?.length} Testimonies` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${teamData?.length} Team` }</h2>
           </div>
 
               <div className="flex w-full items-center justify-between">
@@ -188,13 +188,13 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                     </td>
                     {/**last name */}
                     <td className="px-6 py-4">
-                      <div className="text-[14px] font-normal text-gray-600">
+                      <div className="text-[14px] font-normal text-[#364152]">
                         {item?.lastName}
                       </div>
                     </td>
                     {/* user id */}
-                    <td className="px-6 py-4">
-                        {item?.userId}
+                    <td className="px-6 py-4 text-[#13693B]">
+                        {item?.teamMemberId}
                     </td>
                     {/* postion */}
                     <td className="px-6 py-4">
@@ -249,7 +249,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                           {/* MODAL POPUP, visible only on hover */}
                           <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
                             <Link
-                              to={`/arewahub/testimonies/info/${item?._id}`}
+                              to={`/acn/team/info/${item?.teamMemberId}`}
                               className="flex items-center gap-3 text-sm text-primary-color"
                             >
                               <MdOutlineRemoveRedEye />
@@ -330,4 +330,4 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
   );
 }
 
-export default TestimoniesCard;
+export default TeamCard;
