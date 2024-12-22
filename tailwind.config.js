@@ -9,6 +9,8 @@ export default {
         'acn-main-color': '#000000',
         'acn-main-hover-color': '#008F4A',
 
+        'arewahub-main-color': '#8C52FF',
+
         'text-color': '#384250',
         'text-color-1': '#6C737F',
         'text-color-3': '#727475',

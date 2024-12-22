@@ -266,7 +266,7 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
                         )}
                       </div>
                     </td>
-                    <td className="px-6 flex-1 text-center py-4 text-[13px] text-[#121212] font-normal">
+                    <td className="px-6 flex-1 text-start py-4 text-[13px] text-[#121212] font-normal">
                       <p className="text-[13px] font-normal text-[#121212]">
                         {formattedDate}
                       </p>
@@ -275,7 +275,7 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
                       </p>
                     </td>
                     <td className="px-6 py-4 flex-1">
-                    <div className="relative cursor-pointer flex items-center justify-center gap-2 group">
+                    <div className="relative cursor-pointer flex items-center justify-between gap-2 group">
                           <div
                               className={`py-[5px] px-[10px] rounded-[100px] ${
                                   item?.active === false

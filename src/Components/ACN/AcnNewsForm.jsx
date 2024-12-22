@@ -3,11 +3,14 @@ import { Link, useLocation } from "react-router-dom";
 import NewsAndUpdatesForm from "./Helpers/NewsAndUpdatesForm";
 import Button from "../Helpers/Button";
 import { newNewsAndUpdate, updateNewsAndUpdate } from "../../Helpers/acn/api";
+import { useFetchNewsAndUpdates } from "../../Helpers/acn/fetch.hooks";
 
 function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
-    const [ formData, setFormData ] = useState({})
+    const { data: newsData, isFetching } = useFetchNewsAndUpdates(pathName)
+    const data = newsData?.data
+    const [ formData, setFormData ] = useState({ _id: pathName === 'noid' ? pathName : '' })
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -19,7 +22,16 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
         setSubmitting(true)
         const res = await pathName === 'noid' ? newNewsAndUpdate : updateNewsAndUpdate
         if(res.success){
-          
+          setSuccessMsg(res.data)
+          setTimeout(() => {
+            setSuccessMsg()
+          }, 2500)
+          window.location.reload()
+        } else {
+          setErrorMsg(res.data)
+          setTimeout(() => {
+            setErrorMsg()
+          }, 2500)
         }
       } catch (error) {
         
@@ -65,7 +77,7 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
       <div className="flex items-stretch grow h-full">
 
         <div className="flex flex-col flex-[7]">
-            <NewsAndUpdatesForm formData={formData} setFormData={setFormData} handleChange={handleChange} />
+            <NewsAndUpdatesForm data={data} formData={formData} setFormData={setFormData} handleChange={handleChange} />
         </div>
 
         {/**VERTICAL LINE */}
@@ -74,7 +86,7 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
         <div className="flex flex-col flex-[3] gap-[30px]">
           <div className="inputGroup">
             <label className="label">Author</label>
-            <input id="writers" onChange={handleChange} placeholder="Enter writer's name" className="input" />
+            <input id="writers" defaultValue={data?.writers} onChange={handleChange} placeholder="Enter writer's name" className="input" />
           </div>
 
         </div>

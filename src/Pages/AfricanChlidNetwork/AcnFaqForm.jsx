@@ -42,7 +42,7 @@ function AcnFaqForm({ acnFaqId, setAcnFaqId }) {
             }
         }
         try {
-            setLoading(false)
+            setLoading(true)
             const res = acnFaqId ? await updateFaq(formData) : await newFaq(formData)
             if(res.success){
                 toast.success(res.data)

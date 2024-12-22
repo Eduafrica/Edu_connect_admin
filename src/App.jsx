@@ -27,6 +27,26 @@ import AcnNewsAndUpdates from "./Pages/AfricanChlidNetwork/AcnNewsAndUpdates"
 import AcnTestimoniesInfo from "./Pages/AfricanChlidNetwork/AcnTestimoniesInfo"
 import AcnNewsAndUpdatesInfo from "./Pages/AfricanChlidNetwork/AcnNewsAndUpdatesInfo"
 import AcnNewsAndUpdatesForm from "./Pages/AfricanChlidNetwork/AcnNewsAndUpdatesForm"
+import { AuthorizeAdmin } from "./Auth/ProtectRoutes"
+import AcnSettings from "./Pages/AfricanChlidNetwork/AcnSettings"
+import ArewaHubDashboard from "./Pages/ArewaHub/ArewaHubDashboard"
+import ArewaHubProducts from "./Pages/ArewaHub/ArewaHubProducts"
+import ArewaHubOrders from "./Pages/ArewaHub/ArewaHubOrders"
+import ArewaHubProductInfo from "./Pages/ArewaHub/ArewaHubProductInfo"
+import ArewaHubNewProduct from "./Pages/ArewaHub/ArewaHubNewProduct"
+import ArewaHubOrderInfo from "./Pages/ArewaHub/ArewaHubOrderInfo"
+import ArewaHubEvents from "./Pages/ArewaHub/ArewaHubEvents"
+import ArewaHubNewEvent from "./Pages/ArewaHub/ArewaHubNewEvent"
+import ArewaHubTestimonies from "./Pages/ArewaHub/ArewaHubTestimonies"
+import ArewaHubTestimoniesInfo from "./Pages/ArewaHub/ArewaHubTestimoniesInfo"
+import ArewaHubFaq from "./Pages/ArewaHub/ArewaHubFaq"
+import ArewaHubFaqForm from "./Pages/ArewaHub/ArewaHubFaqForm"
+import ArewaHubContactUs from "./Pages/ArewaHub/ArewaHubContactUs"
+import ArewaHubContactUsInfo from "./Pages/ArewaHub/ArewaHubContactUsInfo"
+import ArewaHubSettings from "./Pages/ArewaHub/ArewaHubSettings"
+import EduAfricaDashboard from "./Pages/EduAfrica/EduAfricaDashboard"
+import EduAfricaContactUs from "./Pages/EduAfrica/EduAfricaContactUs"
+import EduAfricaContactUsInfo from "./Pages/EduAfrica/EduAfricaContactUsInfo"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -48,8 +68,12 @@ function App() {
           <Route path="/resetPasswordSuccess" element={<ResetPasswordSuccess />} />
 
           {/**EDU CONNECT */}
-          <Route path="/edu-connect/dashboard" element={<EduConnectDashboard />} />
-          <Route path="/edu-connect/testimonies" element={<EduConnectTestimonies />} />
+          <Route element={<AuthorizeAdmin />}>
+            <Route path="/edu-connect/dashboard" element={<EduConnectDashboard />} />
+          </Route>
+          <Route>
+            <Route path="/edu-connect/testimonies" element={<EduConnectTestimonies />} />
+          </Route>
           <Route path="/edu-connect/testimonies/info/:id" element={<EduConnectTestimoniesInfo />} />
           <Route path="/edu-connect/contact-us" element={<EduConnectContactUs />} />
           <Route path="/edu-connect/contact-us/info/:id" element={<EducConnectContactUsInfo />} />
@@ -71,6 +95,29 @@ function App() {
           <Route path="/acn/news-and-updates" element={<AcnNewsAndUpdates />} />
           <Route path="/acn/news-and-updates/info/:id" element={<AcnNewsAndUpdatesInfo />} />
           <Route path="/acn/news-and-updates/post-form/:id" element={<AcnNewsAndUpdatesForm />} />
+          <Route path="/acn/settings" element={<AcnSettings />} />
+          
+          {/**AFRICAN CHILD NETWORK */}
+          <Route path="/arewahub/dashboard" element={<ArewaHubDashboard />} />
+          <Route path="/arewahub/products" element={<ArewaHubProducts />} />
+          <Route path="/arewahub/product/info/:id" element={<ArewaHubProductInfo />} />
+          <Route path="/arewahub/new-product/:id" element={<ArewaHubNewProduct />} />
+          <Route path="/arewahub/orders" element={<ArewaHubOrders />} />
+          <Route path="/arewahub/order/info/:id" element={<ArewaHubOrderInfo />} />
+          <Route path="/arewahub/events" element={<ArewaHubEvents />} />
+          <Route path="/arewahub/new-event/:id" element={<ArewaHubNewEvent />} />
+          <Route path="/arewahub/testimonies" element={<ArewaHubTestimonies />} />
+          <Route path="/arewahub/testimonies/info/:id" element={<ArewaHubTestimoniesInfo />} />
+          <Route path="/arewahub/faq" element={<ArewaHubFaq setAcnFaqId={setAcnFaqId} />} />
+          <Route path="/arewahub/faq/faq-form" element={<ArewaHubFaqForm acnFaqId={acnFaqId} setAcnFaqId={setAcnFaqId} />} />
+          <Route path="/arewahub/contact-us" element={<ArewaHubContactUs />} />
+          <Route path="/arewahub/contact-us/info/:id" element={<ArewaHubContactUsInfo />} />
+          <Route path="/arewahub/settings" element={<ArewaHubSettings />} />
+
+          {/**EDU AFRICA */}
+          <Route path="/edu-africa/dashboard" element={<EduAfricaDashboard />} />
+          <Route path="/edu-africa/contact-us" element={<EduAfricaContactUs />} />
+          <Route path="/edu-connect/contact-us/info/:id" element={<EduAfricaContactUsInfo />} />
 
           
           

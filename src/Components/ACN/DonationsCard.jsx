@@ -106,7 +106,7 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
       <div className="px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
-          <div className="flex items-center min-w-[140px] w-full">
+          <div className="flex items-center min-w-[140px] ">
             <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Donations` }</h2>
           </div>
 
@@ -203,7 +203,7 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
                           {item?.phoneNumber}
                     </td>
-                    <td className="px-6 text-center py-4 text-[13px] text-[#121212] font-normal">
+                    <td className="px-6 text-start py-4 text-[13px] text-[#121212] font-normal">
                       <p className="text-[13px] font-normal text-[#121212]">
                         {formattedDate}
                       </p>
@@ -212,8 +212,9 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
                       </p>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
-                          {item?.amount.toLocaleString()}
-                          <Link to={`/acn/donation/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
+                          <Link to={`/acn/donation/info/${item?._id}`} >
+                            {item?.amount.toLocaleString()}
+                          </Link>
                       </td>
                   </tr>
                 )

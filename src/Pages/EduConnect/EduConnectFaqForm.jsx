@@ -42,7 +42,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
             }
         }
         try {
-            setLoading(false)
+            setLoading(true)
             const res = educonnectFaqId ? await updateFaq(formData) : await newFaq(formData)
             if(res.success){
                 toast.success(res.data)

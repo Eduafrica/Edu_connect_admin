@@ -44,16 +44,16 @@ function Sidebar() {
       return
     }
     try {
+      setLoading(true)
       const res = await logout()
       if(res.success){
-        toast.success(res.data)
         dispatch(signOut())
         navigate('/')
-      } else {
-        toast.error(res.data)
       }
     } catch (error) {
-      
+      console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -106,7 +106,7 @@ function Sidebar() {
       </div>
           {/**LOGOUT */}
           <div className="mt-auto mb-[32px] flex flex-col gap-1 px-4">
-            <div className=" px-[16px] cursor-pointer flex items-center gap-6 rounded-[6px] text-[16px] text-gray-100 font-medium hover:text-error transition-all">
+            <div onClick={handleLogout} className=" px-[16px] cursor-pointer flex items-center gap-6 rounded-[6px] text-[16px] text-gray-100 font-medium hover:text-error transition-all">
               <span className="flex items-center justify-center w-5 h-5 text-red-800">
                   <svg
                   width="100%"

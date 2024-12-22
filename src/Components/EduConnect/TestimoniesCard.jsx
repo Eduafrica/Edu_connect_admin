@@ -108,7 +108,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
       <div className="px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
-          <div className="flex items-center min-w-[140px] w-full">
+          <div className="flex items-center min-w-[140px]">
             <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
           </div>
 

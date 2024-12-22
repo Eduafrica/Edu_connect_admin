@@ -65,6 +65,7 @@ function EduconnectSettings() {
                         data={data}
                         activeCard={activeCard}
                         onCLick={handleCardChange}
+                        activeStyle={`text-edu-main-color border-edu-main-color`}
                     />
 
                     {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import RichTextEditor from './RichTextEditor';
 
-function NewsAndUpdatesForm({ formData, setFormData, handleChange }) {
+function NewsAndUpdatesForm({ data, formData, setFormData, handleChange }) {
     const [titleActive, setTitleActive] = useState(true);
     const [configorationsActive, setConfigorationsActive] = useState(true);
     const [isDragging, setIsDragging] = useState(false);
@@ -116,7 +116,7 @@ function NewsAndUpdatesForm({ formData, setFormData, handleChange }) {
                 </div>
                 {titleActive && (
                     <>
-                        <input id='title' value={formData?.title} onChange={handleChange} type="text" placeholder='Enter Title' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
+                        <input id='title' defaultValue={data?.title} value={formData?.title} onChange={handleChange} type="text" placeholder='Enter Title' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
                     
                         <div className="">
                             <RichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} />

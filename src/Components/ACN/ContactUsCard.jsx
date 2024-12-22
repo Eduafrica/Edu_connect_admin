@@ -109,8 +109,8 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
       <div className="px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
-          <div className="flex items-center min-w-[140px] w-full">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
+          <div className="flex items-center min-w-[140px] ">
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${contactUsData?.length} Testimonies` }</h2>
           </div>
 
           <div className="flex w-full items-center justify-between">
@@ -206,7 +206,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
                           {item?.phoneNumber}
                     </td>
-                    <td className="px-6 text-center py-4 text-[13px] text-[#121212] font-normal">
+                    <td className="px-6 text-start py-4 text-[13px] text-[#121212] font-normal">
                       <p className="text-[13px] font-normal text-[#121212]">
                         {formattedDate}
                       </p>
@@ -215,8 +215,9 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                       </p>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
-                          {truncateText(item?.message, 14)}
-                          <Link to={`/acn/contact-us/info/${item?._id}`} className="text-edu-main-color text-[16px] font-semibold">View</Link>
+                          <Link to={`/acn/contact-us/info/${item?._id}`}>
+                            {truncateText(item?.message, 14)}
+                          </Link>
                       </td>
                   </tr>
                 )

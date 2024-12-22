@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import Sidebar from "../../Components/ACN/Sidebar";
 import { deleteTestimony, toggleApproveTestimony, toggleBlacklist } from "../../Helpers/api";
 import { useFetchTestimonials } from "../../Helpers/fetch.hooks";
+import Spinner from "../../Components/Helpers/Spinner";
 
 function AcnTestimoniesInfo() {
     const navigate = useNavigate()
@@ -155,7 +156,7 @@ function AcnTestimoniesInfo() {
                                 testimonyData?.blocked
                                     ? "bg-[#D8E0E5] text-[#585858]" // Blacklisted style
                                     : testimonyData?.active
-                                    ? "bg-[#05A75312] text-primar" // Active style
+                                    ? "bg-[#05A75312] text-[#05A753]" // Active style
                                     : "bg-[#FEF3F2] text-error" // Inactive style
                                 }`}
                             >
@@ -178,33 +179,39 @@ function AcnTestimoniesInfo() {
                     <div className="border-b-[1px] border-[#EFF0F6] w-full p-4">
                         <h2 className="text-[#344054] text-[16px] font-semibold">Testimonies Info</h2>
                     </div>
-
-                    <div className="flex flex-col gap-4 mr-auto mt-8">
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">First Name</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.firstName}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Last Name</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.lastName}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">User Id</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.userId}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Postion</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.position}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">Testimony Date</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{formattedDate}</p>
-                        </div>
-                        <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292]">messgae</p>
-                            <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.testimony}</p>
-                        </div>
-                    </div>
+                    
+                    {
+                        isFetching ? (
+                            <Spinner />
+                        ) : (
+                            <div className="flex flex-col gap-4 mr-auto mt-8">
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">First Name</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.firstName}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Last Name</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.lastName}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">User Id</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.userId}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Postion</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.position}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Testimony Date</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{formattedDate}</p>
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">messgae</p>
+                                    <p className="text-start text-sm font-medium text-[#1F2A37]">{testimonyData?.testimony}</p>
+                                </div>
+                            </div>
+                        )
+                    }
 
                 </div>
 

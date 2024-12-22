@@ -14,7 +14,7 @@ function AcnDasboard() {
 
 
   const topDonationsData = donationData?.data?.splice(0, 5) || [].splice(0, 5)
-  const topExpenseData = expenseData?.data.splice(0, 5) || [].splice(0, 6)
+  const topExpenseData = expenseData?.data.splice(0, 6) || [].splice(0, 6)
   const [ selectedDate, setSelectedDate ] = useState()
 
   return (

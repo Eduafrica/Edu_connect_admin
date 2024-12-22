@@ -108,8 +108,8 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
       <div className="px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
-          <div className="flex items-center min-w-[140px] w-full">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
+          <div className="flex items-center min-w-[140px] ">
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${testimonytData?.length} Testimonies` }</h2>
           </div>
 
               <div className="flex w-full items-center justify-between">
@@ -216,17 +216,9 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                             {item.firstName.charAt(0).toUpperCase()}
                           </div>
                         )}
-                        <div>
-                          <div className="text-[14px] font-semibold text-gray-900">
-                            {item.firstName}
-                          </div>
-                          <div className="text-[14px] font-normal text-gray-600">
-                            {item.email}
-                          </div>
-                        </div>
                       </div>
                     </td>
-                    <td className="px-6 text-center py-4 text-[13px] text-[#121212] font-normal">
+                    <td className="px-6 text-start py-4 text-[13px] text-[#121212] font-normal">
                       <p className="text-[13px] font-normal text-[#121212]">
                         {formattedDate}
                       </p>
@@ -235,7 +227,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                       </p>
                     </td>
                     <td className="px-6 py-4">
-                    <div className="relative cursor-pointer flex items-center justify-center gap-2 group">
+                    <div className="relative cursor-pointer flex items-center justify-between gap-2 group">
                           <div
                               className={`py-[5px] px-[10px] rounded-[100px] ${
                                   item?.blocked === true

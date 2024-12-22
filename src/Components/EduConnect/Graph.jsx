@@ -1,4 +1,5 @@
 import { useEffect } from "react"
+import PieChart from "./PieChart"
 
 function Graph({ selectedDateValue, setSelectedDateValue }) {
 
@@ -53,7 +54,7 @@ function Graph({ selectedDateValue, setSelectedDateValue }) {
             <div className=""></div>
         </div>
 
-        <div className="flex-[4] rounded-[12px] border-[1px] border-gray-200 bg-white p-6 flex flex-col gap-[67px] shadow-sm">
+        <div className="w-[360px] rounded-[12px] border-[1px] border-gray-200 bg-white p-6 flex flex-col gap-[67px] shadow-sm">
             <div className="flex items-center justify-between gap-5">
                 <p className="text-lg text-gray-900 font-semibold">Clicks breakdown</p>
 
@@ -66,10 +67,25 @@ function Graph({ selectedDateValue, setSelectedDateValue }) {
                 </span>
             </div>
 
-            <div className="flex items-start gap-6 justify-between">
+            <div className="flex items-start gap-6 justify-between w-full">
                 {/**PIE CHART */}
+                <PieChart />
 
-                {/** */}
+                {/**Color Codes */}
+                <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#00BF63]"></span>
+                        <p className="text-sm font-medium text-gary-600">EduAfrica</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#8C52FF]"></span>
+                        <p className="text-sm font-medium text-gary-600">Arewa</p>
+                    </div>
+                    <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#000000]"></span>
+                        <p className="text-sm font-medium text-gary-600">ACN</p>
+                    </div>
+                </div>
 
             </div>
         </div>
