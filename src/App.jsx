@@ -47,6 +47,7 @@ import ArewaHubSettings from "./Pages/ArewaHub/ArewaHubSettings"
 import EduAfricaDashboard from "./Pages/EduAfrica/EduAfricaDashboard"
 import EduAfricaContactUs from "./Pages/EduAfrica/EduAfricaContactUs"
 import EduAfricaContactUsInfo from "./Pages/EduAfrica/EduAfricaContactUsInfo"
+import EduAfricaSettings from "./Pages/EduAfrica/EduAfricaSettings"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -118,6 +119,7 @@ function App() {
           <Route path="/edu-africa/dashboard" element={<EduAfricaDashboard />} />
           <Route path="/edu-africa/contact-us" element={<EduAfricaContactUs />} />
           <Route path="/edu-connect/contact-us/info/:id" element={<EduAfricaContactUsInfo />} />
+          <Route path="/edu-africa/settings" element={<EduAfricaSettings />} />
 
           
           
