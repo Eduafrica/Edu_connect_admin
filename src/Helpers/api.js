@@ -1,8 +1,5 @@
-import axios from "axios"
+import axios from "./BaseUrl"
 
-//axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
-//axios.defaults.baseURL = 'https://edu-connect-admin-server.onrender.com/api'
-axios.defaults.baseURL = 'https://edu-connect-admin-server.onrender.com/api'
 
 export async function register(formData) {
     try {

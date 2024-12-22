@@ -1,10 +1,12 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Button from "../Helpers/Button"
 import LoadingBtn from "../Helpers/LoadingBtn"
 import { forgotPassword } from "../../Helpers/api"
+import toast from "react-hot-toast"
 
 function ForgotPasswordCard({ setErrorText, setSuccessText, }) {
+  const navigate = useNavigate()
     const [ formData, setFormData ] = useState({})
 
     const handleChange = (e) => {
@@ -23,6 +25,15 @@ function ForgotPasswordCard({ setErrorText, setSuccessText, }) {
         try {
             setLoading(true)
             const res = await forgotPassword(formData)
+            if(res.success){
+              toast.success(res.data)
+              navigate('/reset-password')
+            } else{
+              setErrorText(res.data)
+              setTimeout(() => {
+                  setErrorText()
+              }, 2500)
+            }
         } catch (error) {
             
         } finally {

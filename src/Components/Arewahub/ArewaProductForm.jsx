@@ -48,6 +48,13 @@ function ArewaProductForm({ setSuccessMsg, setErrorMsg }) {
           }, 2500)
           return
         }
+        if(!formData?.productType){
+          setErrorMsg('Product type is required')
+          setTimeout(() => {
+            setErrorMsg()
+          }, 2500)
+          return
+        }
       }
       
       try {
