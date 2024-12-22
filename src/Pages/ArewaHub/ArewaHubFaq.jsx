@@ -4,8 +4,8 @@ import Button from "../../Components/Helpers/Button";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import { educonnectfaq } from "../../Data/faq";
 import Sidebar from "../../Components/Arewahub/Sidebar";
-import FaqCard from "../../Components/ArewaHub/FaqCard";
 import { useFetchFaq } from "../../Helpers/arewahub/fetch.hooks";
+import FaqCard from "../../Components/Arewahub/FaqCard";
 
 function ArewaHubFaq({ setAcnFaqId }) {
     const navigate = useNavigate()
