@@ -161,7 +161,7 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
                 Date & Time
               </th>
               <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Amount
+                type
               </th>
             </tr>
           </thead>
@@ -213,7 +213,7 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
                           <Link to={`/acn/donation/info/${item?._id}`} >
-                            {item?.amount.toLocaleString()}
+                            {item?.type}
                           </Link>
                       </td>
                   </tr>
