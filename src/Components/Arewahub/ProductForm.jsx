@@ -160,6 +160,8 @@ function ProductForm({ setErrorMsg, data, formData, setFormData, handleChange })
                                 </div>
                             )}
                         </div>
+
+                        
                         <div className="flex items-center gap-2">
                         <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>

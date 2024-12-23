@@ -51,6 +51,7 @@ import EduAfricaSettings from "./Pages/EduAfrica/EduAfricaSettings"
 import AcnTeams from "./Pages/AfricanChlidNetwork/AcnTeams"
 import AcnTeamsInfo from "./Pages/AfricanChlidNetwork/AcnTeamsInfo"
 import ResetPasswordSentSuccess from "./Pages/Authorization/ResetPasswordSentSuccess"
+import EduConnectNewsletter from "./Pages/EduConnect/EduConnectNewsletter"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -85,6 +86,7 @@ function App() {
           <Route path="/edu-connect/faq" element={<EduConnectFaq setEduconnectFaqId={setEduconnectFaqId} />} />
           <Route path="/edu-connect/faq/faq-form" element={<EduConnectFaqForm educonnectFaqId={educonnectFaqId} setEduconnectFaqId={setEduconnectFaqId} />} />
           <Route path="/edu-connect/settings" element={<EduconnectSettings />} />
+          <Route path="/edu-connect/newsletter" element={<EduConnectNewsletter />} />
 
           {/**AFRICAN CHILD NETWORK */}
           <Route path="/acn/dashboard" element={<AcnDasboard />} />
