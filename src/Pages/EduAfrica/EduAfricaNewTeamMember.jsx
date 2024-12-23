@@ -5,10 +5,10 @@ import Button from "../../Components/Helpers/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import Sidebar from "../../Components/EduConnect/Sidebar";
+import Sidebar from "../../Components/EduAfrica/Sidebar";
 import Spinner from "../../Components/Helpers/Spinner";
-import { useFetchTeamMembers } from "../../Helpers/educonnect/fetch.hooks";
-import { editeam, newTeam } from "../../Helpers/educonnect/api";
+import { useFetchTeamMembers } from "../../Helpers/eduafrica/fetch.hooks";
+import { editeam, newTeam } from "../../Helpers/eduafrica/api";
 
 function EduAfricaNewTeamMember() {
     const navigate = useNavigate()
