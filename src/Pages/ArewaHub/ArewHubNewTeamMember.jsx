@@ -34,7 +34,7 @@ function ArewHubNewTeamMember() {
             const res = pathName === 'noid' ? await newTeam(formData) : await editeam(formData)
             if(res.success){
                 toast.success(res.data)
-                navigate('/acn/team')
+                navigate('/arewahub/team')
             } else {
                 toast.error(res.data)
             }
