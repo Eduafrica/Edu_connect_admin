@@ -58,6 +58,10 @@ import EduConnectTeamsInfo from "./Pages/EduConnect/EduConnectTeamsInfo"
 import EduConnectNewTeamMember from "./Pages/EduConnect/EduConnectNewTeamMember"
 import ArewHubTeams from "./Pages/ArewaHub/ArewHubTeams"
 import ArewHubTeamsInfo from "./Pages/ArewaHub/ArewHubTeamsInfo"
+import ArewHubNewTeamMember from "./Pages/ArewaHub/ArewHubNewTeamMember"
+import EduAfricaTeams from "./Pages/EduAfrica/EduAfricaTeams"
+import EduAfricaTeamsInfo from "./Pages/EduAfrica/EduAfricaTeamsInfo"
+import EduAfricaNewTeamMember from "./Pages/EduAfrica/EduAfricaNewTeamMember"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -134,13 +138,15 @@ function App() {
           <Route path="/arewahub/settings" element={<ArewaHubSettings />} />
           <Route path="/arewahub/team" element={<ArewHubTeams />} />
           <Route path="/arewahub/team/info/:id" element={<ArewHubTeamsInfo />} />
-
-          <Route path="/arewahub/new-team/:id" element={<EduConnectNewTeamMember />} />
+          <Route path="/arewahub/new-team/:id" element={<ArewHubNewTeamMember />} />
 
           {/**EDU AFRICA */}
           <Route path="/edu-africa/dashboard" element={<EduAfricaDashboard />} />
           <Route path="/edu-africa/contact-us" element={<EduAfricaContactUs />} />
           <Route path="/edu-africa/contact-us/info/:id" element={<EduAfricaContactUsInfo />} />
+          <Route path="/edu-africa/team" element={<EduAfricaTeams />} />
+          <Route path="/edu-africa/team/info/:id" element={<EduAfricaTeamsInfo />} />
+          <Route path="/edu-africa/new-team/:id" element={<EduAfricaNewTeamMember />} />
           <Route path="/edu-africa/settings" element={<EduAfricaSettings />} />
 
           
