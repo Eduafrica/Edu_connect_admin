@@ -161,7 +161,7 @@ function ProductForm({ setErrorMsg, data, formData, setFormData, handleChange })
                             )}
                         </div>
 
-                        
+
                         <div className="flex items-center gap-2">
                         <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>
@@ -179,6 +179,25 @@ function ProductForm({ setErrorMsg, data, formData, setFormData, handleChange })
                             placeholder='Enter amount'
                             className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
                         />
+
+                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <p className='text-arewahub-main-color text-[16px] font-semibold'>Add Price Currency</p>
+                        </div>
+                        <input
+                            id='priceCurrency'
+                            value={formData?.priceCurrency}
+                            onChange={handleChange}
+                            defaultValue={data?.priceCurrency}
+                            type="text"
+                            placeholder='Enter price currency'
+                            className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
+                        />
+
                         <div className="flex items-center gap-2">
                         <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>
@@ -196,6 +215,7 @@ function ProductForm({ setErrorMsg, data, formData, setFormData, handleChange })
                             placeholder='Enter unit'
                             className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
                         />
+
                         <div className="flex items-center gap-2">
                         <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>

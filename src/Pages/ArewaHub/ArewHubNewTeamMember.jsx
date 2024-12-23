@@ -67,7 +67,7 @@ function ArewHubNewTeamMember() {
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
-                        <Link to={`/acn-connect/testimonies`} className="">
+                        <Link to={`/arewahub/team`} className="">
                             <IoIosArrowBack />
                         </Link>
 
@@ -88,7 +88,7 @@ function ArewHubNewTeamMember() {
                     </div>
 
                     <div onClick={handleTeamMember} className="w-fit">
-                        <Button disabled={loading} style={`!bg-acn-main-color !border-none`} text={loading ? 'Saving...' : pathName === 'noid' ?  `Add` : `Update`} />
+                        <Button disabled={loading} style={`!bg-arewahub-main-color !border-none`} text={loading ? 'Saving...' : pathName === 'noid' ?  `Add` : `Update`} />
                     </div>
                 </div>
 
@@ -130,8 +130,9 @@ function ArewHubNewTeamMember() {
                                     <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Instagram Handle</p>
                                     <input id="instagramHandle" onChange={handleChange} defaultValue={teamData?.instagramHandle} className="input" />
                                 </div>
+                                {/**Send image as base64 format to server */}
                                 <div className="flex items-center gap-4">
-                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Testimony</p>
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Image</p>
                                     <input id="testimony" onChange={handleChange} defaultValue={teamData?.testimony} className="input" />
                                 </div>
                             </div>

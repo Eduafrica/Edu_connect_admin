@@ -97,9 +97,12 @@ function App() {
           <Route path="/edu-connect/faq/faq-form" element={<EduConnectFaqForm educonnectFaqId={educonnectFaqId} setEduconnectFaqId={setEduconnectFaqId} />} />
           <Route path="/edu-connect/settings" element={<EduconnectSettings />} />
           <Route path="/edu-connect/newsletter" element={<EduConnectNewsletter />} />
+          {/**
+           * 
           <Route path="/edu-connect/team" element={<EduConnectTeams />} />
           <Route path="/edu-connect/team/info/:id" element={<EduConnectTeamsInfo />} />
           <Route path="/edu-connect/new-team/:id" element={<EduConnectNewTeamMember />} />
+           */}
 
           {/**AFRICAN CHILD NETWORK */}
           <Route path="/acn/dashboard" element={<AcnDasboard />} />
