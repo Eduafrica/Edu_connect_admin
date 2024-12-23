@@ -119,8 +119,16 @@ function EduConnectNewTeamMember() {
                                     <input id="email" onChange={handleChange} defaultValue={teamData?.email} className="input" />
                                 </div>
                                 <div className="flex items-center gap-4">
-                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Phone Number</p>
-                                    <input id="phoneNumber" onChange={handleChange} defaultValue={teamData?.phoneNumber} className="input" />
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Linkedin Handle</p>
+                                    <input id="linkedinHandle" onChange={handleChange} defaultValue={teamData?.linkedinHandle} className="input" />
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Twitter Handle</p>
+                                    <input id="twitterHandle" onChange={handleChange} defaultValue={teamData?.twitterHandle} className="input" />
+                                </div>
+                                <div className="flex items-center gap-4">
+                                    <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Instagram Handle</p>
+                                    <input id="instagramHandle" onChange={handleChange} defaultValue={teamData?.instagramHandle} className="input" />
                                 </div>
                                 <div className="flex items-center gap-4">
                                     <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Testimony</p>

@@ -139,7 +139,7 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[140px]">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${newsData?.length} Testimonies` }</h2>
           </div>
 
               <div className="flex w-full items-center justify-between">
