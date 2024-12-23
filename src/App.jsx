@@ -50,8 +50,7 @@ import EduAfricaContactUsInfo from "./Pages/EduAfrica/EduAfricaContactUsInfo"
 import EduAfricaSettings from "./Pages/EduAfrica/EduAfricaSettings"
 import AcnTeams from "./Pages/AfricanChlidNetwork/AcnTeams"
 import AcnTeamsInfo from "./Pages/AfricanChlidNetwork/AcnTeamsInfo"
-import ResetPasswordSentSuccessCard from "./Components/Authorization/ResetPasswordSentSuccessCard"
-import ResetPasswordSentSuccess from "./Pages/Authorization/resetPasswordSentSuccess"
+import ResetPasswordSentSuccess from "./Pages/Authorization/ResetPasswordSentSuccess"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()

@@ -37,7 +37,7 @@ function EduConnectContactUs() {
 
             {/**BOTTOM */}
             <div className="">
-                 <ContactUsCard contactUsData={data} loading={isFetching} showFilter={true} showMenuList={true} showPagination={true} showSearch={true} />
+                 <ContactUsCard contactUsData={data} loading={isFetching} showFilter={true} showMenuList={false} showPagination={true} showSearch={true} />
             </div>
 
         </div>
