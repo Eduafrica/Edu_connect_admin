@@ -160,9 +160,45 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
                                 </div>
                             )}
                         </div>
+
+                        <div className="flex items-center gap-2">
+                        <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <p className='text-arewahub-main-color text-[16px] font-semibold'>Event Date</p>
+                    </div>
+                        <input
+                            id='eventDate'
+                            value={formData?.eventDate}
+                            onChange={handleChange}
+                            defaultValue={data?.eventDate}
+                            type="date"
+                            placeholder='Enter event date'
+                            className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
+                        />
+
+<div className="flex items-center gap-2">
+                        <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
+                            <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>
+                                <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                        </div>
+                        <p className='text-arewahub-main-color text-[16px] font-semibold'>Event Time</p>
+                    </div>
+                        <input
+                            id='eventTime'
+                            value={formData?.eventTime}
+                            onChange={handleChange}
+                            defaultValue={data?.eventTime}
+                            type="time"
+                            placeholder='Enter event time'
+                            className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
+                        />
                         
                         <div className="flex items-center gap-2">
-                        <div onClick={() => setConfigurationsActive((prev) => !prev)} className="flex items-center justify-center w-5 h-5 cursor-pointer">
+                        <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>
                                 <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>
@@ -180,7 +216,7 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
                         />
 
                     <div className="flex items-center gap-2">
-                        <div onClick={() => setConfigurationsActive((prev) => !prev)} className="flex items-center justify-center w-5 h-5 cursor-pointer">
+                        <div className="flex items-center justify-center w-5 h-5 cursor-pointer">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-arewahub-main-color'>
                                 <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                             </svg>

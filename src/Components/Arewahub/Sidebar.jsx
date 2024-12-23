@@ -75,7 +75,7 @@ function Sidebar() {
                   <div className="flex flex-col ">
                     {
                       siteLinks.map((i, idx) => (
-                        <Link to={``} key={idx} className="py-[4px] border-b-[1px]">{i.name}</Link>
+                        <Link to={`${i.link}`} key={idx} className="py-[4px] border-b-[1px]">{i.name}</Link>
                       ))
                     }
                   </div>

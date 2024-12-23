@@ -265,10 +265,10 @@ const handleFilterChange = (value) => {
                         <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
                             <div className="flex flex-col gap-[6px]">
                                 <p className="text-[13px] font-normal text-[#121212]">
-                                    {formattedDate}
+                                    {item?.eventDate}
                                 </p>
                                 <p className="text-[13px] font-normal text-[#717171]">
-                                    {formattedTime}
+                                    {item?.eventTime}
                                 </p>
                             </div>
 
