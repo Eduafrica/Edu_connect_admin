@@ -27,7 +27,7 @@ function ForgotPasswordCard({ setErrorText, setSuccessText, }) {
             const res = await forgotPassword(formData)
             if(res.success){
               toast.success(res.data)
-              navigate('/reset-password')
+              navigate('/resetPasswordSentSuccess')
             } else{
               setErrorText(res.data)
               setTimeout(() => {

@@ -202,7 +202,11 @@ function ProductForm({ setErrorMsg, data, formData, setFormData, handleChange })
                         </div>
                         <p className='text-arewahub-main-color text-[16px] font-semibold'>Add Quantity</p>
                         </div>
-                        <select onChange={handleChange} name="" id="productType">
+                        <select 
+                            onChange={handleChange} 
+                            name="" id="productType"
+                            className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
+                        >
                             <option value="">-- SELECT TYPE --</option>
                             <option value="Physical">Physical</option>
                             <option value="Digital">Digital</option>

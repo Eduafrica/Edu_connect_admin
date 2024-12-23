@@ -53,7 +53,7 @@ export async function forgotPassword(formData) {
 
 export async function resetPassword(formData) {
     try {
-        const res = await axios.post('/admin/resetPassword', formData, {withCredentials: true})
+        const res = await axios.post(`/admin/resetPassword/${formData?.resetToken}`, formData, {withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to process request'

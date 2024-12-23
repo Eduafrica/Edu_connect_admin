@@ -8,7 +8,7 @@ function TopClickedCourse({ text, data, loading }) {
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[140px] w-full pt-[20px] pl-[25px]">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `Top Expense` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `Top Clicked Course` }</h2>
           </div>
         </div>
 

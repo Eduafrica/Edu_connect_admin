@@ -7,7 +7,7 @@ import { Link, useLocation } from "react-router-dom";
 import Spinner from "../../Components/Helpers/Spinner";
 import Button from "../../Components/Helpers/Button";
 import { useState } from "react";
-import { toggleOrderActiveStatus } from "../../Helpers/arewahub/api";
+import { toggleOrderActiveStatus, togglePayment } from "../../Helpers/arewahub/api";
 import ErrorCard from "../../Components/Helpers/ErrorCard";
 import SuccessCard from "../../Components/Helpers/SuccessCard";
 import { truncateText } from "../../Helpers/truncateText";
@@ -37,6 +37,41 @@ function ArewaHubOrderInfo({  }) {
         try {
             setLoading(true)
             const res = await toggleOrderActiveStatus({ id: pathName })
+            console.log(res)
+            if(res.success){
+                setSuccessText(res.data)
+                setTimeout(() => {
+                    setSuccessText()
+                }, 2500)
+                window.location.reload()
+            } else {
+                setErrorText(res.data)
+                setTimeout(() => {
+                    setErrorText()
+                }, 2500)
+                return
+            }
+        } catch (error) {
+            
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleTogglePayment = async () => {
+        if(loading){
+            return
+        }
+        if(!pathName){
+            setErrorText('Product Id is requried')
+            setTimeout(() => {
+                setErrorText()
+            }, 2500)
+            return
+        }
+        try {
+            setLoading(true)
+            const res = await togglePayment({ id: pathName })
             console.log(res)
             if(res.success){
                 setSuccessText(res.data)
@@ -119,7 +154,9 @@ function ArewaHubOrderInfo({  }) {
                             </div>
 
                             <div className="flex items-center gap-5">
+                                <Button disabled={loading} onCLick={handleTogglePayment} text={loading ? 'Updating...' : data?.paid ? 'Unpaid' : `Approve Payment`} style={data?.paid ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
                                 <Button disabled={loading} onCLick={handleToggleOrderDelivered} text={loading ? 'Updating...' : data?.status === 'Pending' ? `Make pending` : `Make Successful`} style={data?.status === 'Successful' ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
+                            
                             </div>
                         </div>
 

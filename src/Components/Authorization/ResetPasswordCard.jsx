@@ -1,11 +1,14 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useLocation, useNavigate } from "react-router-dom"
 import Button from "../Helpers/Button"
 import LoadingBtn from "../Helpers/LoadingBtn"
 import { resetPassword } from "../../Helpers/api"
 
 function ResetPasswordCard({ setErrorText, setSuccessText, }) {
-    const [ formData, setFormData ] = useState({})
+    const navigate = useNavigate()
+    const loc = useLocation()
+    const pathName = loc.pathname.split('/')[2]
+    const [ formData, setFormData ] = useState({ resetToken: pathName })
     const [ showPassword, setShowPassword ] = useState(false)
     const [ showConfirmPassword, setConfirmShowPassword ] = useState(false)
 
@@ -40,6 +43,18 @@ function ResetPasswordCard({ setErrorText, setSuccessText, }) {
         try {
             setLoading(true)
             const res = await resetPassword(formData)
+            if(res.success){
+                setSuccessText(res.data)
+                setTimeout(() => {
+                    setSuccessText()
+                }, 2500)
+                navigate('/')
+            } else {
+                setErrorText(res.data)
+                setTimeout(() => {
+                    setErrorText()
+                }, 2500)
+            }
         } catch (error) {
             
         } finally {

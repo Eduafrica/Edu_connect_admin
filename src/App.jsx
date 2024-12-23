@@ -50,6 +50,8 @@ import EduAfricaContactUsInfo from "./Pages/EduAfrica/EduAfricaContactUsInfo"
 import EduAfricaSettings from "./Pages/EduAfrica/EduAfricaSettings"
 import AcnTeams from "./Pages/AfricanChlidNetwork/AcnTeams"
 import AcnTeamsInfo from "./Pages/AfricanChlidNetwork/AcnTeamsInfo"
+import ResetPasswordSentSuccessCard from "./Components/Authorization/ResetPasswordSentSuccessCard"
+import ResetPasswordSentSuccess from "./Pages/Authorization/resetPasswordSentSuccess"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -67,7 +69,8 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/verifyOtp" element={<VerifyOtp />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
+          <Route path="/resetPasswordSentSuccess" element={<ResetPasswordSentSuccess />} />
           <Route path="/resetPasswordSuccess" element={<ResetPasswordSuccess />} />
 
           {/**EDU CONNECT */}

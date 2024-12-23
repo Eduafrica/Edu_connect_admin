@@ -94,10 +94,20 @@ export async function toggleActive({ id }) {
 
 export async function toggleOrderActiveStatus({ id }) {
     try {
-        const res = await axios.post('/arewahub/product/approveOrderDelivered', { id }, {withCredentials: true})
+        const res = await axios.post('/arewahub/orders/approveOrderDelivered', { id }, {withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to toggle active status'
+        return res?.data
+    }
+}
+
+export async function togglePayment({ id }) {
+    try {
+        const res = await axios.post('/arewahub/orders/togglePayment', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to toggle payment status'
         return res?.data
     }
 }
