@@ -44,8 +44,8 @@ function ArewaHubFaqForm({ acnFaqId, setAcnFaqId }) {
         try {
             setLoading(true)
             const res = acnFaqId ? await updateFaq(formData) : await newFaq(formData)
-            if(res.success){
-                toast.success(res.data)
+            if(res?.success){
+                toast.success(res?.data)
                 navigate('/arewahub/faq')
             } else {
                 toast.error(res.data)

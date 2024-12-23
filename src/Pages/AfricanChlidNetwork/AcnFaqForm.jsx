@@ -44,7 +44,7 @@ function AcnFaqForm({ acnFaqId, setAcnFaqId }) {
         try {
             setLoading(true)
             const res = acnFaqId ? await updateFaq(formData) : await newFaq(formData)
-            if(res.success){
+            if(res?.success){
                 toast.success(res.data)
                 navigate('/acn/faq')
             } else {
