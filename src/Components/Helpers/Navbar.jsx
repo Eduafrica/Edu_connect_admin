@@ -10,7 +10,7 @@ function Navbar() {
         
         <div className="ml-auto flex items-center gap-2">
             <div className="w-[34px] h-[34px] rounded-full">
-                <img alt="" src={ProfileImg} className="w-full h-full rounded-full object-cover object-center" />
+                <img alt="" src={user?.profileImg || ProfileImg} className="w-full h-full rounded-full object-cover object-center" />
             </div>
 
             <div className="flex flex-col">
