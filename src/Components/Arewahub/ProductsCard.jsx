@@ -235,7 +235,7 @@ const handleFilterChange = (value) => {
                     {/* Amount */}
                     <td className="px-6 py-4">
                         <div className="text-[14px] font-normal text-gray-600 flex-col">
-                        ₦{item?.price.toLocaleString()}
+                        {item?.priceCurrency || '₦'} {item?.price.toLocaleString()}
                       </div>
                     </td>
                     <td className="px-6 text-start py-4 text-[13px] text-[#121212] font-normal">

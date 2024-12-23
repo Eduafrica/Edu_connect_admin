@@ -6,7 +6,7 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
     const [titleActive, setTitleActive] = useState(true);
     const [configurationsActive, setConfigurationsActive] = useState(true);
     const [isDragging, setIsDragging] = useState(false);
-    const MAX_FILE_SIZE_MB = 5;
+    const MAX_FILE_SIZE_MB = 2;
 
     const handleTitleDelete = () => {
         setFormData({ ...formData, title: '' });

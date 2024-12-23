@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const MAX_FILE_SIZE_MB = 5;
+const MAX_FILE_SIZE_MB = 2;
 
 function AddGallery({ setErrorMsg, formData, setFormData }) {
     const [isDragging, setIsDragging] = useState(false);
