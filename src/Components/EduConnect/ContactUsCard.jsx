@@ -108,7 +108,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[240px]">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${contactUsData?.length} Testimonies` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${contactUsData?.length} Messages` }</h2>
           </div>
 
           <div className="flex w-full items-center justify-between">

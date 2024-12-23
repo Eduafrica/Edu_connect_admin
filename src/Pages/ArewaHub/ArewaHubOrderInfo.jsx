@@ -155,7 +155,7 @@ function ArewaHubOrderInfo({  }) {
 
                             <div className="flex items-center gap-5">
                                 <Button disabled={loading} onCLick={handleTogglePayment} text={loading ? 'Updating...' : data?.paid ? 'Unpaid' : `Approve Payment`} style={data?.paid ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
-                                <Button disabled={loading} onCLick={handleToggleOrderDelivered} text={loading ? 'Updating...' : data?.status === 'Pending' ? `Make pending` : `Make Successful`} style={data?.status === 'Successful' ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
+                                <Button disabled={loading} onCLick={handleToggleOrderDelivered} text={loading ? 'Updating...' : data?.status === 'Pending' ? `Make Successful` : `Make Pending`} style={data?.status === 'Approved' ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
                             
                             </div>
                         </div>
