@@ -34,7 +34,7 @@ function EduAfricaNewTeamMember() {
             const res = pathName === 'noid' ? await newTeam(formData) : await editeam(formData)
             if(res.success){
                 toast.success(res.data)
-                navigate('/edu-connect/team')
+                navigate('/edu-africa/team')
             } else {
                 toast.error(res.data)
             }

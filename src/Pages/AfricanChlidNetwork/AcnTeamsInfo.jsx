@@ -93,7 +93,7 @@ function AcnTeamsInfo() {
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
-                        <Link to={`/acn-connect/testimonies`} className="">
+                        <Link to={`/acn/team`} className="">
                             <IoIosArrowBack />
                         </Link>
 

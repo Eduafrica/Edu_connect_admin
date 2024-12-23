@@ -32,7 +32,7 @@ function EduAfricaTeamsInfo() {
                 const res = await deleteTeamMember({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
-                    navigate('/acn/team')
+                    navigate('/edu-africa/team')
                 } else {
                     toast.error(res.data)
                 }
@@ -92,7 +92,7 @@ function EduAfricaTeamsInfo() {
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
-                        <Link to={`/acn-connect/testimonies`} className="">
+                        <Link to={`/edu-africa/team`} className="">
                             <IoIosArrowBack />
                         </Link>
 
@@ -195,7 +195,7 @@ function EduAfricaTeamsInfo() {
 
                 <div className="flex gap-[56px]">
                     <div onClick={handleApprove} className="">
-                        <Button text={`Add to website`} style={`!bg-acn-main-color`} />
+                        <Button text={`Add to website`} style={`!bg-main-color`} />
                     </div>
                     <div onClick={handleApprove} className="">
                         <Button text={`Remove from website`} style={`!bg-error !border-none`} />

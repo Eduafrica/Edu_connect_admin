@@ -45,10 +45,10 @@ function AcnFaqForm({ acnFaqId, setAcnFaqId }) {
             setLoading(true)
             const res = acnFaqId ? await updateFaq(formData) : await newFaq(formData)
             if(res?.success){
-                toast.success(res.data)
+                toast.success(res?.data)
                 navigate('/acn/faq')
             } else {
-                toast.error(res.data)
+                toast.error(res?.data)
             }
         } catch (error) {
             console.log('object', error)

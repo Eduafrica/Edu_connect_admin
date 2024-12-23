@@ -48,7 +48,7 @@ function ArewaHubFaqForm({ acnFaqId, setAcnFaqId }) {
                 toast.success(res?.data)
                 navigate('/arewahub/faq')
             } else {
-                toast.error(res.data)
+                toast.error(res?.data)
             }
         } catch (error) {
             console.log('object', error)

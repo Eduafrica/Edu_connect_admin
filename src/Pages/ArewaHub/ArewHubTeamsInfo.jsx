@@ -32,7 +32,7 @@ function ArewHubTeamsInfo() {
                 const res = await deleteTeamMember({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
-                    navigate('/acn/team')
+                    navigate('/arewa/team')
                 } else {
                     toast.error(res.data)
                 }
@@ -92,7 +92,7 @@ function ArewHubTeamsInfo() {
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
-                        <Link to={`/acn-connect/testimonies`} className="">
+                        <Link to={`/arewahub/team`} className="">
                             <IoIosArrowBack />
                         </Link>
 

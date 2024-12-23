@@ -5,7 +5,7 @@ function ProductForm({ setErrorMsg, data, formData, setFormData, handleChange })
     const [titleActive, setTitleActive] = useState(true);
     const [configurationsActive, setConfigurationsActive] = useState(true);
     const [isDragging, setIsDragging] = useState(false);
-    const MAX_FILE_SIZE_MB = 2;
+    const MAX_FILE_SIZE_MB = 1;
 
     const handleTitleDelete = () => {
         setFormData({ ...formData, title: '' });

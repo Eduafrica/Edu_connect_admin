@@ -45,10 +45,10 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
             setLoading(true)
             const res = educonnectFaqId ? await updateFaq(formData) : await newFaq(formData)
             if(res?.success){
-                toast.success(res.data)
+                toast.success(res?.data)
                 navigate('/edu-connect/faq')
             } else {
-                toast.error(res.data)
+                toast.error(res?.data)
             }
         } catch (error) {
             console.log('object', error)
