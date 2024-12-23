@@ -97,6 +97,7 @@ function EduConnectNewsletterForm({ setSuccessMsg, setErrorMsg }) {
               <option name="" id="eduafrica"> Edu Africa</option>
               <option name="" id="arewahub">Arewa hub</option>
               <option name="" id="acn">African Child Network</option>
+              <option name="" id="all">All</option>
             </select>
           </div>
 

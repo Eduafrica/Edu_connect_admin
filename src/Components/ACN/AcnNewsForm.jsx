@@ -18,9 +18,12 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
 
     const [ submitting, setSubmitting ] = useState(false)
     const handleSubmitPost = async () => {
+      if(submitting){
+        return
+      }
       try {
         setSubmitting(true)
-        const res = await pathName === 'noid' ? newNewsAndUpdate : updateNewsAndUpdate
+        const res = pathName === 'noid' ? await newNewsAndUpdate(formData) : await updateNewsAndUpdate(formData)
         if(res.success){
           setSuccessMsg(res.data)
           setTimeout(() => {
@@ -66,8 +69,8 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
           <h3 className="text-[18px] font-semibold text-[#14142B]">Add News and Updates</h3>
         </div>
 
-        <div className="">
-            <Button onCLick={handleSubmitPost} text={`+ Add New`} style={`!bg-acn-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
+        <div onClick={handleSubmitPost} className="">
+            <Button disabled={submitting} onCLick={handleSubmitPost} text={submitting ? `Saving...` : + `Add New`} style={`!bg-acn-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
         </div>
       </div>
 

@@ -71,9 +71,9 @@ export async function deleteNewsAndUpdate({ id }) {
     }
 }
 
-export async function newNewsAndUpdate({ id }) {
+export async function newNewsAndUpdate(formData) {
     try {
-        const res = await axios.post('/acn/newsAndUpdates/newNewsAndUpdate', { id }, {withCredentials: true})
+        const res = await axios.post('/acn/newsAndUpdates/newNews', formData, {withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to create newsletter'}
@@ -81,9 +81,9 @@ export async function newNewsAndUpdate({ id }) {
     }
 }
 
-export async function updateNewsAndUpdate({ id }) {
+export async function updateNewsAndUpdate(formData) {
     try {
-        const res = await axios.post('/acn/newsAndUpdates/updateNewsAndUpdate', { id }, {withCredentials: true})
+        const res = await axios.post('/acn/newsAndUpdates/updateNews', formData, {withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to update newsletter'}
@@ -128,6 +128,27 @@ export async function deleteTeamMember({ id }) {
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to delete team'}
+        return res?.data
+    }
+}
+
+//DONATIONS
+export async function toggleDonationActiveStatus({ id }) {
+    try {
+        const res = await axios.post('/acn/donation/toggleActiveStatus', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to update donation status'}
+        return res?.data
+    }
+}
+
+export async function deleteDonation({ id }) {
+    try {
+        const res = await axios.post('/acn/donation/deleteDonation', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to update donation status'}
         return res?.data
     }
 }

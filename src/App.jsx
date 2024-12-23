@@ -52,6 +52,12 @@ import AcnTeams from "./Pages/AfricanChlidNetwork/AcnTeams"
 import AcnTeamsInfo from "./Pages/AfricanChlidNetwork/AcnTeamsInfo"
 import ResetPasswordSentSuccess from "./Pages/Authorization/ResetPasswordSentSuccess"
 import EduConnectNewsletter from "./Pages/EduConnect/EduConnectNewsletter"
+import AcnNewTeamMember from "./Pages/AfricanChlidNetwork/AcnNewTeamMember"
+import EduConnectTeams from "./Pages/EduConnect/EduConnectTeams"
+import EduConnectTeamsInfo from "./Pages/EduConnect/EduConnectTeamsInfo"
+import EduConnectNewTeamMember from "./Pages/EduConnect/EduConnectNewTeamMember"
+import ArewHubTeams from "./Pages/ArewaHub/ArewHubTeams"
+import ArewHubTeamsInfo from "./Pages/ArewaHub/ArewHubTeamsInfo"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -87,6 +93,9 @@ function App() {
           <Route path="/edu-connect/faq/faq-form" element={<EduConnectFaqForm educonnectFaqId={educonnectFaqId} setEduconnectFaqId={setEduconnectFaqId} />} />
           <Route path="/edu-connect/settings" element={<EduconnectSettings />} />
           <Route path="/edu-connect/newsletter" element={<EduConnectNewsletter />} />
+          <Route path="/edu-connect/team" element={<EduConnectTeams />} />
+          <Route path="/edu-connect/team/info/:id" element={<EduConnectTeamsInfo />} />
+          <Route path="/edu-connect/new-team/:id" element={<EduConnectNewTeamMember />} />
 
           {/**AFRICAN CHILD NETWORK */}
           <Route path="/acn/dashboard" element={<AcnDasboard />} />
@@ -104,6 +113,7 @@ function App() {
           <Route path="/acn/news-and-updates/post-form/:id" element={<AcnNewsAndUpdatesForm />} />
           <Route path="/acn/team" element={<AcnTeams />} />
           <Route path="/acn/team/info/:id" element={<AcnTeamsInfo />} />
+          <Route path="/acn/new-team/:id" element={<AcnNewTeamMember />} />
           <Route path="/acn/settings" element={<AcnSettings />} />
           
           {/**AFRICAN CHILD NETWORK */}
@@ -122,11 +132,15 @@ function App() {
           <Route path="/arewahub/contact-us" element={<ArewaHubContactUs />} />
           <Route path="/arewahub/contact-us/info/:id" element={<ArewaHubContactUsInfo />} />
           <Route path="/arewahub/settings" element={<ArewaHubSettings />} />
+          <Route path="/arewahub/team" element={<ArewHubTeams />} />
+          <Route path="/arewahub/team/info/:id" element={<ArewHubTeamsInfo />} />
+
+          <Route path="/arewahub/new-team/:id" element={<EduConnectNewTeamMember />} />
 
           {/**EDU AFRICA */}
           <Route path="/edu-africa/dashboard" element={<EduAfricaDashboard />} />
           <Route path="/edu-africa/contact-us" element={<EduAfricaContactUs />} />
-          <Route path="/edu-connect/contact-us/info/:id" element={<EduAfricaContactUsInfo />} />
+          <Route path="/edu-africa/contact-us/info/:id" element={<EduAfricaContactUsInfo />} />
           <Route path="/edu-africa/settings" element={<EduAfricaSettings />} />
 
           

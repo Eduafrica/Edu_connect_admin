@@ -119,3 +119,27 @@ export function useFetchContactMessage(query){
 
     return contactUsData
 }
+
+//FETCH AREWA HUB TEAM MEMBERS
+export function useFetchTeamMembers(query){
+    const [ teamMemberData, setTeamMemberData] = useState({ isFetching: true, data: null, status: null, serverError: null, })
+    useEffect(() => {
+        const fetchTeamMemberData = async () => {
+            try {
+                const { data, status} = !query ? await axios.get(`/arewahub/team/getAllTeam`, {withCredentials: true}) : await axios.get(`/arewahub/team/getTeam/${query}`, {withCredentials: true})
+                //console.log('Data from Hooks>>>', data, 'STATUS', status)
+
+                if(status === 200){
+                    setTeamMemberData({ isFetching: false, data: data, status: status, serverError: null})
+                } else{
+                    setTeamMemberData({ isFetching: false, data: null, status: status, serverError: null})
+                }
+            } catch (error) {
+                setTeamMemberData({ isFetching: false, data: null, status: null, serverError: error})
+            }
+        }
+        fetchTeamMemberData()
+    }, [query])
+
+    return teamMemberData
+}

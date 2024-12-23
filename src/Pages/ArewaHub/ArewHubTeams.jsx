@@ -1,13 +1,13 @@
 import Navbar from "../../Components/Helpers/Navbar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Sidebar from "../../Components/Arewahub/Sidebar";
-import { useFetchEvents } from "../../Helpers/arewahub/fetch.hooks";
-import EventCards from "../../Components/Arewahub/EventCards";
-import EventStats from "../../Components/Arewahub/EventStats";
+import Stats from "../../Components/Arewahub/Stats";
+import { useFetchTeamMembers } from "../../Helpers/arewahub/fetch.hooks";
+import TeamCard from "../../Components/Arewahub/TeamCard";
 
-function ArewaHubEvents() {
-    const { data: productsOrders, isFetching } = useFetchEvents()
-    const data =  productsOrders?.data || []
+function ArewHubTeams() {
+    const { data: testimoniesData, isFetching } = useFetchTeamMembers()
+    const data = testimoniesData?.data || []
 
   return (
     <div className="page flex-row">
@@ -26,21 +26,21 @@ function ArewaHubEvents() {
         <div className="bg-bgColor pad1 flex flex-col gap-[30px]">
             <div className="flex flex-col gap-[30px]">
 
-              <DashBoardLinks name={'arewahub'} color={`text-arewahub-main-color border-arewahub-main-color`} />
+            <DashBoardLinks name={'arewahub'} color={`text-arewahub-main-color border-arewahub-main-color`} />
 
                 <h1 className="title">
-                  Events
+                  Team
                 </h1>
 
                 <div className="">
-                  <EventStats />
+                  <Stats />
                 </div>
 
             </div>
 
             <div className="">
                 {/**ADD HERE */}
-                <EventCards eventData={data} loading={isFetching} showFilter={true} showMenuList={false} showPagination={true} showSearch={true} />
+                <TeamCard teamData={data} loading={isFetching} showFilter={true} showMenuList={false} showPagination={true} showSearch={true} />
             </div>
 
         </div>
@@ -52,4 +52,4 @@ function ArewaHubEvents() {
   );
 }
 
-export default ArewaHubEvents;
+export default ArewHubTeams;

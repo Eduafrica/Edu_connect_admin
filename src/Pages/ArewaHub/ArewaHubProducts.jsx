@@ -43,7 +43,7 @@ function ArewaHubProducts() {
 
             <div className="">
                 {/**ADD HERE */}
-                <ProductsCard productsData={data} loading={isFetching} showFilter={true} showMenuList={true} showPagination={true} showSearch={true} />
+                <ProductsCard productsData={data} loading={isFetching} showFilter={true} showMenuList={false} showPagination={true} showSearch={true} />
             </div>
 
         </div>

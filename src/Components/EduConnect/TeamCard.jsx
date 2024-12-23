@@ -96,7 +96,7 @@ function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, tex
   };
 
   const handleNewTeam = () => {
-    navigate('/acn/new-team/noid')
+    navigate('/edu-connect/new-team/noid')
   }
   
   return (
@@ -262,14 +262,14 @@ function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, tex
                           {/* MODAL POPUP, visible only on hover */}
                           <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
                             <Link
-                              to={`/acn/team/info/${item?.teamMemberId}`}
+                              to={`/edu-connect/team/info/${item?.teamMemberId}`}
                               className="flex items-center gap-3 text-sm text-primary-color"
                             >
                               <MdOutlineRemoveRedEye />
                               View
                             </Link>
                             <Link
-                              to={`/acn/new-team/${item?.teamMemberId}`}
+                              to={`/edu-connect/new-team/${item?.teamMemberId}`}
                               className="flex items-center gap-3 text-sm text-primary-color"
                             >
                               <MdOutlineRemoveRedEye />
