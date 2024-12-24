@@ -1,7 +1,7 @@
 import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import Stats from "../../Components/EduConnect/Stats";
-import TestimoniesCard from "../../Components/EduConnect/TestimoniesCard";
+import TestimoniesCard from "../../Components/EduAfrica/TestimoniesCard";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
 import ContactUsCard from "../../Components/EduConnect/ContactUsCard";

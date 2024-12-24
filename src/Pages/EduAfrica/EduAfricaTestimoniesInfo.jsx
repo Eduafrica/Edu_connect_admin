@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Helpers/Navbar";
-import Sidebar from "../../Components/EduConnect/Sidebar";
+import Sidebar from "../../Components/EduAfrica/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Button from "../../Components/Helpers/Button";
 import { IoIosArrowBack } from "react-icons/io";
@@ -10,7 +10,7 @@ import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import toast from "react-hot-toast";
 import { useFetchTestimonials } from "../../Helpers/fetch.hooks";
 
-function EduConnectTestimoniesInfo() {
+function EduAfricaTestimoniesInfo() {
     const loc = useLocation()
     const navigate = useNavigate()
     const pathName = loc.pathname.split('/')[4]
@@ -110,7 +110,7 @@ function EduConnectTestimoniesInfo() {
         <div className="bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[30px]">
 
-              <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
+              <DashBoardLinks name={'eduafrica'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
@@ -228,4 +228,4 @@ function EduConnectTestimoniesInfo() {
   );
 }
 
-export default EduConnectTestimoniesInfo;
+export default EduAfricaTestimoniesInfo;

@@ -8,8 +8,8 @@ import ForgotPassword from "./Pages/Authorization/ForgotPassword"
 import ResetPassword from "./Pages/Authorization/ResetPassword"
 import ResetPasswordSuccess from "./Pages/Authorization/ResetPasswordSuccess"
 import EduConnectDashboard from "./Pages/EduConnect/EduConnectDashboard"
-import EduConnectTestimonies from "./Pages/EduConnect/EduConnectTestimonies"
-import EduConnectTestimoniesInfo from "./Pages/EduConnect/EduConnectTestimoniesInfo"
+import EduConnectTestimonies from "./Pages/EduAfrica/EduAfricaTestimonies"
+import EduConnectTestimoniesInfo from "./Pages/EduAfrica/EduAfricaTestimoniesInfo"
 import EduConnectContactUs from "./Pages/EduConnect/EduConnectContactUs"
 import EducConnectContactUsInfo from "./Pages/EduConnect/EducConnectContactUsInfo"
 import EduConnectFaq from "./Pages/EduConnect/EduConnectFaq"
@@ -68,6 +68,8 @@ import AcnStoryForm from "./Pages/AfricanChlidNetwork/AcnStoryForm"
 import AcnAmbassador from "./Pages/AfricanChlidNetwork/AcnAmbassador"
 import AcnAmbassadorInfo from "./Pages/AfricanChlidNetwork/AcnAmbassadorInfo"
 import AcnNewAmnbassador from "./Pages/AfricanChlidNetwork/AcnNewAmnbassador"
+import EduAfricaTestimonies from "./Pages/EduAfrica/EduAfricaTestimonies"
+import EduAfricaTestimoniesInfo from "./Pages/EduAfrica/EduAfricaTestimoniesInfo"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -93,10 +95,7 @@ function App() {
           <Route element={<AuthorizeAdmin />}>
             <Route path="/edu-connect/dashboard" element={<EduConnectDashboard />} />
           </Route>
-          <Route>
-            <Route path="/edu-connect/testimonies" element={<EduConnectTestimonies />} />
-          </Route>
-          <Route path="/edu-connect/testimonies/info/:id" element={<EduConnectTestimoniesInfo />} />
+
           <Route path="/edu-connect/contact-us" element={<EduConnectContactUs />} />
           <Route path="/edu-connect/contact-us/info/:id" element={<EducConnectContactUsInfo />} />
           <Route path="/edu-connect/faq" element={<EduConnectFaq setEduconnectFaqId={setEduconnectFaqId} />} />
@@ -159,6 +158,10 @@ function App() {
 
           {/**EDU AFRICA */}
           <Route path="/edu-africa/dashboard" element={<EduAfricaDashboard />} />
+          <Route>
+            <Route path="/edu-africa/testimonies" element={<EduAfricaTestimonies />} />
+          </Route>
+          <Route path="/edu-africa/testimonies/info/:id" element={<EduAfricaTestimoniesInfo />} />
           <Route path="/edu-africa/contact-us" element={<EduAfricaContactUs />} />
           <Route path="/edu-africa/contact-us/info/:id" element={<EduAfricaContactUsInfo />} />
           <Route path="/edu-africa/team" element={<EduAfricaTeams />} />

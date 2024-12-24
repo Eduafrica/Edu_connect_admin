@@ -1,11 +1,11 @@
 import Navbar from "../../Components/Helpers/Navbar";
-import Sidebar from "../../Components/EduConnect/Sidebar";
-import TestimoniesCard from "../../Components/EduConnect/TestimoniesCard";
+import TestimoniesCard from "../../Components/EduAfrica/TestimoniesCard";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import { useFetchTestimonials } from "../../Helpers/fetch.hooks";
+import Sidebar from "../../Components/EduAfrica/Sidebar";
 
-function EduConnectTestimonies() {
-  const { data: testimoniesData, isFetching } = useFetchTestimonials({ all: false, website: true, id: 'educonnect' })
+function EduAfricaTestimonies() {
+  const { data: testimoniesData, isFetching } = useFetchTestimonials({ all: false, website: true, id: 'eduafrica' })
   const data = testimoniesData?.data || []
 
   return (
@@ -26,7 +26,7 @@ function EduConnectTestimonies() {
             {/**TOP */}
             <div className="flex flex-col gap-[30px]">
 
-                <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
+                <DashBoardLinks name={'eduafrica'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <h1 className="title">
 
@@ -50,4 +50,4 @@ function EduConnectTestimonies() {
   );
 }
 
-export default EduConnectTestimonies;
+export default EduAfricaTestimonies;
