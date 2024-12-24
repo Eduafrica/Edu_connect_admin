@@ -110,7 +110,7 @@ function App() {
           {/**AFRICAN CHILD NETWORK */}
           <Route path="/acn/dashboard" element={<AcnDasboard />} />
           <Route path="/acn/donations" element={<AcnDonations />} />
-          <Route path="/acn/donations/info/:id" element={<AcnDonationInfo />} />
+          <Route path="/acn/donation/info/:id" element={<AcnDonationInfo />} />
           <Route path="/acn/testimonies" element={<AcnTestimonies />} />
           <Route path="/acn/testimonies/info/:id" element={<AcnTestimoniesInfo />} />
           <Route path="/acn/contact-us" element={<AcnContactUs />} />

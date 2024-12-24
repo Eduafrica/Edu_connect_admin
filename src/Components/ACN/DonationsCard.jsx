@@ -177,10 +177,10 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
                   item?.createdAt
                 );
                 return (
-                  <tr key={item?._id} className="border-t border-gray-200">
+                  <tr key={item?.donationId} className="border-t border-gray-200">
                     {/* Course Column */}
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                      <Link to={`/acn/donation/info/${item?._id}`} >
+                      <Link to={`/acn/donation/info/${item?.donationId}`} >
                         {item?.firstName}
                       <div className="font-semibold text=-[14px] text-[#364152]">
                       </div>
@@ -189,7 +189,7 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
                       </Link>  
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
-                      <Link to={`/acn/donation/info/${item?._id}`} >
+                      <Link to={`/acn/donation/info/${item?.donationId}`} >
                         {item?.lastName}
                       </Link>  
                     </td>
@@ -216,7 +216,7 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
                       </p>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
-                          <Link to={`/acn/donation/info/${item?._id}`} >
+                          <Link to={`/acn/donation/info/${item?.donationId}`} >
                             {item?.donationType}
                           </Link>
                       </td>
