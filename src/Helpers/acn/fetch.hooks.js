@@ -154,7 +154,31 @@ export function useFetchTeamMembers(query){
     useEffect(() => {
         const fetchTeamMemberData = async () => {
             try {
-                const { data, status} = !query ? await axios.get(`/acn/team/getAllTeam`, {withCredentials: true}) : await axios.get(`/acn/team/getTeam/${query}`, {withCredentials: true})
+                const { data, status} = !query ? await axios.get(`/acn/team/getAdminAllTeam`, {withCredentials: true}) : await axios.get(`/acn/team/getTeam/${query}`, {withCredentials: true})
+                //console.log('Data from Hooks>>>', data, 'STATUS', status)
+
+                if(status === 200){
+                    setTeamMemberData({ isFetching: false, data: data, status: status, serverError: null})
+                } else{
+                    setTeamMemberData({ isFetching: false, data: null, status: status, serverError: null})
+                }
+            } catch (error) {
+                setTeamMemberData({ isFetching: false, data: null, status: null, serverError: error})
+            }
+        }
+        fetchTeamMemberData()
+    }, [query])
+
+    return teamMemberData
+}
+
+//FETCH ACN AMBASSDOR MEMBERS
+export function useFetchAmbassadors(query){
+    const [ teamMemberData, setTeamMemberData] = useState({ isFetching: true, data: null, status: null, serverError: null, })
+    useEffect(() => {
+        const fetchTeamMemberData = async () => {
+            try {
+                const { data, status} = !query ? await axios.get(`/acn/ambassdor/getAdminAllTeam`, {withCredentials: true}) : await axios.get(`/acn/ambassdor/getTeam/${query}`, {withCredentials: true})
                 //console.log('Data from Hooks>>>', data, 'STATUS', status)
 
                 if(status === 200){

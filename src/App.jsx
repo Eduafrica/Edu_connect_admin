@@ -65,6 +65,9 @@ import EduAfricaNewTeamMember from "./Pages/EduAfrica/EduAfricaNewTeamMember"
 import AcnStories from "./Pages/AfricanChlidNetwork/AcnStories"
 import AcnStoryInfo from "./Pages/AfricanChlidNetwork/AcnStoryInfo"
 import AcnStoryForm from "./Pages/AfricanChlidNetwork/AcnStoryForm"
+import AcnAmbassador from "./Pages/AfricanChlidNetwork/AcnAmbassador"
+import AcnAmbassadorInfo from "./Pages/AfricanChlidNetwork/AcnAmbassadorInfo"
+import AcnNewAmnbassador from "./Pages/AfricanChlidNetwork/AcnNewAmnbassador"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -126,6 +129,12 @@ function App() {
           <Route path="/acn/team" element={<AcnTeams />} />
           <Route path="/acn/team/info/:id" element={<AcnTeamsInfo />} />
           <Route path="/acn/new-team/:id" element={<AcnNewTeamMember />} />
+
+          <Route path="/acn/ambassador" element={<AcnAmbassador />} />
+          <Route path="/acn/ambassador/info/:id" element={<AcnAmbassadorInfo />} />
+
+          <Route path="/acn/new-ambassador/:id" element={<AcnNewAmnbassador />} />
+
           <Route path="/acn/settings" element={<AcnSettings />} />
           
           {/**AFRICAN CHILD NETWORK */}

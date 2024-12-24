@@ -128,7 +128,7 @@ export function useFetchTeamMembers(query){
     useEffect(() => {
         const fetchTeamMemberData = async () => {
             try {
-                const { data, status} = !query ? await axios.get(`/arewahub/team/getAllTeam`, {withCredentials: true}) : await axios.get(`/arewahub/team/getTeam/${query}`, {withCredentials: true})
+                const { data, status} = !query ? await axios.get(`/arewahub/team/getAdminAllTeam`, {withCredentials: true}) : await axios.get(`/arewahub/team/getTeam/${query}`, {withCredentials: true})
                 //console.log('Data from Hooks>>>', data, 'STATUS', status)
 
                 if(status === 200){

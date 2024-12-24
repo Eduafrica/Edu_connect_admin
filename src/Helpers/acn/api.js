@@ -195,3 +195,44 @@ export async function updateStory(formData) {
         return res?.data
     }
 }
+
+//AMBASSADOR
+export async function newAmbassdor(formData) {
+    try {
+        const res = await axios.post('/acn/ambassdor/newTeam', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to create new ambassdor'}
+        return res?.data
+    }
+}
+
+export async function editAmbassdor(formData) {
+    try {
+        const res = await axios.post('/acn/ambassdor/editeam', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to update ambassdor'}
+        return res?.data
+    }
+}
+
+export async function toggleAmbassdorActiveStatus({ id }) {
+    try {
+        const res = await axios.post('/acn/ambassdor/toggleActiveStatus', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to update ambassdor status'}
+        return res?.data
+    }
+}
+
+export async function deleteAmbassdor({ id }) {
+    try {
+        const res = await axios.post('/acn/ambassdor/deleteTeamMember', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to delete ambassdor'}
+        return res?.data
+    }
+}
