@@ -62,6 +62,9 @@ import ArewHubNewTeamMember from "./Pages/ArewaHub/ArewHubNewTeamMember"
 import EduAfricaTeams from "./Pages/EduAfrica/EduAfricaTeams"
 import EduAfricaTeamsInfo from "./Pages/EduAfrica/EduAfricaTeamsInfo"
 import EduAfricaNewTeamMember from "./Pages/EduAfrica/EduAfricaNewTeamMember"
+import AcnStories from "./Pages/AfricanChlidNetwork/AcnStories"
+import AcnStoryInfo from "./Pages/AfricanChlidNetwork/AcnStoryInfo"
+import AcnStoryForm from "./Pages/AfricanChlidNetwork/AcnStoryForm"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -117,6 +120,9 @@ function App() {
           <Route path="/acn/news-and-updates" element={<AcnNewsAndUpdates />} />
           <Route path="/acn/news-and-updates/info/:id" element={<AcnNewsAndUpdatesInfo />} />
           <Route path="/acn/news-and-updates/post-form/:id" element={<AcnNewsAndUpdatesForm />} />
+          <Route path="/acn/stories" element={<AcnStories />} />
+          <Route path="/acn/story/info/:id" element={<AcnStoryInfo />} />
+          <Route path="/acn/story/story-form/:id" element={<AcnStoryForm />} />
           <Route path="/acn/team" element={<AcnTeams />} />
           <Route path="/acn/team/info/:id" element={<AcnTeamsInfo />} />
           <Route path="/acn/new-team/:id" element={<AcnNewTeamMember />} />

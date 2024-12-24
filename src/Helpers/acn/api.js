@@ -154,3 +154,44 @@ export async function deleteDonation({ id }) {
         return res?.data
     }
 }
+
+//STORIES
+export async function toggleStoryActiveState({ id }) {
+    try {
+        const res = await axios.post('/acn/story/toggleActive', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to toggle story active state'
+        return res?.data
+    }
+}
+
+export async function deleteStory({ id }) {
+    try {
+        const res = await axios.post('/acn/story/deleteStory', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to delete story'
+        return res?.data
+    }
+}
+
+export async function newStory(formData) {
+    try {
+        const res = await axios.post('/acn/story/newStory', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to create story'}
+        return res?.data
+    }
+}
+
+export async function updateStory(formData) {
+    try {
+        const res = await axios.post('/acn/story/updateStory', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || { data: 'Unable to update story'}
+        return res?.data
+    }
+}

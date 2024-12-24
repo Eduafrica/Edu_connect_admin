@@ -1,15 +1,16 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import NewsAndUpdatesForm from "./Helpers/NewsAndUpdatesForm";
 import Button from "../Helpers/Button";
-import { newNewsAndUpdate, updateNewsAndUpdate } from "../../Helpers/acn/api";
-import { useFetchNewsAndUpdates } from "../../Helpers/acn/fetch.hooks";
+import { newStory, updateStory } from "../../Helpers/acn/api";
+import { useFetchStories } from "../../Helpers/acn/fetch.hooks";
+import StoryForm from "./Helpers/StoryForm";
+import toast from "react-hot-toast";
 
-function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
+function AcnStoryFormInput({ setSuccessMsg, setErrorMsg }) {
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
-    const { data: newsData, isFetching } = useFetchNewsAndUpdates(pathName)
-    const data = newsData?.data
+    const { data: storyData, isFetching } = useFetchStories(pathName)
+    const data = storyData?.data
     const [ formData, setFormData ] = useState({ id: pathName === 'noid' ? '' : pathName })
 
     const handleChange = (e) => {
@@ -23,7 +24,8 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
       }
       try {
         setSubmitting(true)
-        const res = pathName === 'noid' ? await newNewsAndUpdate(formData) : await updateNewsAndUpdate(formData)
+        const res = pathName === 'noid' ? await newStory(formData) : await updateStory(formData)
+        console.log('object', res)
         if(res.success){
           setSuccessMsg(res.data)
           setTimeout(() => {
@@ -31,6 +33,7 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
           }, 2500)
           window.location.reload()
         } else {
+          toast.error(res.data)
           setErrorMsg(res?.data)
           setTimeout(() => {
             setErrorMsg()
@@ -66,11 +69,11 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
               />
             </svg>
           </Link>
-          <h3 className="text-[18px] font-semibold text-[#14142B]">Add News and Updates</h3>
+          <h3 className="text-[18px] font-semibold text-[#14142B]">Add Story</h3>
         </div>
 
         <div onClick={handleSubmitPost} className="">
-            <Button disabled={submitting} text={submitting ? `Saving...` : pathName === 'noid' ? `+ Add New` : 'Update'} style={`!bg-acn-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
+            <Button disabled={submitting} onCLick={handleSubmitPost} text={submitting ? `Saving...` : pathName === 'noid' ? `+ Add New` : 'Update'} style={`!bg-acn-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
         </div>
       </div>
 
@@ -80,7 +83,7 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
       <div className="flex items-stretch grow h-full">
 
         <div className="flex flex-col flex-[7]">
-            <NewsAndUpdatesForm setErrorMsg={setErrorMsg} data={data} formData={formData} setFormData={setFormData} handleChange={handleChange} />
+            <StoryForm setErrorMsg={setErrorMsg} data={data} formData={formData} setFormData={setFormData} handleChange={handleChange} />
         </div>
 
         {/**VERTICAL LINE */}
@@ -99,4 +102,4 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
   );
 }
 
-export default AcnNewsForm;
+export default AcnStoryFormInput;

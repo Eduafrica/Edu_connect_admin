@@ -123,6 +123,31 @@ export function useFetchNewsAndUpdates(query){
     return newsData
 }
 
+//FETCH ACN STORIES
+export function useFetchStories(query){
+    const [ storiesData, setStoriesData] = useState({ isFetching: true, data: null, status: null, serverError: null, })
+    useEffect(() => {
+        const fetchStoriesData = async () => {
+            try {
+                const { data, status} = !query ? await axios.get(`/acn/story/getAllStories`, {withCredentials: true}) : await axios.get(`/acn/story/getAStory/${query}`, {withCredentials: true})
+                //console.log('Data from Hooks>>>', data, 'STATUS', status)
+
+                if(status === 200){
+                    setStoriesData({ isFetching: false, data: data, status: status, serverError: null})
+                } else{
+                    setStoriesData({ isFetching: false, data: null, status: status, serverError: null})
+                }
+            } catch (error) {
+                setStoriesData({ isFetching: false, data: null, status: null, serverError: error})
+            }
+        }
+        fetchStoriesData()
+    }, [query])
+
+    return storiesData
+}
+
+
 //FETCH ACN TEAM MEMBERS
 export function useFetchTeamMembers(query){
     const [ teamMemberData, setTeamMemberData] = useState({ isFetching: true, data: null, status: null, serverError: null, })

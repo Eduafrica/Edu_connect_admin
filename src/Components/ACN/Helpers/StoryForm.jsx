@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import RichTextEditor from './RichTextEditor';
 
-function NewsAndUpdatesForm({ data, formData, setFormData, handleChange, setErrorMsg }) {
+function StoryForm({ data, formData, setFormData, handleChange, setErrorMsg }) {
     const [titleActive, setTitleActive] = useState(true);
     const [configurationsActive, setConfigurationsActive] = useState(true);
     const [isDragging, setIsDragging] = useState(false);
@@ -94,7 +94,7 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange, setErro
                         <input id='title' defaultValue={data?.title} value={formData?.title} onChange={handleChange} type="text" placeholder='Enter Title' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
                     
                         <div className="">
-                            <RichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={'post'} />
+                            <RichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={'story'} placeholder={'Start typing story'} />
                         </div>
                     </>
                 )}
@@ -176,4 +176,4 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange, setErro
     );
 }
 
-export default NewsAndUpdatesForm;
+export default StoryForm;

@@ -196,7 +196,7 @@ function ArewaHubOrderInfo({  }) {
                               className={`py-[5px] px-[10px] rounded-[100px] ${
                                   data?.paid === false
                                   ? "bg-[#D8E0E5] text-[#585858]"// Pending style
-                                  : data?.status === 'Successful'
+                                  : data?.status === 'Approved'
                                   ? "bg-[#05A75312] text-[#05A753]" // Successful style
                                   : data?.status === 'Pending'
                                   ? "bg-[#FCB90B12] text-[#FCB90B]"
@@ -223,6 +223,7 @@ function ArewaHubOrderInfo({  }) {
                                                     <img src={i?.image} alt={i?.productName} className="w-full" />
                                                     <p className="text-[#364152] font-semibold text-[14px]">{i.name}</p>
                                                     <p className="text-[16px] font-bold text-[#364152]">{i.price}</p>
+                                                    <p className="text-[12px] font-bold text-[#364152]">{i.productId}</p>
                                             </div>
                                     ))
                                 }
@@ -232,6 +233,7 @@ function ArewaHubOrderInfo({  }) {
                             <div className="border-t-[1px] border-[#EFF0F6] min-h-[48px] w-full flex items-center px-4">
                                 <p className="font-normal text-[14px] text-[#585858]">Total Amount</p>
                                 <p className="font-semibold text-[14px] text-[#344054]">₦{data?.amount?.toLocaleString()}</p>
+                                
                             </div>
                         </div>
                         

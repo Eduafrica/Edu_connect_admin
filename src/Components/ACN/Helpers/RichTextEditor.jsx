@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 
-const RichTextEditor = ({ handleChange, setFormData }) => {
+const RichTextEditor = ({ handleChange, setFormData, formDataValue, placeholder }) => {
   const editorRef = useRef(null);
   const quillInstance = useRef(null); // To store Quill instance
 
@@ -34,7 +34,7 @@ const RichTextEditor = ({ handleChange, setFormData }) => {
           userOnly: true,
         },
       },
-      placeholder: "Enter News",
+      placeholder: placeholder || "Enter News",
     });
 
     quillInstance.current = quill; // Store the Quill instance
@@ -44,7 +44,7 @@ const RichTextEditor = ({ handleChange, setFormData }) => {
       const htmlContent = quill.root.innerHTML; // Get editor content as HTML
       setFormData((prev) => ({
         ...prev,
-        post: htmlContent, // Update form data with editor content
+        [formDataValue]: htmlContent, // Update form data with editor content
       }));
       if (handleChange) {
         handleChange(htmlContent); // Call external handleChange if provided
