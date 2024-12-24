@@ -193,6 +193,9 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange }) {
                         </div>
 
                         <input id='category' value={formData?.category} onChange={handleChange} type="text" placeholder='Enter category seprated bg coma,' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
+
+                        <input id='caption' value={formData?.caption} onChange={handleChange} type="text" placeholder='Enter caption text' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
+
                     </>
                 )}
             </div>

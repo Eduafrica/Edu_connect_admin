@@ -23,16 +23,16 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
         if (!isValidImage) {
             setErrorMsg('Only image files are allowed.');
             setTimeout(() => {
-                setErrorMsg()
-            }, 2500)
+                setErrorMsg();
+            }, 2500);
             return false;
         }
 
         if (!isWithinSizeLimit) {
             setErrorMsg(`File size must not exceed ${MAX_FILE_SIZE_MB}MB.`);
             setTimeout(() => {
-                setErrorMsg()
-            }, 2500)
+                setErrorMsg();
+            }, 2500);
             return false;
         }
 
@@ -42,11 +42,7 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
     const handleImageSelect = (e) => {
         const file = e.target.files[0];
         if (file && validateFile(file)) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setFormData({ ...formData, image: reader.result });
-            };
-            reader.readAsDataURL(file);
+            setFormData({ ...formData, image: file });
         }
     };
 
@@ -64,11 +60,7 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
         setIsDragging(false);
         const file = e.dataTransfer.files[0];
         if (file && validateFile(file)) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setFormData({ ...formData, image: reader.result });
-            };
-            reader.readAsDataURL(file);
+            setFormData({ ...formData, image: file });
         }
     };
 
@@ -103,7 +95,9 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
                             placeholder='Enter event name'
                             className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
                         />
-                        <EventRichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} />
+                        <EventRichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={`schedule`} placeholder={`Schedule`} />
+
+                        <EventRichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={'eventDescription'} placeholder={'Event Description'} />
                     </>
                 )}
             </div>
@@ -124,15 +118,17 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
                 </div>
                 {configurationsActive && (
                     <>
-                        <div
+          <div
                             onDragOver={handleDragOver}
                             onDragLeave={handleDragLeave}
                             onDrop={handleImageDrop}
-                            className={`border-[1px] border-[#D0D5DD] border-dashed rounded-[11px] py-[19px] text-center flex items-center justify-center flex-col ${isDragging ? 'bg-gray-100' : ''}`}
+                            className={`border-[1px] border-[#D0D5DD] border-dashed rounded-[11px] py-[19px] text-center flex items-center justify-center flex-col ${
+                                isDragging ? 'bg-gray-100' : ''
+                            }`}
                         >
                             {formData?.image ? (
                                 <div className="relative">
-                                    <img className="w-full h-[300px] object-cover rounded-[6px]" src={formData?.image} alt="Preview" />
+                                    <p className="text-[14px] font-semibold">File Selected: {formData?.image.name}</p>
                                     <button
                                         type="button"
                                         onClick={handleFileDelete}
@@ -142,7 +138,7 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
                                     </button>
                                 </div>
                             ) : (
-                                <div className='flex items-center justify-center flex-col gap-[10px]'>
+                                <div className="flex items-center justify-center flex-col gap-[10px]">
                                     <p className="text-[#585858] text-[10px] font-normal">Drop an image here or</p>
                                     <label
                                         htmlFor="file-upload"

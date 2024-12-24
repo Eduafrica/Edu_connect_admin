@@ -17,51 +17,39 @@ function AddGallery({ setErrorMsg, formData, setFormData }) {
     };
 
     // Handle image drop events
-    const handleImageDrop = async (e) => {
+    const handleImageDrop = (e) => {
         e.preventDefault();
         setIsDragging(false);
-        const files = e.dataTransfer.files;
-        await processFiles(files);
+        const files = Array.from(e.dataTransfer.files);
+        processFiles(files);
     };
 
     // Handle image selection via file input
-    const handleImageSelect = async (e) => {
-        const files = e.target.files;
-        await processFiles(files);
+    const handleImageSelect = (e) => {
+        const files = Array.from(e.target.files);
+        processFiles(files);
     };
 
-    // Process files (convert to base64 and validate size)
-    const processFiles = async (files) => {
-        const newImages = [];
-        for (let i = 0; i < files.length; i++) {
-            const file = files[i];
+    // Process files (validate size)
+    const processFiles = (files) => {
+        const validFiles = files.filter((file) => {
             if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
                 setErrorMsg(`File ${file.name} exceeds the maximum size of ${MAX_FILE_SIZE_MB}MB.`);
                 setTimeout(() => {
-                    setErrorMsg()
-                }, 2500)
-                continue;
+                    setErrorMsg('');
+                }, 2500);
+                return false;
             }
-            const base64 = await convertToBase64(file);
-            newImages.push(base64);
-        }
+            return true;
+        });
+
         setFormData((prev) => ({
             ...prev,
-            eventGallery: [...(prev.eventGallery || []), ...newImages],
+            eventGallery: [...(prev.eventGallery || []), ...validFiles],
         }));
     };
 
-    // Convert file to base64
-    const convertToBase64 = (file) => {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = () => resolve(reader.result);
-            reader.onerror = (error) => reject(error);
-        });
-    };
-
-    // Remove image from the gallery
+    // Remove file from the gallery
     const handleFileDelete = (index) => {
         setFormData((prev) => {
             const updatedGallery = [...(prev.eventGallery || [])];
@@ -75,13 +63,19 @@ function AddGallery({ setErrorMsg, formData, setFormData }) {
             onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
             onDrop={handleImageDrop}
-            className={`border-[1px] border-[#D0D5DD] border-dashed rounded-[11px] py-[19px] text-center flex items-center justify-center flex-col ${isDragging ? 'bg-gray-100' : ''}`}
+            className={`border-[1px] border-[#D0D5DD] border-dashed rounded-[11px] py-[19px] text-center flex items-center justify-center flex-col ${
+                isDragging ? 'bg-gray-100' : ''
+            }`}
         >
             {formData?.eventGallery?.length > 0 ? (
                 <div className="grid grid-cols-3 gap-4">
-                    {formData.eventGallery.map((eventImage, index) => (
+                    {formData.eventGallery.map((file, index) => (
                         <div key={index} className="relative">
-                            <img className="w-full h-[100px] object-cover rounded-[6px]" src={eventImage} alt={`Preview ${index + 1}`} />
+                            <img
+                                className="w-full h-[100px] object-cover rounded-[6px]"
+                                src={URL.createObjectURL(file)} // Preview the file using URL.createObjectURL
+                                alt={`Preview ${index + 1}`}
+                            />
                             <button
                                 type="button"
                                 onClick={() => handleFileDelete(index)}
