@@ -180,14 +180,18 @@ function DonationsCard({ donationData, loading, showFilter, showMenuList, showSe
                   <tr key={item?._id} className="border-t border-gray-200">
                     {/* Course Column */}
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
+                      <Link to={`/acn/donation/info/${item?._id}`} >
                         {item?.firstName}
                       <div className="font-semibold text=-[14px] text-[#364152]">
                       </div>
                       <div className="text-[14px] font-normal text-gray-600">
                       </div>
+                      </Link>  
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
+                      <Link to={`/acn/donation/info/${item?._id}`} >
                         {item?.lastName}
+                      </Link>  
                     </td>
                     {/* Order Amount Column */}
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600">
