@@ -88,7 +88,7 @@ function EduAfricaTeamsInfo() {
         <div className="bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[30px]">
 
-            <DashBoardLinks name={'eduafrica'} color={`text-main-color border-main-color`} />
+            <DashBoardLinks name={'eduafrica'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
@@ -99,9 +99,9 @@ function EduAfricaTeamsInfo() {
                         <div className="">
                             <div className="flex items-center gap-[6px]">
                             <div className="flex items-center gap-4">
-                                {teamData?.iamge ? (
+                                {teamData?.image ? (
                                 <img
-                                    src={teamData?.iamge}
+                                    src={teamData?.image}
                                     alt={`${teamData?.firstName}'s profile`}
                                     className="w-[45px] h-[45px] rounded-full"
                                 />

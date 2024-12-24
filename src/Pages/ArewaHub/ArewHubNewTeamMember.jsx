@@ -8,7 +8,7 @@ import toast from "react-hot-toast";
 import Sidebar from "../../Components/Arewahub/Sidebar";
 import Spinner from "../../Components/Helpers/Spinner";
 import { useFetchTeamMembers } from "../../Helpers/arewahub/fetch.hooks";
-import { editeam, newTeam } from "../../Helpers/arewahub/api";
+import { newTeam, editeam } from "../../Helpers/arewahub/api";
 
 function ArewHubNewTeamMember() {
     const navigate = useNavigate();
@@ -19,6 +19,7 @@ function ArewHubNewTeamMember() {
 
     const { data: teamMemberData, isFetching } = useFetchTeamMembers(pathName);
     const teamData = teamMemberData?.data || {};
+    console.log('object', formData)
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -31,29 +32,32 @@ function ArewHubNewTeamMember() {
                 toast.error("Image size must be less than 1MB");
                 return;
             }
-            const reader = new FileReader();
-            reader.onload = () => {
-                setFormData({ ...formData, image: reader.result });
-            };
-            reader.readAsDataURL(file);
+            setFormData({ ...formData, image: file });
         }
     };
 
     const handleTeamMember = async () => {
-        if (loading) {
-            return;
-        }
+        if (loading) return;
+
         try {
             setLoading(true);
-            const res = pathName === 'noid' ? await newTeam(formData) : await editeam(formData);
+            const data = new FormData();
+            Object.keys(formData).forEach((key) => {
+                data.append(key, formData[key]);
+            });
+
+            const apiFunction = pathName === "noid" ? newTeam : editeam;
+            const res = await apiFunction(data);
+
             if (res.success) {
                 toast.success(res.data);
-                navigate('/arewahub/team');
+                navigate("/arewahub/team");
             } else {
                 toast.error(res.data);
             }
         } catch (error) {
             console.error(error);
+            toast.error("An error occurred while saving the team member.");
         } finally {
             setLoading(false);
         }

@@ -99,9 +99,9 @@ function EduConnectTeamsInfo() {
                         <div className="">
                             <div className="flex items-center gap-[6px]">
                             <div className="flex items-center gap-4">
-                                {teamData?.iamge ? (
+                                {teamData?.image ? (
                                 <img
-                                    src={teamData?.iamge}
+                                    src={teamData?.image}
                                     alt={`${teamData?.firstName}'s profile`}
                                     className="w-[45px] h-[45px] rounded-full"
                                 />

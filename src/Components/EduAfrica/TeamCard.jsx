@@ -218,9 +218,9 @@ function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, tex
                     {/* Image */}
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        {item.img ? (
+                        {item.image ? (
                           <img
-                            src={item.img}
+                            src={item.image}
                             alt={`${item.firstName} user`}
                             className="w-[32px] h-[32px] rounded-full"
                           />
