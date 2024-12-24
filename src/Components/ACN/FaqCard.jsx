@@ -27,10 +27,10 @@ function FaqCard({ data, setAcnFaqId, loading: loadingData }) {
   const handleNavigate = (id) => {
     if (id) {
       setAcnFaqId(id);
-      navigate("/acn/faq/faq-form");
+      navigate("/acn/annual-report/annual-report-form");
     } else {
       setAcnFaqId();
-      navigate("/acn/faq/faq-form");
+      navigate("/acn/annual-report/annual-report-form");
     }
   };
 

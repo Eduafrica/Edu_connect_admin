@@ -112,9 +112,8 @@ function App() {
           <Route path="/acn/testimonies/info/:id" element={<AcnTestimoniesInfo />} />
           <Route path="/acn/contact-us" element={<AcnContactUs />} />
           <Route path="/acn/contact-us/info/:id" element={<AcnContactUsInfo />} />
-          <Route path="/acn/faq" element={<AcnFaq setAcnFaqId={setAcnFaqId} />} />
-          <Route path="/acn/faq/faq-form" element={<AcnFaqForm acnFaqId={acnFaqId} setAcnFaqId={setAcnFaqId} />} />
-          <Route path="/acn/annual-report" element={<AcnFaq />} />
+          <Route path="/acn/annual-report" element={<AcnFaq setAcnFaqId={setAcnFaqId} />} />
+          <Route path="/acn/annual-report/annual-report-form" element={<AcnFaqForm acnFaqId={acnFaqId} setAcnFaqId={setAcnFaqId} />} />
           <Route path="/acn/news-and-updates" element={<AcnNewsAndUpdates />} />
           <Route path="/acn/news-and-updates/info/:id" element={<AcnNewsAndUpdatesInfo />} />
           <Route path="/acn/news-and-updates/post-form/:id" element={<AcnNewsAndUpdatesForm />} />

@@ -15,10 +15,10 @@ function AcnFaq({ setAcnFaqId }) {
     const handleNavigate = (id) => {
       if(id){
           setAcnFaqId(id)
-          navigate('/acn/faq/faq-form')
+          navigate('/acn/annual-report/annual-report-form')
       } else {
           setAcnFaqId()
-          navigate('/acn/faq/faq-form')
+          navigate('/acn/annual-report/annual-report-form')
       }
   }
   return (
@@ -41,8 +41,8 @@ function AcnFaq({ setAcnFaqId }) {
               <DashBoardLinks name={'acn'} color={`text-acn-main-color border-acn-main-color`} />
 
                 <div className="flex items-center justify-center gap-8 flex-col">
-                    <h2 className="text-gray-900 text-[36px] font-semibold text-center">Frequently asked questions</h2>
-                    <p className="text-gray-600 font-normal text-[20px] text-center">Everything you need to know about the Africa Child Network</p>
+                    <h2 className="text-gray-900 text-[36px] font-semibold text-center">Annaul report</h2>
+                    <p className="text-gray-600 font-normal text-[20px] text-center">Yearly report of African child network</p>
                 </div>
                 
                 <div className="flex w-[768px] items-center justify-center">
@@ -50,7 +50,7 @@ function AcnFaq({ setAcnFaqId }) {
                 </div>
 
                 <div className="w-[299px]">
-                  <Button onCLick={handleNavigate} text={`Add FAQ`} style={`!bg-acn-main-color`}  />
+                  <Button onCLick={handleNavigate} text={`Add Annaul Report`} style={`!bg-acn-main-color`}  />
                 </div>
 
             </div>

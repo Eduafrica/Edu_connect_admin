@@ -1,5 +1,6 @@
-import axios from "./BaseUrl"
-//url
+import axios from 'axios'
+
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
 
 export async function register(formData) {
     try {

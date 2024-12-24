@@ -1,4 +1,6 @@
-import axios from "../BaseUrl"
+import axios from 'axios'
+
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
 
 //REPLY CONTACT US MESSAGE
 export async function replyMessage(formData) {
@@ -54,7 +56,7 @@ export async function deleteFaq({ id }) {
 //PRODUCT
 export async function newProduct(formData) {
     try {
-        const res = await axios.post('/arewahub/product/newProduct', formData, {withCredentials: true})
+        const res = await axios.post('/arewahub/product/newProduct', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to create new product'}
@@ -64,7 +66,7 @@ export async function newProduct(formData) {
 
 export async function updateProduct(formData) {
     try {
-        const res = await axios.post('/arewahub/product/updateProduct', formData, {withCredentials: true})
+        const res = await axios.post('/arewahub/product/updateProduct', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to update product'}
@@ -115,7 +117,8 @@ export async function togglePayment({ id }) {
 //EVENTS
 export async function newEvent(formData) {
     try {
-        const res = await axios.post('/arewahub/events/newEvent', formData, {withCredentials: true})
+        console.log('DATA FORM', formData)
+        const res = await axios.post('/arewahub/events/newEvent', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to create new event'
@@ -125,7 +128,7 @@ export async function newEvent(formData) {
 
 export async function updateEvent(formData) {
     try {
-        const res = await axios.post('/arewahub/events/updateEvent', formData, {withCredentials: true})
+        const res = await axios.post('/arewahub/events/updateEvent', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to update event'
@@ -146,7 +149,7 @@ export async function deleteEvent({ id }) {
 //TEAM
 export async function newTeam(formData) {
     try {
-        const res = await axios.post('/arewahub/team/newTeam', formData, {withCredentials: true})
+        const res = await axios.post('/arewahub/team/newTeam', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to create new team'}
@@ -156,7 +159,7 @@ export async function newTeam(formData) {
 
 export async function editeam(formData) {
     try {
-        const res = await axios.post('/arewahub/team/editeam', formData, {withCredentials: true})
+        const res = await axios.post('/arewahub/team/editeam', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to update team'}

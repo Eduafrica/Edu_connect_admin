@@ -10,7 +10,7 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
     const pathName = loc.pathname.split('/')[4]
     const { data: newsData, isFetching } = useFetchNewsAndUpdates(pathName)
     const data = newsData?.data
-    const [ formData, setFormData ] = useState({ _id: pathName === 'noid' ? pathName : '' })
+    const [ formData, setFormData ] = useState({ id: pathName === 'noid' ? '' : pathName })
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -31,7 +31,7 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
           }, 2500)
           window.location.reload()
         } else {
-          setErrorMsg(res.data)
+          setErrorMsg(res?.data)
           setTimeout(() => {
             setErrorMsg()
           }, 2500)
@@ -70,7 +70,7 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
         </div>
 
         <div onClick={handleSubmitPost} className="">
-            <Button disabled={submitting} onCLick={handleSubmitPost} text={submitting ? `Saving...` : + `Add New`} style={`!bg-acn-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
+            <Button disabled={submitting} onCLick={handleSubmitPost} text={submitting ? `Saving...` : pathName === 'noid' ? `+ Add New` : 'Update'} style={`!bg-acn-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
         </div>
       </div>
 
@@ -80,7 +80,7 @@ function AcnNewsForm({ setSuccessMsg, setErrorMsg }) {
       <div className="flex items-stretch grow h-full">
 
         <div className="flex flex-col flex-[7]">
-            <NewsAndUpdatesForm data={data} formData={formData} setFormData={setFormData} handleChange={handleChange} />
+            <NewsAndUpdatesForm setErrorMsg={setErrorMsg} data={data} formData={formData} setFormData={setFormData} handleChange={handleChange} />
         </div>
 
         {/**VERTICAL LINE */}

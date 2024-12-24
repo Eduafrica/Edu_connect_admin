@@ -27,7 +27,7 @@ function AcnFaqForm({ acnFaqId, setAcnFaqId }) {
         }
         if(!acnFaqId){
             if(!formData?.question){
-                setError('Provide a Question')
+                setError('Provide a Title')
                 setTimeout(() => {
                     setError()
                 }, 2500)
@@ -46,7 +46,7 @@ function AcnFaqForm({ acnFaqId, setAcnFaqId }) {
             const res = acnFaqId ? await updateFaq(formData) : await newFaq(formData)
             if(res?.success){
                 toast.success(res?.data)
-                navigate('/acn/faq')
+                navigate('/acn/annual-report')
             } else {
                 toast.error(res?.data)
             }
@@ -81,8 +81,8 @@ function AcnFaqForm({ acnFaqId, setAcnFaqId }) {
               <DashBoardLinks name={'acn'} color={`text-acn-main-color border-acn-main-color`} />
 
                 <div className="flex items-center justify-center gap-8 flex-col">
-                    <h2 className="text-gray-900 text-[36px] font-semibold text-center">Frequently asked questions</h2>
-                    <p className="text-gray-600 font-normal text-[20px] text-center">Everything you need to know about the Educonnect Africa</p>
+                    <h2 className="text-gray-900 text-[36px] font-semibold text-center">Annual report</h2>
+                    <p className="text-gray-600 font-normal text-[20px] text-center">Yearly report of African child network</p>
                 </div>
                 
                 <div className="flex w-[770px] flex-col gap-[30px]">

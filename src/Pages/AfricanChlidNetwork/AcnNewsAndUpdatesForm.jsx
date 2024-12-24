@@ -8,6 +8,7 @@ import { newsandupdates } from "../../Data/newsandupdates";
 import AcnNewsForm from "../../Components/ACN/AcnNewsForm";
 import { useState } from "react";
 import SuccessCard from "../../Components/Helpers/SuccessCard";
+import ErrorCard from "../../Components/Helpers/ErrorCard";
 
 function AcnNewsAndUpdatesForm() {
   const { data: newsAndUpdateData, isFetching } = useFetchNewsAndUpdates()

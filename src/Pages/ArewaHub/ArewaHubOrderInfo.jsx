@@ -147,7 +147,7 @@ function ArewaHubOrderInfo({  }) {
                                         <p className="text-sm font-normal text-[#13693B]">{data?.orderId}</p>
                                     </div>
 
-                                    <div className={`rounded-[100px] py-[5px] px-[10px] flex items-center justify-center ${data?.status === 'Successful' ? 'bg-[#05A75312] text-[#05A753]' : 'bg-[#FFFAEE] text-[#FCB90B]'}`}>
+                                    <div className={`rounded-[100px] py-[5px] px-[10px] flex items-center justify-center ${data?.status === 'Approved' ? 'bg-[#05A75312] text-[#05A753]' : 'bg-[#FFFAEE] text-[#FCB90B]'}`}>
                                         {!data?.paid ? 'Not paid' : data?.status}
                                     </div>
                                 </div>

@@ -1,4 +1,6 @@
-import axios from "../BaseUrl"
+import axios from 'axios'
+
+axios.defaults.baseURL = import.meta.env.VITE_SERVER_URL
 
 export async function replyMessage(formData) {
     try {
@@ -13,7 +15,7 @@ export async function replyMessage(formData) {
 //TEAM
 export async function newTeam(formData) {
     try {
-        const res = await axios.post('/eduafrica/team/newTeam', formData, {withCredentials: true})
+        const res = await axios.post('/eduafrica/team/newTeam', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to create new team'}
@@ -23,7 +25,7 @@ export async function newTeam(formData) {
 
 export async function editeam(formData) {
     try {
-        const res = await axios.post('/eduafrica/team/editeam', formData, {withCredentials: true})
+        const res = await axios.post('/eduafrica/team/editeam', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || { data: 'Unable to update team'}
