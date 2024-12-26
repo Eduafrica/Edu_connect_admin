@@ -17,3 +17,19 @@ export const formatDateAndTime = (createdAt) => {
 
   return { formattedDate, formattedTime };
 };
+
+export const convertTo12HourFormat = (time24) => {
+  if (!time24) {
+    return ''; // Return an empty string or a default value if time24 is undefined or null
+  }
+
+  const [hours, minutes] = time24.split(':'); // Split the time into hours and minutes
+  const hour = parseInt(hours, 10); // Convert hour part to an integer
+  const minute = parseInt(minutes, 10); // Convert minute part to an integer
+  
+  const suffix = hour >= 12 ? 'PM' : 'AM'; // Check if it's AM or PM
+  const hour12 = hour % 12 || 12; // Convert to 12-hour format (handles 12 AM/PM)
+  const minuteFormatted = minute < 10 ? `0${minute}` : minute; // Format minutes with leading zero if needed
+
+  return `${hour12}:${minuteFormatted} ${suffix}`; // Return formatted 12-hour time
+}

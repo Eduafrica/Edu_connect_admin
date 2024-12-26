@@ -3,21 +3,22 @@ import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Sidebar from "../../Components/Arewahub/Sidebar";
 import Stats from "../../Components/Arewahub/Stats";
 import { useState } from "react";
-import TopDonations from "../../Components/ACN/TopDonations";
-import TopExpense from "../../Components/ACN/TopExpense";
-import { useFetchDonations, useFetchExpense } from "../../Helpers/acn/fetch.hooks";
 import RevenueCard from "../../Components/Arewahub/RevenueCard";
 import TopSellingBooks from "../../Components/Arewahub/TopSellingBooks";
 import TopSellingProducts from "../../Components/Arewahub/TopSellingProducts";
+import { useFetchRevenuesAndOrders, useFetchTopSellingCourse } from "../../Helpers/arewahub/fetch.hooks";
 
 function ArewaHubDashboard() {
-  const { data: donationData, isFetching: loadingBookSales } = useFetchDonations()
-  const { data: expenseData, isFetching: loadingProductSales } = useFetchExpense()
+  const { data: topSellingData, isFetching: loadingTopSales } = useFetchTopSellingCourse()
 
 
-  const topSellingBooks = donationData?.data?.splice(0, 5) || [].splice(0, 5)
-  const topSellingProduct = expenseData?.data.splice(0, 5) || [].splice(0, 6)
+  const topSellingBooks = topSellingData?.data?.topSellingBooks?.splice(0, 5) || [].splice(0, 5)
+  const topSellingProduct = topSellingData?.data?.topSellingProducts?.splice(0, 5) || [].splice(0, 6)
+
   const [ selectedDate, setSelectedDate ] = useState()
+
+  const { data: RevenueAndOrderData, isFetching: loadingRevenueAndOrderData } = useFetchRevenuesAndOrders(selectedDate || '30days')
+  const revenueData = RevenueAndOrderData?.data
 
   return (
     <div className="page flex-row">
@@ -43,7 +44,7 @@ function ArewaHubDashboard() {
                 </h1>
 
                 <div className="">
-                  <Stats />
+                  <Stats data={revenueData} loading={loadingRevenueAndOrderData} />
                 </div>
 
             </div>
@@ -52,8 +53,8 @@ function ArewaHubDashboard() {
 
             <div className="flex  items-start gap-[66px] justify-between">
                 {/**fetch dat table two table */}
-                <TopSellingBooks data={topSellingBooks} loading={loadingBookSales}  />
-                <TopSellingProducts data={topSellingProduct} loading={loadingProductSales}  />
+                <TopSellingBooks data={topSellingBooks} loading={loadingTopSales}  />
+                <TopSellingProducts data={topSellingProduct} loading={loadingTopSales}  />
             </div>
 
         </div>

@@ -10,7 +10,7 @@ import Spinner from "../../Components/Helpers/Spinner";
 import { useFetchAmbassadors } from "../../Helpers/acn/fetch.hooks";
 import { newAmbassdor, editAmbassdor } from "../../Helpers/acn/api";
 
-function AcnNewAmnbassador() {
+function AcnNewAmbassador() {
     const navigate = useNavigate();
     const loc = useLocation();
     const pathName = loc.pathname.split('/')[3];
@@ -87,7 +87,7 @@ function AcnNewAmnbassador() {
                                 </Link>
                                 <div>
                                     <h2 className="text-lg text-[#14142B] font-semibold">
-                                        {pathName === 'noid' ? 'Add New' : 'Update'} Team Member
+                                        {pathName === 'noid' ? 'Add New' : 'Update'} Ambassador
                                     </h2>
                                 </div>
                             </div>
@@ -191,4 +191,4 @@ function AcnNewAmnbassador() {
     );
 }
 
-export default AcnNewAmnbassador;
+export default AcnNewAmbassador;

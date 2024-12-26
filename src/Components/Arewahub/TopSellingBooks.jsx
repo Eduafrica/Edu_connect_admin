@@ -18,13 +18,13 @@ function TopSellingBooks({ text, data, loading }) {
           <thead className="rounded-t-[12px]">
             <tr className="bg-[#F5F7F9] border-b-[1px] rounded-t-[2px]">
               <th className="px-6 py-3 text-left text-[#585858] font-medium text-[12px] tracking-wider">
-                Store
+                Book Name
               </th>
               <th className="px-6 py-3 text-left text-[#585858] font-medium text-[12px] tracking-wider">
-                Orders
+                Book Id
               </th>
               <th className="px-6 py-3 text-left text-[#585858] font-medium text-[12px] tracking-wider">
-                Earnings
+                Price
               </th>
               <th className="px-6 py-3 text-left text-[#585858] font-medium text-[12px] tracking-wider">
                 
@@ -47,25 +47,22 @@ function TopSellingBooks({ text, data, loading }) {
                     {/* name */}
                     <td className="px-6 py-4">
                       <div className="font-medium text-[18px] text-[#06152B]">
-                        {item?.firstName}
-                      </div>
-                      <div className="text-[18px] font-medium text-[#06152B]">
-                        {item?.lastName}
+                        {item?.productName}
                       </div>
                     </td>
                     {/* email */}
                     <td className="px-6 py-4">
-                        {item?.email}
+                        {item?.productId}
                     </td>
                     {/* donation amount */}
                     <td className="px-6 py-4">
                       <div className="text-[18px] font-medium text-[#06152B] flex-col">
-                        N{item?.amount.toLocaleString()}
+                        N{item?.price?.toLocaleString()}
                       </div>
                     </td>
                     {/* More */}
                     <td className="px-6 py-4">
-                      <Link to={''} className="flex items-center gap-2">
+                      <Link to={`/arewahub/new-product/${item?.productId}`} className="flex items-center gap-2">
                         <span className="flex items-center justify-center w-5 h-5">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-[#929292]'>
                                 <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

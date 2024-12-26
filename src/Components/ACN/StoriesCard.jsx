@@ -12,13 +12,14 @@ import { deleteStory } from "../../Helpers/acn/api";
 import toast from "react-hot-toast";
 
 function StoriesCard({ newsData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
-    const data = menuOption;
-    const navigete = useNavigate()
-  const [ filterValue, setFilterValue ] = useState()
+  const data = menuOption;
+  const navigate = useNavigate();
+  const [filterValue, setFilterValue] = useState();
   const [activeCard, setActiveCard] = useState(data[0].slug);
+  const [searchQuery, setSearchQuery] = useState(""); // State to store the search query
 
   const handleCardChange = (value) => {
-    setActiveCard(value);
+      setActiveCard(value);
   };
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -28,73 +29,71 @@ function StoriesCard({ newsData, loading, showFilter, showMenuList, showSearch, 
   const totalPages = Math.ceil((newsData?.length || 0) / itemsPerPage);
 
   // Get the current page's data
-  const currentData = newsData?.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  const currentData = newsData
+      ?.filter(item =>
+          // Filter newsData based on title, writers, or postId
+          item?.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item?.writers.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          item?.storyId.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   // Handle changing to the next page
   const handleNextPage = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+      if (currentPage < totalPages) {
+          setCurrentPage(currentPage + 1);
+      }
   };
 
   // Handle changing to the previous page
   const handlePreviousPage = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+      if (currentPage > 1) {
+          setCurrentPage(currentPage - 1);
+      }
   };
 
   // Function to generate static pagination numbers
   const renderPagination = () => {
-    if (totalPages <= 6) {
-      // Display all pages if there are 6 or fewer
-      return Array.from({ length: totalPages }, (_, i) => (
-        <button
-          key={i + 1}
-          onClick={() => setCurrentPage(i + 1)}
-          className={`px-3 py-1 border rounded ${
-            currentPage === i + 1 ? "bg-gray-300" : "bg-white"
-          }`}
-        >
-          {i + 1}
-        </button>
-      ));
-    } else {
-      // Display 1, 2, 3, ..., last 3 pages when total pages > 6
-      const startPages = [1, 2, 3];
-      const endPages = [totalPages - 2, totalPages - 1, totalPages];
+      if (totalPages <= 6) {
+          // Display all pages if there are 6 or fewer
+          return Array.from({ length: totalPages }, (_, i) => (
+              <button
+                  key={i + 1}
+                  onClick={() => setCurrentPage(i + 1)}
+                  className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-gray-300" : "bg-white"}`}
+              >
+                  {i + 1}
+              </button>
+          ));
+      } else {
+          // Display 1, 2, 3, ..., last 3 pages when total pages > 6
+          const startPages = [1, 2, 3];
+          const endPages = [totalPages - 2, totalPages - 1, totalPages];
 
-      return (
-        <>
-          {startPages.map((page) => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`px-3 py-1 border rounded ${
-                currentPage === page ? "bg-gray-300" : "bg-white"
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-          <span className="px-2">...</span>
-          {endPages.map((page) => (
-            <button
-              key={page}
-              onClick={() => setCurrentPage(page)}
-              className={`px-3 py-1 border rounded ${
-                currentPage === page ? "bg-gray-300" : "bg-white"
-              }`}
-            >
-              {page}
-            </button>
-          ))}
-        </>
-      );
-    }
+          return (
+              <>
+                  {startPages.map((page) => (
+                      <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`px-3 py-1 border rounded ${currentPage === page ? "bg-gray-300" : "bg-white"}`}
+                      >
+                          {page}
+                      </button>
+                  ))}
+                  <span className="px-2">...</span>
+                  {endPages.map((page) => (
+                      <button
+                          key={page}
+                          onClick={() => setCurrentPage(page)}
+                          className={`px-3 py-1 border rounded ${currentPage === page ? "bg-gray-300" : "bg-white"}`}
+                      >
+                          {page}
+                      </button>
+                  ))}
+              </>
+          );
+      }
   };
 
 
@@ -142,7 +141,7 @@ function StoriesCard({ newsData, loading, showFilter, showMenuList, showSearch, 
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[140px]">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${newsData?.length} Testimonies` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${newsData?.length} Story` }</h2>
           </div>
 
               <div className="flex w-full items-center justify-between">
@@ -156,7 +155,12 @@ function StoriesCard({ newsData, loading, showFilter, showMenuList, showSearch, 
                           <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         </svg>
                       </span>
-                      <input onChange={''} placeholder="Search" className="input !border-none" />
+                      <input 
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                        placeholder="Search" 
+                        className="input !border-none" 
+                      />
                     </div>
                   )
                 }
@@ -229,7 +233,7 @@ function StoriesCard({ newsData, loading, showFilter, showMenuList, showSearch, 
                     </td>
                     {/* writer id */}
                     <td className="px-6 py-4 flex-1 text-[14px] text-[#13693B]">
-                        {item?.postId}
+                        {item?.storyId}
                     </td>
                     {/* categories */}
                     <td className="px-6 py-4 flex-1 flex flex-wrap">

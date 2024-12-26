@@ -67,9 +67,11 @@ import AcnStoryInfo from "./Pages/AfricanChlidNetwork/AcnStoryInfo"
 import AcnStoryForm from "./Pages/AfricanChlidNetwork/AcnStoryForm"
 import AcnAmbassador from "./Pages/AfricanChlidNetwork/AcnAmbassador"
 import AcnAmbassadorInfo from "./Pages/AfricanChlidNetwork/AcnAmbassadorInfo"
-import AcnNewAmnbassador from "./Pages/AfricanChlidNetwork/AcnNewAmnbassador"
+import AcnNewAmnbassador from "./Pages/AfricanChlidNetwork/AcnNewAmbassador"
 import EduAfricaTestimonies from "./Pages/EduAfrica/EduAfricaTestimonies"
 import EduAfricaTestimoniesInfo from "./Pages/EduAfrica/EduAfricaTestimoniesInfo"
+import AcnNewAmbassador from "./Pages/AfricanChlidNetwork/AcnNewAmbassador"
+import EduConnectNewsletterList from "./Pages/EduConnect/EduConnectNewsletterList"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -101,7 +103,8 @@ function App() {
           <Route path="/edu-connect/faq" element={<EduConnectFaq setEduconnectFaqId={setEduconnectFaqId} />} />
           <Route path="/edu-connect/faq/faq-form" element={<EduConnectFaqForm educonnectFaqId={educonnectFaqId} setEduconnectFaqId={setEduconnectFaqId} />} />
           <Route path="/edu-connect/settings" element={<EduconnectSettings />} />
-          <Route path="/edu-connect/newsletter" element={<EduConnectNewsletter />} />
+          <Route path="/edu-connect/newsletter" element={<EduConnectNewsletterList />} />
+          <Route path="/edu-connect/newsletter-form/:id" element={<EduConnectNewsletter />} />
           {/**
            * 
           <Route path="/edu-connect/team" element={<EduConnectTeams />} />
@@ -128,12 +131,9 @@ function App() {
           <Route path="/acn/team" element={<AcnTeams />} />
           <Route path="/acn/team/info/:id" element={<AcnTeamsInfo />} />
           <Route path="/acn/new-team/:id" element={<AcnNewTeamMember />} />
-
           <Route path="/acn/ambassador" element={<AcnAmbassador />} />
           <Route path="/acn/ambassador/info/:id" element={<AcnAmbassadorInfo />} />
-
-          <Route path="/acn/new-ambassador/:id" element={<AcnNewAmnbassador />} />
-
+          <Route path="/acn/new-ambassador/:id" element={<AcnNewAmbassador />} />
           <Route path="/acn/settings" element={<AcnSettings />} />
           
           {/**AFRICAN CHILD NETWORK */}

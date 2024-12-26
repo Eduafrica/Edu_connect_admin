@@ -31,3 +31,27 @@ export function useFetchTestimonials(query){
 
     return testimonialsData
 }
+
+//FETCH NEWS LETTER
+export function useFetchNewsLetter(query){
+    const [ nesLetterData, setNewsLetterData] = useState({ isFetching: true, data: null, status: null, serverError: null, })
+    useEffect(() => {
+        const fetchNewsLetterData = async () => {
+            try {
+                const { data, status} = !query ? await axios.get(`/newsLetter/getNewsLetter`, {withCredentials: true}) : await axios.get(`/newsLetter/getANewsLetter/${query}`, {withCredentials: true})
+                //console.log('Data from Hooks>>>', data, 'STATUS', status)
+
+                if(status === 200){
+                    setNewsLetterData({ isFetching: false, data: data, status: status, serverError: null})
+                } else{
+                    setNewsLetterData({ isFetching: false, data: null, status: status, serverError: null})
+                }
+            } catch (error) {
+                setNewsLetterData({ isFetching: false, data: null, status: null, serverError: error})
+            }
+        }
+        fetchNewsLetterData()
+    }, [query])
+
+    return nesLetterData
+}

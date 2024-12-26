@@ -34,7 +34,7 @@ const RichTextEditor = ({ handleChange, setFormData }) => {
           userOnly: true,
         },
       },
-      placeholder: "Enter News",
+      placeholder: "Enter message...",
     });
 
     quillInstance.current = quill; // Store the Quill instance
@@ -44,7 +44,7 @@ const RichTextEditor = ({ handleChange, setFormData }) => {
       const htmlContent = quill.root.innerHTML; // Get editor content as HTML
       setFormData((prev) => ({
         ...prev,
-        description: htmlContent, // Update form data with editor content
+        message: htmlContent, // Update form data with editor content
       }));
       if (handleChange) {
         handleChange(htmlContent); // Call external handleChange if provided

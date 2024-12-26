@@ -6,7 +6,7 @@ import DonationAndExpenseCard from "../../Components/ACN/DonationAndExpenseCard"
 import { useState } from "react";
 import TopDonations from "../../Components/ACN/TopDonations";
 import TopExpense from "../../Components/ACN/TopExpense";
-import { useFetchDonations, useFetchExpense } from "../../Helpers/acn/fetch.hooks";
+import { useFetchDonations, useFetchDonationStats, useFetchExpense } from "../../Helpers/acn/fetch.hooks";
 
 function AcnDasboard() {
   const { data: donationData, isFetching: loadingDonations } = useFetchDonations()
@@ -16,6 +16,9 @@ function AcnDasboard() {
   const topDonationsData = donationData?.data?.splice(0, 5) || [].splice(0, 5)
   const topExpenseData = expenseData?.data.splice(0, 6) || [].splice(0, 6)
   const [ selectedDate, setSelectedDate ] = useState()
+  
+  const { data: donationStatsData, isFetching: loadingDonationStats } = useFetchDonationStats(selectedDate || '30days')
+  const donationReport = donationStatsData?.data
 
   return (
     <div className="page flex-row">
@@ -41,7 +44,7 @@ function AcnDasboard() {
                 </h1>
 
                 <div className="">
-                  <Stats />
+                  <Stats data={donationReport} loading={loadingDonationStats} />
                 </div>
 
             </div>

@@ -195,3 +195,27 @@ export function useFetchAmbassadors(query){
 
     return teamMemberData
 }
+
+//
+export function useFetchDonationStats(query){
+    const [ donationStats, setDonationStats] = useState({ isFetching: true, data: null, status: null, serverError: null, })
+    useEffect(() => {
+        const fetchDonationStats = async () => {
+            try {
+                const { data, status} = !query ? await axios.get(`/acn/donation/getDonationStats/${query}`, {withCredentials: true}) : await axios.get(`/acn/donation/getDonationStats/${query}`, {withCredentials: true})
+                //console.log('Data from Hooks>>>', data, 'STATUS', status)
+
+                if(status === 200){
+                    setDonationStats({ isFetching: false, data: data, status: status, serverError: null})
+                } else{
+                    setDonationStats({ isFetching: false, data: null, status: status, serverError: null})
+                }
+            } catch (error) {
+                setDonationStats({ isFetching: false, data: null, status: null, serverError: error})
+            }
+        }
+        fetchDonationStats()
+    }, [query])
+
+    return donationStats
+}

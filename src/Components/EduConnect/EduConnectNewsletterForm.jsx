@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import NewsAndUpdatesForm from "./Helpers/NewsAndUpdatesForm";
+import NewsLetterForm from "./Helpers/NewsLetterForm";
 import Button from "../Helpers/Button";
-import { newNewsAndUpdate, updateNewsAndUpdate } from "../../Helpers/acn/api";
-import { useFetchNewsAndUpdates } from "../../Helpers/acn/fetch.hooks";
+import { useFetchNewsLetter } from "../../Helpers/fetch.hooks";
+import { editNewsLetter, newNewsletter } from "../../Helpers/api";
+import toast from "react-hot-toast";
+import Spinner from "../Helpers/Spinner";
 
 function EduConnectNewsletterForm({ setSuccessMsg, setErrorMsg }) {
     const loc = useLocation()
-    const pathName = loc.pathname.split('/')[4]
-    const { data: newsData, isFetching } = useFetchNewsAndUpdates(pathName)
-    const data = newsData?.data
-    const [ formData, setFormData ] = useState({ _id: pathName === 'noid' ? pathName : '' })
+    const pathName = loc.pathname.split('/')[3]
+    const { data: newsLetterData, isFetching } = useFetchNewsLetter(pathName)
+    const data = newsLetterData?.data
+    const [ formData, setFormData ] = useState({ id: pathName === 'noid' ? '' : pathName })
 
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value })
@@ -18,9 +20,12 @@ function EduConnectNewsletterForm({ setSuccessMsg, setErrorMsg }) {
 
     const [ submitting, setSubmitting ] = useState(false)
     const handleSubmitPost = async () => {
+      if(submitting){
+        return
+      }
       try {
         setSubmitting(true)
-        const res = await pathName === 'noid' ? newNewsAndUpdate : updateNewsAndUpdate
+        const res = pathName === 'noid' ? await newNewsletter(formData) : await editNewsLetter(formData)
         if(res.success){
           setSuccessMsg(res.data)
           setTimeout(() => {
@@ -29,6 +34,7 @@ function EduConnectNewsletterForm({ setSuccessMsg, setErrorMsg }) {
           window.location.reload()
         } else {
           setErrorMsg(res.data)
+          toast.error(res.data)
           setTimeout(() => {
             setErrorMsg()
           }, 2500)
@@ -67,43 +73,52 @@ function EduConnectNewsletterForm({ setSuccessMsg, setErrorMsg }) {
         </div>
 
         <div className="">
-            <Button onCLick={handleSubmitPost} text={`Publish`} style={`!bg-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
+            <Button disabled={submitting} onCLick={handleSubmitPost} text={submitting ? 'Publishing' : `Publish`} style={`!bg-main-color !text-white flex items-center !gap-2 !min-w-[174px] !text-[16px] !font-semibold`} />
         </div>
       </div>
 
       {/**LINE */}
       <div className="flex w-full border-b-[1px] border-[#E6E6E6]"></div>
 
-      <div className="flex items-stretch grow h-full">
-
-        <div className="flex flex-col flex-[7]">
-            <NewsAndUpdatesForm data={data} formData={formData} setFormData={setFormData} handleChange={handleChange} />
-        </div>
-
-        {/**VERTICAL LINE */}
-        <div className="border-r-[1px] border-[#E6E6E6] mx-4"></div>
-
-        <div className="flex flex-col flex-[3] gap-[30px]">
-          <div className="inputGroup">
-            <label className="label">Author</label>
-            <input id="author" defaultValue={data?.author} onChange={handleChange} placeholder="Enter writer's name" className="input" />
+      {
+        isFetching ? (
+          <div className="">
+            <Spinner />
           </div>
+        ) : (
+          <div className="flex items-stretch grow h-full">
 
-          <div className="inputGroup">
-            <label className="label">Redirection</label>
-            <select defaultValue={data?.website} className="input" name="" id="website">
-              <option name="" id="">Select Redirection</option>
-              <option name="" id="educonnect">Edu Connect</option>
-              <option name="" id="eduafrica"> Edu Africa</option>
-              <option name="" id="arewahub">Arewa hub</option>
-              <option name="" id="acn">African Child Network</option>
-              <option name="" id="all">All</option>
-            </select>
+            <div className="flex flex-col flex-[7]">
+                <NewsLetterForm data={data} formData={formData} setFormData={setFormData} handleChange={handleChange} />
+            </div>
+
+            {/**VERTICAL LINE */}
+            <div className="border-r-[1px] border-[#E6E6E6] mx-4"></div>
+
+            <div className="flex flex-col flex-[3] gap-[30px]">
+              <div className="inputGroup">
+                <label className="label">Author</label>
+                <input id="author" defaultValue={data?.author} onChange={handleChange} placeholder="Enter writer's name" className="input" />
+              </div>
+
+              <div className="inputGroup">
+                <label className="label">Redirection</label>
+                <select defaultValue={data?.website} onChange={handleChange} className="input" name="" id="website">
+                  <option name="" id="">Select Redirection</option>
+                  <option value="educonnect" id="educonnect">Edu Connect</option>
+                  <option value="eduafrica" id="eduafrica"> Edu Africa</option>
+                  <option value="arewahub" id="arewahub">Arewa hub</option>
+                  <option value="acn" id="acn">African Child Network</option>
+                  <option value="all" id="all">All</option>
+                </select>
+              </div>
+
+            </div>
+
           </div>
+        )
+      }
 
-        </div>
-
-      </div>
     </div>
   );
 }

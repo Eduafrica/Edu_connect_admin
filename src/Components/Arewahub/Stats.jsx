@@ -1,34 +1,41 @@
+import { useFetchRevenuesAndOrders } from "../../Helpers/arewahub/fetch.hooks"
 
-function Stats() {
-  const dataObject = {
-    totalRevenue: {
-      total: 40689,
-      percentage: 8.5,
-      percentageType: 'positive',
-    },
-    totalBeadRevenue: {
-      total: 10293,
-      percentage: 1.3,
-      percentageType: 'positive',
-    },
-    totalBookRevenue: {
-      total: 89000,
-      percentage: 4.3,
-      percentageType: 'negative',
-    },
-    totalPeopleOrder: {
-      total: 2040,
-      percentage: 1.5,
-      percentageType: 'positive',
-    }
-  }
+function Stats({ data, loading }) {
+  /**
+   const dataObject = {
+     totalRevenue: {
+       total: 40689,
+       percentage: 8.5,
+       percentageType: 'positive',
+     },
+     totalPending: {
+       total: 10293,
+       percentage: 1.3,
+       percentageType: 'positive',
+     },
+     totalApproved: {
+       total: 89000,
+       percentage: 4.3,
+       percentageType: 'negative',
+     },
+     totalPeopleOrder: {
+       total: 2040,
+       percentage: 1.5,
+       percentageType: 'positive',
+     }
+   }
+   * 
+   */
+   const { data: RevenueAndOrderData, isFetching: loadingRevenueAndOrderData } = useFetchRevenuesAndOrders('30days')
+  const dataObject = data || RevenueAndOrderData?.data
+  
   return (
     <div className='w-full flex items-center gap-[33px] justify-between'>
       <div className="card1 bg-white">
         <div className="flex flex-col gap-[34px] w-full">
           <h3 className='text-[16px[ font-medium text-[#202224]'>Total Revenue</h3>
           <div className="flex items-center gap-[60px] justify-between">
-            <p className="font-semibold text-[24px] text-text-color-4">{dataObject?.totalRevenue?.total.toLocaleString()}</p>
+            <p className="font-semibold text-[24px] text-text-color-4">${dataObject?.totalRevenue?.total.toLocaleString()}</p>
             <span className={`flex items-center gap-1 font-semibold text-[16px] ${dataObject?.totalRevenue?.percentageType === 'positive' ? 'text-[#00B69B]' : 'text-[#F93C65]'}`}>
               <span className="flex items-center justify-center w-5 h-5">
                   {
@@ -50,13 +57,13 @@ function Stats() {
       </div>
       <div className="card1 bg-white">
         <div className="flex flex-col gap-[34px] w-full">
-          <h3 className='text-[16px[ font-medium text-[#202224]'>Total Bead revenue</h3>
+          <h3 className='text-[16px[ font-medium text-[#202224]'>Total Pending Orders</h3>
           <div className="flex items-center gap-[60px] justify-between">
-            <p className="font-semibold text-[24px] text-text-color-4">${dataObject?.totalBeadRevenue?.total.toLocaleString()}</p>
-            <span className={`flex items-center gap-1 font-semibold text-[16px] ${dataObject?.totalBeadRevenue?.percentageType === 'positive' ? 'text-[#00B69B]' : 'text-[#F93C65]'}`}>
+            <p className="font-semibold text-[24px] text-text-color-4">{dataObject?.totalPending?.total.toLocaleString()}</p>
+            <span className={`flex items-center gap-1 font-semibold text-[16px] ${dataObject?.totalPending?.percentageType === 'positive' ? 'text-[#00B69B]' : 'text-[#F93C65]'}`}>
               <span className="flex items-center justify-center w-5 h-5">
                 {
-                  dataObject?.totalBeadRevenue?.percentageType === 'positive' ? (
+                  dataObject?.totalPending?.percentageType === 'positive' ? (
                     <svg width="20" height="13" viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#00B69B]">
                       <path d="M14.2689 0.900391L16.4541 3.19039L11.7976 8.07039L7.98077 4.07039L0.910156 11.4904L2.25558 12.9004L7.98077 6.90039L11.7976 10.9004L17.809 4.61039L19.9941 6.90039V0.900391H14.2689Z" fill="#00B69B"/>
                     </svg>
@@ -67,20 +74,20 @@ function Stats() {
                   )
                 }
               </span>
-              {dataObject?.totalBeadRevenue?.percentage}%
+              {dataObject?.totalPending?.percentage}%
             </span>
           </div>
         </div>
       </div>
       <div className="card1 bg-white">
         <div className="flex flex-col gap-[34px] w-full">
-          <h3 className='text-[16px[ font-medium text-[#202224]'>Total Book revenue</h3>
+          <h3 className='text-[16px[ font-medium text-[#202224]'>Total Delivered Orders</h3>
           <div className="flex items-center gap-[60px] justify-between">
-            <p className="font-semibold text-[24px] text-text-color-4">${dataObject?.totalBookRevenue?.total.toLocaleString()}</p>
-            <span className={`flex items-center gap-1 font-semibold text-[16px] ${dataObject?.totalBookRevenue?.percentageType === 'positive' ? 'text-[#00B69B]' : 'text-[#F93C65]'}`}>
+            <p className="font-semibold text-[24px] text-text-color-4">{dataObject?.totalApproved?.total.toLocaleString()}</p>
+            <span className={`flex items-center gap-1 font-semibold text-[16px] ${dataObject?.totalApproved?.percentageType === 'positive' ? 'text-[#00B69B]' : 'text-[#F93C65]'}`}>
               <span className="flex items-center justify-center w-5 h-5">
                   {
-                    dataObject?.totalBookRevenue?.percentageType === 'positive' ? (
+                    dataObject?.totalApproved?.percentageType === 'positive' ? (
                       <svg width="20" height="13" viewBox="0 0 20 13" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#00B69B]">
                         <path d="M14.2689 0.900391L16.4541 3.19039L11.7976 8.07039L7.98077 4.07039L0.910156 11.4904L2.25558 12.9004L7.98077 6.90039L11.7976 10.9004L17.809 4.61039L19.9941 6.90039V0.900391H14.2689Z" fill="#00B69B"/>
                       </svg>
@@ -91,7 +98,7 @@ function Stats() {
                     )
                   }
                 </span>
-              {dataObject?.totalBookRevenue?.percentage}%
+              {dataObject?.totalApproved?.percentage}%
             </span>
           </div>
         </div>

@@ -11,6 +11,7 @@ import LoadingBtn from "../../Components/Helpers/LoadingBtn";
 import Spinner from "../../Components/Helpers/Spinner";
 import Sidebar from "../../Components/ACN/Sidebar";
 import { useFetchDonations } from "../../Helpers/acn/fetch.hooks";
+import { toggleDonationActiveStatus } from "../../Helpers/acn/api";
 
 function AcnDonationInfo() {
     const loc = useLocation()
@@ -23,6 +24,28 @@ function AcnDonationInfo() {
     const { formattedDate, formattedTime } = formatDateAndTime(
         donationData?.createdAt
       );
+    
+      const [ loading, setLoading ] = useState(false)
+    const handleDonationActiveStatus = async () => {
+        if(loading){
+            return
+        }
+        try {
+            setLoading(true)
+            const res = await toggleDonationActiveStatus({ pathName })
+            if(res.success){
+                toast.success(res.data)
+                window.location.reload()
+            } else {
+                toast.error(res.data)
+            }
+        } catch (error) {
+            
+        } finally {
+            setLoading(false)
+        }
+    }
+
   return (
     <div className="page flex-row">
 
@@ -42,7 +65,7 @@ function AcnDonationInfo() {
 
               <DashBoardLinks name={'acn'} color={`text-acn-main-color border-acn-main-color`} />
 
-                <div className="card1">
+                <div className="card1 justify-between">
                     <div className="flex items-center gap-[50px]">
                         <Link to={`/acn/donations`} className="">
                             <IoIosArrowBack />
@@ -66,6 +89,9 @@ function AcnDonationInfo() {
                         </div>
                     </div>
 
+                    <div className="">
+                        <Button disabled={loading} onCLick={handleDonationActiveStatus} text={loading ? 'Updating...': 'Update Status'} style={`!bg-acn-main-color border-acn-main-color`} />
+                    </div>
 
                 </div>
 

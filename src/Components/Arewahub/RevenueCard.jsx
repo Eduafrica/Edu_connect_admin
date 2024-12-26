@@ -1,3 +1,6 @@
+import { useFetchLastestEvent } from "../../Helpers/arewahub/fetch.hooks"
+import { convertTo12HourFormat } from "../../Helpers/formatDateAndTime"
+import Spinner from "../Helpers/Spinner"
 import RevenueGraph from "./RevenueGraph"
 
 function RevenueCard({ setSelectedDate, selectedDate }) {
@@ -6,32 +9,42 @@ function RevenueCard({ setSelectedDate, selectedDate }) {
         percentage: 1.5,
         percentageType: 'positive',
       }
-  return (
+
+    const { data: lastestEvent, isFetching: loadingEvents } = useFetchLastestEvent()
+    const eventData = lastestEvent?.data
+    console.log('object events', eventData)
+    return (
     <div className='flex items-start gap-[30px]'>
       <RevenueGraph selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
 
       <div className="flex w-[370px] flex-col gap-[30px]">
-        <div className="rounded-[12px] w-full min-h-[163px] flex shadow-sm overflow-x-hidden bg-arewahub-main-color">
-            <div className="p-5 flex flex-col flex-1 w-full gap-5">
-                <div className="text-[16px] text-white font-medium">
-                    Past <br /> Event 
+        {
+            loadingEvents ? (
+                <Spinner />
+            ) : (
+                <div className="rounded-[12px] w-full min-h-[163px] flex shadow-sm overflow-x-hidden bg-arewahub-main-color">
+                    <div className="p-5 flex flex-col flex-1 w-full gap-5">
+                        <div className="text-[16px] text-white font-medium">
+                            Past <br /> Event 
+                        </div>
+                        <div className="text-[14px] text-white font-normal">
+                            <p>{eventData?.latestPastEvent?.eventDate}</p>
+                            <p>{convertTo12HourFormat(eventData?.latestPastEvent?.eventTime)}</p>
+                        </div>
+                    </div>
+                    <span className="border-l-[1px] h-full border-white"></span>
+                    <div className="border-l-[1px] p-5 flex flex-col flex-1 w-full gap-5">
+                        <div className="text-[16px] text-white font-medium">
+                            Upcoming <br /> Event 
+                        </div>
+                        <div className="text-[14px] text-white font-normal">
+                        <p>{eventData?.nearestFutureEvent?.eventDate}</p>
+                        <p>{convertTo12HourFormat(eventData?.nearestFutureEvent?.eventTime)}</p>
+                        </div>
+                    </div>
                 </div>
-                <div className="text-[14px] text-white font-normal">
-                    <p>31 / 01/ 2024</p>
-                    <p>05.30 PM</p>
-                </div>
-            </div>
-            <span className="border-l-[1px] h-full border-white"></span>
-            <div className="border-l-[1px] p-5 flex flex-col flex-1 w-full gap-5">
-                <div className="text-[16px] text-white font-medium">
-                    Upcoming <br /> Event 
-                </div>
-                <div className="text-[14px] text-white font-normal">
-                    <p>31 / 01/ 2024</p>
-                    <p>05.30 PM</p>
-                </div>
-            </div>
-        </div>
+            )
+        }
 
         <div className="rounded-[14px] w-[370px] h-[171px] border-[1px] border-[#EAEBEF] bg-white flex items-center justify-center">
             <div className="w-[309.32px] flex flex-col gap-[34px]">

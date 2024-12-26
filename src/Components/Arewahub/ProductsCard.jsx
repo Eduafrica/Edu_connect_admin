@@ -11,42 +11,48 @@ import { truncateText } from "../../Helpers/truncateText";
 import Button from "../Helpers/Button";
 
 function ProductsCard({ productsData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
-    const navigate = useNavigate()
-    const [ filterValue, setFilterValue ] = useState()
+  const navigate = useNavigate();
+  const [filterValue, setFilterValue] = useState();
   const productFilter = [
     {
-        name: 'All',
-        slug: 'all'
+      name: 'All',
+      slug: 'all'
     },
     {
-        name: 'Successful',
-        slug: 'successful'
+      name: 'Successful',
+      slug: 'successful'
     },
     {
-        name: 'Failed',
-        slug: 'failed'
+      name: 'Failed',
+      slug: 'failed'
     },
     {
-        name: 'Pending',
-        slug: 'pending'
+      name: 'Pending',
+      slug: 'pending'
     }
-]
+  ];
 
-const [ activeCard, setActiveCard ] = useState(productFilter[0]?.slug)
-const handleFilterChange = (value) => {
-    setActiveCard(value)
-}
+  const [activeCard, setActiveCard] = useState(productFilter[0]?.slug);
+  const handleFilterChange = (value) => {
+    setActiveCard(value);
+  };
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
+
+  // Search query state
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Calculate the total number of pages
   const totalPages = Math.ceil((productsData?.length || 0) / itemsPerPage);
 
-  // Get the current page's data
-  const currentData = productsData?.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
+  // Get the current page's data and filter it based on search query
+  const currentData = productsData
+    ?.filter((item) =>
+      item?.productName?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      item?.productId?.toLowerCase().includes(searchQuery.toLowerCase())
+    )
+    .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
   // Handle changing to the next page
   const handleNextPage = () => {
@@ -113,19 +119,19 @@ const handleFilterChange = (value) => {
   };
 
   const handleNewProduct = () => {
-    navigate('/arewahub/new-product/noid')
-  }
-  
+    navigate('/arewahub/new-product/noid');
+  };
+
   return (
     <div className="p">
       {
         showMenuList && (
-            <MenuList
-                data={productFilter}
-                activeCard={activeCard}
-                onCLick={handleFilterChange}
-                activeStyle={`!text-arewahub-main-color !border-arewahub-main-color`}
-            />
+          <MenuList
+            data={productFilter}
+            activeCard={activeCard}
+            onCLick={handleFilterChange}
+            activeStyle={`!text-arewahub-main-color !border-arewahub-main-color`}
+          />
         )
       }
 
@@ -133,39 +139,42 @@ const handleFilterChange = (value) => {
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[140px]">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${currentData?.length} Product` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">{text ? text : `${currentData?.length} Product`}</h2>
           </div>
 
-              <div className="flex w-full items-center justify-between">
-                
-                {/**Search */}
-                {
-                  showSearch && (
-                    <div className="flex gap-[6px] w-[320px] items-center rounded-[8px] px-[14px] bg-white border-gray-300 border-[1px]">
-                      <span className="cursor-pointer flex items-center justify-center w-5 h-5">
-                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </span>
-                      <input onChange={''} placeholder="Search" className="input !border-none" />
-                    </div>
-                  )
-                }
-
-                <div className="flex items-center gap-5">
-                    {/**Filter */}
-                    {
-                    showFilter && (
-                        <div className="">
-                        <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
-                        </div>
-                    )
-                    }
-                    <div onClick={handleNewProduct} className="">
-                        <Button text={'+ Add Product'} style={`!border-none !bg-arewahub-main-color min-w-[174px]`} />
-                    </div>
+          <div className="flex w-full items-center justify-between">
+            {/**Search */}
+            {
+              showSearch && (
+                <div className="flex gap-[6px] w-[320px] items-center rounded-[8px] px-[14px] bg-white border-gray-300 border-[1px]">
+                  <span className="cursor-pointer flex items-center justify-center w-5 h-5">
+                    <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <input
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search"
+                    className="input !border-none"
+                  />
                 </div>
+              )
+            }
+
+            <div className="flex items-center gap-5">
+              {/**Filter */}
+              {
+                showFilter && (
+                  <div className="">
+                    <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
+                  </div>
+                )
+              }
+              <div onClick={handleNewProduct} className="">
+                <Button text={'+ Add Product'} style={`!border-none !bg-arewahub-main-color min-w-[174px]`} />
               </div>
+            </div>
+          </div>
         </div>
 
         {/**BODY */}
@@ -173,25 +182,25 @@ const handleFilterChange = (value) => {
         <table className="min-w-full mt-12 rounded-t-[12px] bg-white">
           <thead className="rounded-t-[12px]">
             <tr className="bg-[#F9F9F9] border-b-[1px] rounded-t-[12px]">
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-[12px] tracking-wider">
                 Product
               </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-[12px] tracking-wider">
                 Product ID
               </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-[12px] tracking-wider">
                 Product Description
               </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-[12px] tracking-wider">
                 Unit sold/left
               </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-[12px] tracking-wider">
                 Amount
               </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-[12px] tracking-wider">
                 Date & Time
               </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-[12px] tracking-wider">
                 Status
               </th>
             </tr>
@@ -212,7 +221,7 @@ const handleFilterChange = (value) => {
                     {/* product name */}
                     <td className="px-6 py-4">
                       <div className="font-normal text=-[14px] text-[#364152]">
-                        {item?.productName}
+                        {truncateText(item?.productName, 8)}
                       </div>
                     </td>
                     {/** product Id */}
@@ -226,7 +235,7 @@ const handleFilterChange = (value) => {
                         dangerouslySetInnerHTML={{ __html: truncateText(item?.description, 2) }}
                     >
                     </td>
-                    {/* pasition */}
+                    {/* position */}
                     <td className="px-6 py-4">
                       <div className="text-[14px] font-normal text-gray-600 flex-col">
                         {item?.quantitySold} / {item?.quantityInStock - item?.quantitySold}
@@ -234,7 +243,7 @@ const handleFilterChange = (value) => {
                     </td>
                     {/* Amount */}
                     <td className="px-6 py-4">
-                        <div className="text-[14px] font-normal text-gray-600 flex-col">
+                      <div className="text-[14px] font-normal text-gray-600 flex-col">
                         {item?.priceCurrency || '₦'} {item?.price.toLocaleString()}
                       </div>
                     </td>
@@ -247,24 +256,24 @@ const handleFilterChange = (value) => {
                       </p>
                     </td>
                     <td className="px-6 py-4">
-                        <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
-                          <div
-                              className={`py-[5px] px-[10px] rounded-[100px] ${
-                                  item?.blocked === true
-                                  ? "bg-[#D8E0E5] text-[#585858]"// Pending style
-                                  : item?.active === true
-                                  ? "bg-[#05A75312] text-[#05A753]" // Successful style
-                                  : item?.active === false
-                                  ? "bg-[#FCB90B12] text-[#FCB90B]"
-                                  : "bg-[#D8E0E5] text-[#585858]" // Inactive or other status style
-                              }`}
-                          >
-                              {item?.active ? 'Active' : 'In Active' }
-                          </div>
+                      <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
+                        <div
+                          className={`py-[5px] px-[10px] rounded-[100px] ${
+                            item?.blocked === true
+                              ? "bg-[#D8E0E5] text-[#585858]" // Pending style
+                              : item?.active === true
+                              ? "bg-[#05A75312] text-[#05A753]" // Successful style
+                              : item?.active === false
+                              ? "bg-[#FCB90B12] text-[#FCB90B]"
+                              : "bg-[#D8E0E5] text-[#585858]" // Inactive or other status style
+                          }`}
+                        >
+                          {item?.active ? 'Active' : 'In Active'}
+                        </div>
 
-                          <div>
-                            <FiMoreVertical />
-                          </div>
+                        <div>
+                          <FiMoreVertical />
+                        </div>
 
                           {/* MODAL POPUP, visible only on hover */}
                           <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
@@ -286,76 +295,39 @@ const handleFilterChange = (value) => {
                                 Delete
                             </p>
                           </div>
-                        </div>
-                      </td>
+
+                      </div>
+                    </td>
                   </tr>
-                )
+                );
               })
             }
           </tbody>
         </table>
-        
       </div>
-      
-      {/* Pagination Controls */}
-      {
-        showPagination && (
-        <div className="flex items-center justify-between border-t-[1px] border-t-gray-200 py-4 px-6">
+
+      {/**Pagination */}
+      {showPagination && (
+        <div className="flex justify-between items-center pt-3">
           <button
             onClick={handlePreviousPage}
+            className="px-3 py-1 border rounded bg-white"
             disabled={currentPage === 1}
-            className="flex items-center justify-center gap-2 px-4 py-2 mr-2 bg-white border-[1px] text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
           >
-            <span className="flex items-center justify-center w-5 h-5">
-              <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 12H5M5 12L12 19M5 12L12 5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
             Previous
           </button>
 
-          <div className="flex gap-1">{renderPagination()}</div>
+          {renderPagination()}
 
           <button
             onClick={handleNextPage}
+            className="px-3 py-1 border rounded bg-white"
             disabled={currentPage === totalPages}
-            className="flex items-center justify-center gap-2 px-4 py-2 ml-2 bg-white border-[1px] text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
           >
             Next
-            <span className="flex items-center justify-center w-5 h-5">
-              <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 12H19M19 12L12 5M19 12L12 19"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
           </button>
         </div>
-        )
-      }
-
+      )}
     </div>
   );
 }

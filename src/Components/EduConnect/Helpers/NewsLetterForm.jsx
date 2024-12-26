@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import RichTextEditor from './RichTextEditor';
 
-function NewsAndUpdatesForm({ data, formData, setFormData, handleChange }) {
+function NewsLetterForm({ data, formData, setFormData, handleChange }) {
     const [titleActive, setTitleActive] = useState(true);
     const [configorationsActive, setConfigorationsActive] = useState(true);
     const [isDragging, setIsDragging] = useState(false);
@@ -47,36 +47,6 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange }) {
         }
     };
 
-    const submitForm = (e) => {
-        e.preventDefault();
-        const formDataToSend = new FormData();
-        
-        // Append other form fields
-        formDataToSend.append('title', formData.title);
-        formDataToSend.append('content', formData.content);
-
-        // Append the image if it exists
-        if (formData.image) {
-            const imageBlob = dataURItoBlob(formData.image); // Convert the base64 image to a Blob
-            formDataToSend.append('image', imageBlob, 'image.png');
-        }
-
-        // Send the FormData
-        fetch('/submit-form', {
-            method: 'POST',
-            body: formDataToSend,
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            console.log('Form submitted successfully:', data);
-            // Handle success
-        })
-        .catch((error) => {
-            console.error('Error submitting form:', error);
-            // Handle error
-        });
-    };
-
     // Convert base64 image to Blob for FormData
     const dataURItoBlob = (dataURI) => {
         const byteString = atob(dataURI.split(',')[1]);
@@ -93,7 +63,7 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange }) {
     }, [formData]);
 
     return (
-        <form onSubmit={submitForm} className='flex w-full flex-col gap-[30px]'>
+        <form className='flex w-full flex-col gap-[30px]'>
             <div className="flex flex-col w-full gap-[30px]">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
@@ -192,8 +162,8 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange }) {
                             )}
                         </div>
 
-                        <input id='url' value={formData?.url} onChange={handleChange} type="text" placeholder='Url,' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
-                        <input id='caption' value={formData?.caption} onChange={handleChange} type="text" placeholder='Caption,' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
+                        <input id='url' defaultValue={data?.url} value={formData?.url} onChange={handleChange} type="text" placeholder='Url,' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
+                        <input id='caption' defaultValue={data?.caption} value={formData?.caption} onChange={handleChange} type="text" placeholder='Caption,' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
 
                     </>
                 )}
@@ -204,4 +174,4 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange }) {
     );
 }
 
-export default NewsAndUpdatesForm;
+export default NewsLetterForm;

@@ -10,7 +10,7 @@ import Spinner from "../Helpers/Spinner";
 
 function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
   const data = menuOption;
-  const [ filterValue, setFilterValue ] = useState()
+  const [ filterValue, setFilterValue ] = useState();
   const [activeCard, setActiveCard] = useState(data[0].slug);
 
   const handleCardChange = (value) => {
@@ -20,11 +20,23 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
+  // State for search query
+  const [searchQuery, setSearchQuery] = useState("");
+
+  // Function to filter data based on search query
+  const filteredData = testimonytData?.filter((item) => {
+    const lowercasedQuery = searchQuery.toLowerCase();
+    return (
+      item?.firstName.toLowerCase().includes(lowercasedQuery) ||
+      item?.lastName.toLowerCase().includes(lowercasedQuery)
+    );
+  });
+
   // Calculate the total number of pages
-  const totalPages = Math.ceil((testimonytData?.length || 0) / itemsPerPage);
+  const totalPages = Math.ceil((filteredData?.length || 0) / itemsPerPage);
 
   // Get the current page's data
-  const currentData = testimonytData?.slice(
+  const currentData = filteredData?.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   );
@@ -51,9 +63,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
         <button
           key={i + 1}
           onClick={() => setCurrentPage(i + 1)}
-          className={`px-3 py-1 border rounded ${
-            currentPage === i + 1 ? "bg-gray-300" : "bg-white"
-          }`}
+          className={`px-3 py-1 border rounded ${currentPage === i + 1 ? "bg-gray-300" : "bg-white"}`}
         >
           {i + 1}
         </button>
@@ -69,9 +79,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
             <button
               key={page}
               onClick={() => setCurrentPage(page)}
-              className={`px-3 py-1 border rounded ${
-                currentPage === page ? "bg-gray-300" : "bg-white"
-              }`}
+              className={`px-3 py-1 border rounded ${currentPage === page ? "bg-gray-300" : "bg-white"}`}
             >
               {page}
             </button>
@@ -81,9 +89,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
             <button
               key={page}
               onClick={() => setCurrentPage(page)}
-              className={`px-3 py-1 border rounded ${
-                currentPage === page ? "bg-gray-300" : "bg-white"
-              }`}
+              className={`px-3 py-1 border rounded ${currentPage === page ? "bg-gray-300" : "bg-white"}`}
             >
               {page}
             </button>
@@ -95,107 +101,93 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
   
   return (
     <div className="p">
-      {
-        showMenuList && (
-          <MenuList
-            data={data}
-            activeCard={activeCard}
-            onCLick={handleCardChange}
-          />
-        )
-      }
+      {showMenuList && (
+        <MenuList
+          data={data}
+          activeCard={activeCard}
+          onCLick={handleCardChange}
+        />
+      )}
 
       <div className="px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
-          <div className="flex items-center min-w-[140px]">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `34 Testimonies` }</h2>
+          <div className="flex items-center min-w-[140px] ">
+            <h2 className="text-lg font-semibold text-[#121212] w-full">
+              {text ? text : `${testimonytData?.length} Testimonies`}
+            </h2>
           </div>
 
-              <div className="flex w-full items-center justify-between">
-                
-                {/**Search */}
-                {
-                  showSearch && (
-                    <div className="flex gap-[6px] w-[320px] items-center rounded-[8px] px-[14px] bg-white border-gray-300 border-[1px]">
-                      <span className="cursor-pointer flex items-center justify-center w-5 h-5">
-                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </span>
-                      <input onChange={''} placeholder="Search" className="input !border-none" />
-                    </div>
-                  )
-                }
-
-                {/**Filter */}
-                {
-                  showFilter && (
-                    <div className="">
-                      <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
-                    </div>
-                  )
-                }
+          <div className="flex w-full items-center justify-between">
+            {/**Search */}
+            {showSearch && (
+              <div className="flex gap-[6px] w-[320px] items-center rounded-[8px] px-[14px] bg-white border-gray-300 border-[1px]">
+                <span className="cursor-pointer flex items-center justify-center w-5 h-5">
+                  <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search"
+                  className="input !border-none"
+                />
               </div>
+            )}
+
+            {/**Filter */}
+            {showFilter && (
+              <div className="">
+                <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
+              </div>
+            )}
+          </div>
         </div>
 
         {/**BODY */}
-        {/* Render the current data here */}
         <table className="min-w-full mt-12 rounded-t-[12px] bg-white">
           <thead className="rounded-t-[12px]">
             <tr className="bg-[#F9F9F9] border-b-[1px] rounded-t-[12px]">
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                First Name
-              </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Last Name
-              </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                User ID
-              </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Postion
-              </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Image
-              </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Date & Time
-              </th>
-              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">
-                Status
-              </th>
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">First Name</th>
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">Last Name</th>
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">User ID</th>
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">Position</th>
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">Image</th>
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">Date & Time</th>
+              <th className="px-6 py-3 text-left text-gray-600 font-normal text-sm tracking-wider">Status</th>
             </tr>
           </thead>
           <tbody>
-            {
-              loading ? (
-                <div className="flex items-center justify-center w-full">
-                  <Spinner />
-                </div>
-              ) :
-              currentData?.map((item) => {
-                const { formattedDate, formattedTime } = formatDateAndTime(
-                  item?.createdAt
-                );
+            {loading ? (
+              <div className="flex items-center justify-center w-full">
+                <Spinner />
+              </div>
+            ) : currentData?.map((item) => {
+                const { formattedDate, formattedTime } = formatDateAndTime(item?.createdAt);
                 return (
                   <tr key={item?._id} className="border-t border-gray-200">
-                    {/* Course Column */}
+                    {/* firstname */}
                     <td className="px-6 py-4">
-                      <div className="font-normal text=-[14px] text-[#364152]">
+                      <div className="font-semibold text=-[14px] text-[#364152]">
                         {item?.firstName}
                       </div>
                     </td>
+                    {/**last name */}
                     <td className="px-6 py-4">
                       <div className="text-[14px] font-normal text-gray-600">
                         {item?.lastName}
                       </div>
                     </td>
-                    {/* Order Amount Column */}
-                    <td className="px-6 py-4">
-                        {item?.userId}
-                    </td>
-                    {/* pasition */}
+                    {/* user id */}
+                    <td className="px-6 py-4">{item?.userId}</td>
+                    {/* position */}
                     <td className="px-6 py-4">
                       <div className="text-[14px] font-normal text-gray-600 flex-col">
                         {item?.position}
@@ -215,68 +207,54 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                             {item.firstName.charAt(0).toUpperCase()}
                           </div>
                         )}
-                        <div>
-                          <div className="text-[14px] font-semibold text-gray-900">
-                            {item.instructorName}
-                          </div>
-                          <div className="text-[14px] font-normal text-gray-600">
-                            {item.instructorEmailL}
-                          </div>
-                        </div>
                       </div>
                     </td>
                     <td className="px-6 text-start py-4 text-[13px] text-[#121212] font-normal">
-                      <p className="text-[13px] font-normal text-[#121212]">
-                        {formattedDate}
-                      </p>
-                      <p className="text-[13px] font-normal text-[#717171]">
-                        {formattedTime}
-                      </p>
+                      <p className="text-[13px] font-normal text-[#121212]">{formattedDate}</p>
+                      <p className="text-[13px] font-normal text-[#717171]">{formattedTime}</p>
                     </td>
                     <td className="px-6 py-4">
-                        <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
-                          <div
-                              className={`py-[5px] px-[10px] rounded-[100px] ${
-                                  item?.blocked === true
-                                  ? "bg-[#D8E0E5] text-[#585858]"// Pending style
-                                  : item?.active === true
-                                  ? "bg-[#05A75312] text-[#05A753]" // Successful style
-                                  : item?.active === false
-                                  ? "bg-[#FEF3F2] text-error"
-                                  : "bg-[#D8E0E5] text-[#585858]" // Inactive or other status style
-                              }`}
-                          >
-                              {item?.blocked ? 'Blacklisted' : item?.active ? 'Active' : 'In Active' }
-                          </div>
-
-                          <div>
-                            <FiMoreVertical />
-                          </div>
-
-                          {/* MODAL POPUP, visible only on hover */}
-                          <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
-                            <Link
-                              to={`/edu-africa/testimonies/info/${item?._id}`}
-                              className="flex items-center gap-3 text-sm text-primary-color"
-                            >
-                              <MdOutlineRemoveRedEye />
-                              View
-                            </Link>
-                          </div>
+                      <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
+                        <div
+                          className={`py-[5px] px-[10px] rounded-[100px] ${
+                            item?.blocked === true
+                              ? "bg-[#FEF3F2] text-error"
+                              : item?.active === true
+                              ? "bg-[#05A75312] text-[#05A753]"
+                              : item?.active === false
+                              ? "bg-[#FEF3F2] text-error"
+                              : "bg-[#D8E0E5] text-[#585858]"
+                          }`}
+                        >
+                          {item?.blocked ? "Blacklisted" : item?.active ? "Active" : "In Active"}
                         </div>
-                      </td>
+
+                        <div>
+                          <FiMoreVertical />
+                        </div>
+
+                        {/* MODAL POPUP, visible only on hover */}
+                        <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
+                          <Link
+                            to={`/arewahub/testimonies/info/${item?._id}`}
+                            className="flex items-center gap-3 text-sm text-primary-color"
+                          >
+                            <MdOutlineRemoveRedEye />
+                            View
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
-                )
+                );
               })
             }
           </tbody>
         </table>
-        
       </div>
-      
+
       {/* Pagination Controls */}
-      {
-        showPagination && (
+      {showPagination && (
         <div className="flex items-center justify-between border-t-[1px] border-t-gray-200 py-4 px-6">
           <button
             onClick={handlePreviousPage}
@@ -330,9 +308,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
             </span>
           </button>
         </div>
-        )
-      }
-
+      )}
     </div>
   );
 }

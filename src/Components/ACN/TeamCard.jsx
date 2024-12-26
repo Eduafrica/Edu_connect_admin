@@ -10,10 +10,11 @@ import Spinner from "../Helpers/Spinner";
 import Button from "../Helpers/Button";
 
 function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const data = menuOption;
-  const [ filterValue, setFilterValue ] = useState()
+  const [filterValue, setFilterValue] = useState();
   const [activeCard, setActiveCard] = useState(data[0].slug);
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
 
   const handleCardChange = (value) => {
     setActiveCard(value);
@@ -96,64 +97,90 @@ function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, tex
   };
 
   const handleNewTeam = () => {
-    navigate('/acn/new-team/noid')
-  }
-  
+    navigate('/edu-africa/new-team/noid');
+  };
+
+  // Filter team data based on search query
+  const filteredData = teamData?.filter((item) => {
+    const searchValue = searchQuery.toLowerCase();
+    return (
+      item?.firstName?.toLowerCase().includes(searchValue) ||
+      item?.lastName?.toLowerCase().includes(searchValue) ||
+      item?.position?.toLowerCase().includes(searchValue) ||
+      item?.teamMemberId?.toLowerCase().includes(searchValue)
+    );
+  });
+
   return (
     <div className="p">
-      {
-        showMenuList && (
-          <MenuList
-            data={data}
-            activeCard={activeCard}
-            onCLick={handleCardChange}
-          />
-        )
-      }
+      {showMenuList && (
+        <MenuList
+          data={data}
+          activeCard={activeCard}
+          onCLick={handleCardChange}
+        />
+      )}
 
       <div className="px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[140px] ">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${teamData?.length} Team` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">
+              {text ? text : `${filteredData?.length} Team`}
+            </h2>
           </div>
 
-              <div className="flex w-full items-center justify-between">
-                
-                {/**Search */}
-                {
-                  showSearch && (
-                    <div className="flex gap-[6px] w-[320px] items-center rounded-[8px] px-[14px] bg-white border-gray-300 border-[1px]">
-                      <span className="cursor-pointer flex items-center justify-center w-5 h-5">
-                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </span>
-                      <input onChange={''} placeholder="Search" className="input !border-none" />
-                    </div>
-                  )
-                }
-
-                <div className="flex items-center gap-[4px]">
-                  {/**Filter */}
-                  {
-                    showFilter && (
-                      <div className="">
-                        <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
-                      </div>
-                    )
-                  }
-
-                  <div onClick={handleNewTeam} className="">
-                    <Button onClick={handleNewTeam} text={`+ Add New`} style={`!bg-acn-main-color !border-acn-main-color`} />
-                  </div>
-
-                </div>
+          <div className="flex w-full items-center justify-between">
+            {/**Search */}
+            {showSearch && (
+              <div className="flex gap-[6px] w-[320px] items-center rounded-[8px] px-[14px] bg-white border-gray-300 border-[1px]">
+                <span className="cursor-pointer flex items-center justify-center w-5 h-5">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search"
+                  className="input !border-none"
+                />
               </div>
+            )}
+
+            <div className="flex items-center gap-[4px]">
+              {/**Filter */}
+              {showFilter && (
+                <div className="">
+                  <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
+                </div>
+              )}
+
+              <div onClick={handleNewTeam} className="">
+                <Button
+                  onClick={handleNewTeam}
+                  text={`+ Add New`}
+                  style={`!bg-main-color !border-main-color`}
+                />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/**BODY */}
-        {/* Render the current data here */}
+        {/* Render the filtered data here */}
         <table className="min-w-full mt-12 rounded-t-[12px] bg-white">
           <thead className="rounded-t-[12px]">
             <tr className="bg-[#F9F9F9] border-b-[1px] rounded-t-[12px]">
@@ -181,16 +208,16 @@ function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, tex
             </tr>
           </thead>
           <tbody>
-            {
-              loading ? (
-                <div className="flex items-center justify-center w-full">
-                  <Spinner />
-                </div>
-              ) :
-              currentData?.map((item) => {
-                const { formattedDate, formattedTime } = formatDateAndTime(
-                  item?.createdAt
-                );
+            {loading ? (
+              <div className="flex items-center justify-center w-full">
+                <Spinner />
+              </div>
+            ) : (
+              filteredData?.slice(
+                (currentPage - 1) * itemsPerPage,
+                currentPage * itemsPerPage
+              ).map((item) => {
+                const { formattedDate, formattedTime } = formatDateAndTime(item?.createdAt);
                 return (
                   <tr key={item?._id} className="border-t border-gray-200">
                     {/* firstname */}
@@ -207,7 +234,7 @@ function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, tex
                     </td>
                     {/* user id */}
                     <td className="px-6 py-4 text-[#13693B]">
-                        {item?.teamMemberId}
+                      {item?.teamMemberId}
                     </td>
                     {/* postion */}
                     <td className="px-6 py-4">
@@ -240,113 +267,76 @@ function TeamCard({ teamData, loading, showFilter, showMenuList, showSearch, tex
                       </p>
                     </td>
                     <td className="px-6 py-4">
-                    <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
-                          <div
-                              className={`py-[5px] px-[10px] rounded-[100px] ${
-                                  item?.blocked === true
-                                  ? "bg-[#FEF3F2] text-error"// Pending style
-                                  : item?.active === true
-                                  ? "bg-[#05A75312] text-[#05A753]" // Successful style
-                                  : item?.active === false
-                                  ? "bg-[#FEF3F2] text-error"
-                                  : "bg-[#D8E0E5] text-[#585858]" // Inactive or other status style
-                              }`}
-                          >
-                             {item?.blocked ? 'Blacklisted' : item?.active ? 'Active' : 'In Active' }
-                          </div>
-
-                          <div>
-                            <FiMoreVertical />
-                          </div>
-
-                          {/* MODAL POPUP, visible only on hover */}
-                          <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
-                            <Link
-                              to={`/acn/team/info/${item?.teamMemberId}`}
-                              className="flex items-center gap-3 text-sm text-primary-color"
-                            >
-                              <MdOutlineRemoveRedEye />
-                              View
-                            </Link>
-                            <Link
-                              to={`/acn/new-team/${item?.teamMemberId}`}
-                              className="flex items-center gap-3 text-sm text-primary-color"
-                            >
-                              <MdOutlineRemoveRedEye />
-                              Edit
-                            </Link>
-
-                          </div>
+                      <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
+                        <div
+                          className={`py-[5px] px-[10px] rounded-[100px] ${
+                            item?.blocked === true
+                              ? "bg-[#FEF3F2] text-error"
+                              : item?.active === true
+                              ? "bg-[#05A75312] text-[#05A753]"
+                              : item?.active === false
+                              ? "bg-[#FEF3F2] text-error"
+                              : "bg-[#D8E0E5] text-[#585858]"
+                          }`}
+                        >
+                          {item?.blocked
+                            ? "Blacklisted"
+                            : item?.active
+                            ? "Active"
+                            : "In Active"}
                         </div>
-                      </td>
+
+                        <div>
+                          <FiMoreVertical />
+                        </div>
+
+                        {/* MODAL POPUP, visible only on hover */}
+                        <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
+                          <Link
+                            to={`/edu-africa/team/info/${item?.teamMemberId}`}
+                            className="flex items-center gap-3 text-sm text-primary-color"
+                          >
+                            <MdOutlineRemoveRedEye />
+                            View
+                          </Link>
+                          <Link
+                            to={`/edu-africa/new-team/${item?.teamMemberId}`}
+                            className="flex items-center gap-3 text-sm text-primary-color"
+                          >
+                            <MdOutlineRemoveRedEye />
+                            Edit
+                          </Link>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
-                )
+                );
               })
-            }
+            )}
           </tbody>
         </table>
-        
       </div>
-      
+
       {/* Pagination Controls */}
-      {
-        showPagination && (
+      {showPagination && (
         <div className="flex items-center justify-between border-t-[1px] border-t-gray-200 py-4 px-6">
           <button
             onClick={handlePreviousPage}
             disabled={currentPage === 1}
-            className="flex items-center justify-center gap-2 px-4 py-2 mr-2 bg-white border-[1px] text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
+            className="px-3 py-1 border rounded bg-white"
           >
-            <span className="flex items-center justify-center w-5 h-5">
-              <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M19 12H5M5 12L12 19M5 12L12 5"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
             Previous
           </button>
-
-          <div className="flex gap-1">{renderPagination()}</div>
-
+          <div className="flex gap-2">{renderPagination()}</div>
           <button
             onClick={handleNextPage}
             disabled={currentPage === totalPages}
-            className="flex items-center justify-center gap-2 px-4 py-2 ml-2 bg-white border-[1px] text-gray-700 rounded hover:bg-gray-300 disabled:opacity-50"
+            className="px-3 py-1 border rounded bg-white"
           >
             Next
-            <span className="flex items-center justify-center w-5 h-5">
-              <svg
-                width="100%"
-                height="100%"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5 12H19M19 12L12 5M19 12L12 19"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
           </button>
         </div>
-        )
-      }
-
+      )}
     </div>
   );
 }

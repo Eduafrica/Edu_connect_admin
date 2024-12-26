@@ -13,31 +13,31 @@ import { deleteEvent } from "../../Helpers/arewahub/api";
 import toast from "react-hot-toast";
 
 function EventCards({ eventData, loading, showFilter, showMenuList, showSearch, text, showPagination }) {
-    const navigate = useNavigate()
-    const [ filterValue, setFilterValue ] = useState()
+  const navigate = useNavigate();
+  const [filterValue, setFilterValue] = useState();
   const productFilter = [
     {
-        name: 'All',
-        slug: 'all'
+      name: "All",
+      slug: "all",
     },
     {
-        name: 'Successful',
-        slug: 'successful'
+      name: "Successful",
+      slug: "successful",
     },
     {
-        name: 'Failed',
-        slug: 'failed'
+      name: "Failed",
+      slug: "failed",
     },
     {
-        name: 'Pending',
-        slug: 'pending'
-    }
-]
+      name: "Pending",
+      slug: "pending",
+    },
+  ];
 
-const [ activeCard, setActiveCard ] = useState(productFilter[0]?.slug)
-const handleFilterChange = (value) => {
-    setActiveCard(value)
-}
+  const [activeCard, setActiveCard] = useState(productFilter[0]?.slug);
+  const handleFilterChange = (value) => {
+    setActiveCard(value);
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 6;
 
@@ -115,83 +115,106 @@ const handleFilterChange = (value) => {
   };
 
   const handleNewProduct = () => {
-    navigate('/arewahub/new-event/noid')
-  }
+    navigate("/arewahub/new-event/noid");
+  };
 
-  const [ deleting, setDeleting ] = useState(false)
+  const [deleting, setDeleting] = useState(false);
   const handleEventDelete = async (value) => {
-    if(deleting){
-        return
+    if (deleting) {
+      return;
     }
-    const confirm = window.confirm(`Are you sure you want to delete this event`)
-    if(confirm){
-        try {
-            setDeleting(true)
-            const res = await deleteEvent({ id: value })
-            if(res.success){
-                toast.success(res.data)
-                window.location.reload()
-            } else {
-                toast.error(res.data)
-            }
-        } catch (error) {
-            
-        } finally {
-            setDeleting(false)
+    const confirm = window.confirm(`Are you sure you want to delete this event`);
+    if (confirm) {
+      try {
+        setDeleting(true);
+        const res = await deleteEvent({ id: value });
+        if (res.success) {
+          toast.success(res.data);
+          window.location.reload();
+        } else {
+          toast.error(res.data);
         }
+      } catch (error) {
+      } finally {
+        setDeleting(false);
+      }
     }
-  }
-  
+  };
+
+  const [searchTerm, setSearchTerm] = useState("");
+
+  // Filter the data based on search term
+  const filteredData = currentData?.filter((item) => {
+    return (
+      item?.eventName?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      item?.eventId?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      item?.eventDate?.toLowerCase().includes(searchTerm?.toLowerCase()) ||
+      item?.location?.toLowerCase().includes(searchTerm?.toLowerCase())
+    );
+  });
+
   return (
     <div className="p">
-      {
-        showMenuList && (
-            <MenuList
-                data={productFilter}
-                activeCard={activeCard}
-                onCLick={handleFilterChange}
-                activeStyle={`!text-arewahub-main-color !border-arewahub-main-color`}
-            />
-        )
-      }
+      {showMenuList && (
+        <MenuList
+          data={productFilter}
+          activeCard={activeCard}
+          onCLick={handleFilterChange}
+          activeStyle={`!text-arewahub-main-color !border-arewahub-main-color`}
+        />
+      )}
 
       <div className="px-4 py-5 rounded-t-[12px] border-[1px] border-white bg-white shadow-sm">
         {/**TOP */}
         <div className="w-full flex items-center gap-[50px]">
           <div className="flex items-center min-w-[140px]">
-            <h2 className="text-lg font-semibold text-[#121212] w-full">{ text ? text : `${currentData?.length} Events` }</h2>
+            <h2 className="text-lg font-semibold text-[#121212] w-full">
+              {text ? text : `${filteredData?.length} Events`}
+            </h2>
           </div>
 
-              <div className="flex w-full items-center justify-between">
-                
-                {/**Search */}
-                {
-                  showSearch && (
-                    <div className="flex gap-[6px] w-[320px] items-center rounded-[8px] px-[14px] bg-white border-gray-300 border-[1px]">
-                      <span className="cursor-pointer flex items-center justify-center w-5 h-5">
-                        <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </span>
-                      <input onChange={''} placeholder="Search" className="input !border-none" />
-                    </div>
-                  )
-                }
-
-                <div className="flex items-center gap-5">
-                    {/**Filter */}
-                    {
-                    showFilter && (
-                        <div className="">
-                        <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
-                        </div>
-                    )
-                    }
-                    <div onClick={handleNewProduct} className="">
-                        <Button text={'+ Add Event'} style={`!border-none !bg-arewahub-main-color min-w-[174px]`} />
-                    </div>
-                </div>
+          <div className="flex w-full items-center justify-between">
+            {/**Search */}
+            {showSearch && (
+              <div className="flex gap-[6px] w-[320px] items-center rounded-[8px] px-[14px] bg-white border-gray-300 border-[1px]">
+                <span className="cursor-pointer flex items-center justify-center w-5 h-5">
+                  <svg
+                    width="100%"
+                    height="100%"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M21 21L17.5001 17.5M20 11.5C20 16.1944 16.1944 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3C16.1944 3 20 6.80558 20 11.5Z"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+                <input
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  placeholder="Search"
+                  className="input !border-none"
+                />
               </div>
+            )}
+
+            <div className="flex items-center gap-5">
+              {/**Filter */}
+              {showFilter && (
+                <div className="">
+                  <Filter filterValue={filterValue} setFilterValue={setFilterValue} />
+                </div>
+              )}
+              <div onClick={handleNewProduct} className="">
+                <Button text={"+ Add Event"} style={`!border-none !bg-arewahub-main-color min-w-[174px]`} />
+              </div>
+            </div>
+          </div>
         </div>
 
         {/**BODY */}
@@ -220,91 +243,68 @@ const handleFilterChange = (value) => {
             </tr>
           </thead>
           <tbody>
-            {
-              loading ? (
-                <div className="flex items-center justify-center w-full">
-                  <Spinner />
-                </div>
-              ) :
-              currentData?.map((item) => {
-                const { formattedDate, formattedTime } = formatDateAndTime(
-                  item?.createdAt
-                );
+            {loading ? (
+              <div className="flex items-center justify-center w-full">
+                <Spinner />
+              </div>
+            ) : (
+              filteredData?.map((item) => {
+                const { formattedDate, formattedTime } = formatDateAndTime(item?.createdAt);
                 return (
                   <tr key={item?._id} className="border-t border-gray-200">
                     {/* event name */}
                     <td className="px-6 py-4">
-                      <div className="font-normal text=-[14px] text-[#06152B]">
-                        {item?.eventName}
-                      </div>
+                      <div className="font-normal text=-[14px] text-[#06152B]">{item?.eventName}</div>
                     </td>
                     {/** event location */}
                     <td className="px-6 py-4">
-                      <div className="text-[14px] font-normal text-[#121212]">
-                        {truncateText(item?.location, 2)}
-                      </div>
+                      <div className="text-[14px] font-normal text-[#121212]">{truncateText(item?.location, 2)}</div>
                     </td>
                     {/** event location */}
                     <td className="px-6 py-4">
-                      <div className="text-[14px] font-normal text-[#121212]">
-                        {item?.eventId}
-                      </div>
+                      <div className="text-[14px] font-normal text-[#121212]">{item?.eventId}</div>
                     </td>
                     {/* events speakers */}
                     <td className="px-6 py-4">
-                      <div className="text-[14px] font-normal text-[#121212] flex-col">
-                        {truncateText(item?.speakers, 2)}
-                      </div>
+                      <div className="text-[14px] font-normal text-[#121212] flex-col">{truncateText(item?.speakers, 2)}</div>
                     </td>
                     {/* event schedule */}
-                    <td className="px-6 py-4 text-[14px] text-[#121212] font-normal" 
-                        dangerouslySetInnerHTML={{ __html: truncateText(item?.schedule, 3) }}
-                    >
-                    </td>
+                    <td className="px-6 py-4 text-[14px] text-[#121212] font-normal" dangerouslySetInnerHTML={{ __html: truncateText(item?.schedule, 3) }}></td>
                     <td className="px-6 py-4">
-                        <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
-                            <div className="flex flex-col gap-[6px]">
-                                <p className="text-[13px] font-normal text-[#121212]">
-                                    {item?.eventDate}
-                                </p>
-                                <p className="text-[13px] font-normal text-[#717171]">
-                                    {item?.eventTime}
-                                </p>
-                            </div>
-
-                          <div>
-                            <FiMoreVertical />
-                          </div>
-
-                          {/* MODAL POPUP, visible only on hover */}
-                          <div className="absolute z-50 top-8 right-0 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
-                            <Link
-                              to={`/arewahub/new-event/${item?.eventId}`}
-                              className="flex items-center gap-3 text-sm text-primary-color"
-                            >
-                              Edit
-                            </Link>
-                            <p
-                                onClick={() => handleEventDelete(item?.eventId)}
-                                className="flex items-center gap-3 text-sm text-[#F81414]"
-                            >
-                                { deleting ? 'Deleting' : 'Delete' } 
-                            </p>
-                          </div>
+                      <div className="relative cursor-pointer flex items-start justify-between gap-2 group">
+                        <div className="flex flex-col gap-[6px]">
+                          <p className="text-[13px] font-normal text-[#121212]">{item?.eventDate}</p>
+                          <p className="text-[13px] font-normal text-[#717171]">{item?.eventTime}</p>
                         </div>
-                      </td>
+
+                        <div>
+                          <FiMoreVertical />
+                        </div>
+
+                        {/* MODAL POPUP, visible only on hover */}
+                        <div className="absolute z-50 top-8 right-0 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
+                          <Link
+                            to={`/arewahub/new-event/${item?.eventId}`}
+                            className="flex items-center gap-3 text-sm text-primary-color"
+                          >
+                            Edit
+                          </Link>
+                          <p onClick={() => handleEventDelete(item?.eventId)} className="flex items-center gap-3 text-sm text-[#F81414]">
+                            {deleting ? "Deleting" : "Delete"}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
                   </tr>
-                )
+                );
               })
-            }
+            )}
           </tbody>
         </table>
-        
       </div>
-      
+
       {/* Pagination Controls */}
-      {
-        showPagination && (
+      {showPagination && (
         <div className="flex items-center justify-between border-t-[1px] border-t-gray-200 py-4 px-6">
           <button
             onClick={handlePreviousPage}
@@ -320,18 +320,18 @@ const handleFilterChange = (value) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M19 12H5M5 12L12 19M5 12L12 5"
+                  d="M19 12H5M5 12L9 8M5 12L9 16"
                   stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 />
               </svg>
             </span>
-            Previous
+            Prev
           </button>
 
-          <div className="flex gap-1">{renderPagination()}</div>
+          <div className="flex gap-2">{renderPagination()}</div>
 
           <button
             onClick={handleNextPage}
@@ -348,19 +348,17 @@ const handleFilterChange = (value) => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  d="M5 12H19M19 12L12 5M19 12L12 19"
+                  d="M5 12H19M19 12L15 8M19 12L15 16"
                   stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
                 />
               </svg>
             </span>
           </button>
         </div>
-        )
-      }
-
+      )}
     </div>
   );
 }

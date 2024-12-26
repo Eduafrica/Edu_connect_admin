@@ -1,3 +1,5 @@
+import { useFetchLastestEvent } from "../../Helpers/arewahub/fetch.hooks"
+import { convertTo12HourFormat } from "../../Helpers/formatDateAndTime"
 
 function EventStats() {
     const dataObject = {
@@ -22,6 +24,9 @@ function EventStats() {
         percentageType: 'positive',
       }
     }
+
+    const { data: lastestEvent, isFetching: loadingEvents } = useFetchLastestEvent()
+    const eventData = lastestEvent?.data
     return (
       <div className='w-full flex items-center gap-[33px] justify-between'>
         <div className="card1 bg-white">
@@ -76,8 +81,8 @@ function EventStats() {
           <div className="flex flex-col gap-[34px] w-full">
             <h3 className='text-[16px[ font-medium text-[#202224]'>Last event</h3>
             <div className="flex flex-col gap-[6px]">
-                <p className="text-[14px] text-[#202224] font-normal">31 / 01/ 2024</p>
-                <p className="text-[14px] text-[#202224] font-normal">05.30 PM</p>
+                <p className="text-[14px] text-[#202224] font-normal">{eventData?.latestPastEvent?.eventDate}</p>
+                <p className="text-[14px] text-[#202224] font-normal">{convertTo12HourFormat(eventData?.latestPastEvent?.eventTime)}</p>
             </div>
           </div>
         </div>
@@ -85,8 +90,8 @@ function EventStats() {
           <div className="flex flex-col gap-[34px] w-full">
             <h3 className='text-[16px[ font-medium text-[#202224]'>Upcoming events</h3>
             <div className="flex flex-col gap-[6px]">
-                <p className="text-[14px] text-[#202224] font-normal">31 / 01/ 2024</p>
-                <p className="text-[14px] text-[#202224] font-normal">05.30 PM</p>
+                <p className="text-[14px] text-[#202224] font-normal">{eventData?.nearestFutureEvent?.eventDate}</p>
+                <p className="text-[14px] text-[#202224] font-normal">{convertTo12HourFormat(eventData?.nearestFutureEvent?.eventTime)}</p>
             </div>
           </div>
         </div>

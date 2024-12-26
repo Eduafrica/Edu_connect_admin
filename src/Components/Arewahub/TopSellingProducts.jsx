@@ -42,13 +42,13 @@ function TopSellingProducts({ text, data, loading }) {
                     {/* name */}
                     <td className="px-6 py-4">
                       <div className="font-medium text-[18px] text-[#06152B]">
-                        {item?.expense}
+                        {item?.productName}
                       </div>
                     </td>
                     {/* expense amount */}
                     <td className="px-6 py-4">
                       <div className="text-[18px] font-medium text-[#06152B] flex-col">
-                        N{item?.amount.toLocaleString()}
+                        {item?.priceCurrency} {item?.price?.toLocaleString()}
                       </div>
                     </td>
 

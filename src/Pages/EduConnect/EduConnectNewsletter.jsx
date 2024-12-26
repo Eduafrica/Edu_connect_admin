@@ -9,8 +9,6 @@ import ErrorCard from "../../Components/Helpers/ErrorCard";
 import EduConnectNewsletterForm from "../../Components/EduConnect/EduConnectNewsletterForm";
 
 function EduConnectNewsletter() {
-  const { data: newsAndUpdateData, isFetching } = useFetchNewsAndUpdates()
-  const data = newsAndUpdateData?.data || newsandupdates || []
   
   const [ successMsg, setSuccessMsg ] = useState()
   const [ errorMsg, setErrorMsg ] = useState()

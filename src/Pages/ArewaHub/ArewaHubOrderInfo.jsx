@@ -136,7 +136,7 @@ function ArewaHubOrderInfo({  }) {
                         {/**ADD HERE */}
                         <div className="card1 ">
                             <div className="flex items-center gap-[40px]">
-                                <Link to={`/arewahub/products`} className="flex items-center justify-center w-5 h-5">
+                                <Link to={`/arewahub/orders`} className="flex items-center justify-center w-5 h-5">
                                     <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                                     </svg>
@@ -222,7 +222,7 @@ function ArewaHubOrderInfo({  }) {
                                             <div className="flex flex-col gap-[7px] w-[124px]">
                                                     <img src={i?.image} alt={i?.productName} className="w-full" />
                                                     <p className="text-[#364152] font-semibold text-[14px]">{i.name}</p>
-                                                    <p className="text-[16px] font-bold text-[#364152]">{i.price}</p>
+                                                    <p className="text-[16px] font-bold text-[#364152]">{i.priceCurrency} {i.price}</p>
                                                     <p className="text-[12px] font-bold text-[#364152]">{i.productId}</p>
                                             </div>
                                     ))
@@ -230,9 +230,9 @@ function ArewaHubOrderInfo({  }) {
                                 </div>
                             </div>
 
-                            <div className="border-t-[1px] border-[#EFF0F6] min-h-[48px] w-full flex items-center px-4">
+                            <div className="border-t-[1px] border-[#EFF0F6] min-h-[48px] w-full flex items-center px-4 gap-1">
                                 <p className="font-normal text-[14px] text-[#585858]">Total Amount</p>
-                                <p className="font-semibold text-[14px] text-[#344054]">₦{data?.amount?.toLocaleString()}</p>
+                                <p className="font-semibold text-[14px] text-[#344054]">{data?.amount?.toLocaleString()}</p>
                                 
                             </div>
                         </div>

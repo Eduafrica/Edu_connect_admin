@@ -25,7 +25,7 @@ function TopDonations({ text, data, loading }) {
                 Last Name
               </th>
               <th className="px-6 py-3 text-left text-[#585858] font-medium text-[12px] tracking-wider">
-                User ID
+                type
               </th>
               <th className="px-6 py-3 text-left text-[#585858] font-medium text-[12px] tracking-wider">
                 
@@ -50,23 +50,20 @@ function TopDonations({ text, data, loading }) {
                       <div className="font-medium text-[18px] text-[#06152B]">
                         {item?.firstName}
                       </div>
-                      <div className="text-[18px] font-medium text-[#06152B]">
-                        {item?.lastName}
-                      </div>
                     </td>
                     {/* email */}
                     <td className="px-6 py-4">
-                        {item?.email}
+                        {item?.lastName}
                     </td>
                     {/* donation amount */}
                     <td className="px-6 py-4">
                       <div className="text-[18px] font-medium text-[#06152B] flex-col">
-                        N{item?.amount.toLocaleString()}
+                        {item?.donationType}
                       </div>
                     </td>
                     {/* More */}
                     <td className="px-6 py-4">
-                      <Link to={''} className="flex items-center gap-2">
+                      <Link to={`/donation/info/${item?.donationId}`} className="flex items-center gap-2">
                         <span className="flex items-center justify-center w-5 h-5">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-[#929292]'>
                                 <path d="M12 13C12.5523 13 13 12.5523 13 12C13 11.4477 12.5523 11 12 11C11.4477 11 11 11.4477 11 12C11 12.5523 11.4477 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>

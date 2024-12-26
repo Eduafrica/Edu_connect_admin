@@ -122,3 +122,34 @@ export async function deleteTestimony({ id }) {
         return res?.data
     }
 }
+
+//NEWS LETTER
+export async function newNewsletter(formData) {
+    try {
+        const res = await axios.post('/newsLetter/newNewsletter', formData, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to process request'
+        return res?.data
+    }
+}
+
+export async function editNewsLetter(formData) {
+    try {
+        const res = await axios.post('/newsLetter/editNewsLetter', formData, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to process request'
+        return res?.data
+    }
+}
+
+export async function deleteNewsLetter({ id }) {
+    try {
+        const res = await axios.post('/newsLetter/deleteNewsLetter', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to process request'
+        return res?.data
+    }
+}
