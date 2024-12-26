@@ -10,7 +10,7 @@ function FaqCard({ data, setEduconnectFaqId, loading: loadingData }) {
   const [current, setCurrent] = useState();
   const [showMoreCard, setShowMoreCard] = useState(false);
   const [cardId, setCardId] = useState();
-
+  console.log('object', data)
   const handleCurrent = (id) => {
     if (current === id) {
       setCurrent();

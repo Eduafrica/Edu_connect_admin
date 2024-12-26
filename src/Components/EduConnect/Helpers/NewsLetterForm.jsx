@@ -3,8 +3,9 @@ import RichTextEditor from './RichTextEditor';
 
 function NewsLetterForm({ data, formData, setFormData, handleChange }) {
     const [titleActive, setTitleActive] = useState(true);
-    const [configorationsActive, setConfigorationsActive] = useState(true);
+    const [configurationsActive, setConfigurationsActive] = useState(true);
     const [isDragging, setIsDragging] = useState(false);
+    const MAX_FILE_SIZE_MB = 1;
 
     const handleTitleDelete = () => {
         setFormData({ ...formData, title: '' });
@@ -14,14 +15,33 @@ function NewsLetterForm({ data, formData, setFormData, handleChange }) {
         setFormData({ ...formData, image: null });
     };
 
+    const validateFile = (file) => {
+        const isValidImage = file.type.startsWith('image/');
+        const isWithinSizeLimit = file.size <= MAX_FILE_SIZE_MB * 1024 * 1024;
+
+        if (!isValidImage) {
+            setErrorMsg('Only image files are allowed.');
+            setTimeout(() => {
+                setErrorMsg();
+            }, 2500);
+            return false;
+        }
+
+        if (!isWithinSizeLimit) {
+            setErrorMsg(`File size must not exceed ${MAX_FILE_SIZE_MB}MB.`);
+            setTimeout(() => {
+                setErrorMsg();
+            }, 2500);
+            return false;
+        }
+
+        return true;
+    };
+
     const handleImageSelect = (e) => {
         const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setFormData({ ...formData, image: reader.result });
-            };
-            reader.readAsDataURL(file);
+        if (file && validateFile(file)) {
+            setFormData({ ...formData, image: file });
         }
     };
 
@@ -38,28 +58,13 @@ function NewsLetterForm({ data, formData, setFormData, handleChange }) {
         e.preventDefault();
         setIsDragging(false);
         const file = e.dataTransfer.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setFormData({ ...formData, image: reader.result });
-            };
-            reader.readAsDataURL(file);
+        if (file && validateFile(file)) {
+            setFormData({ ...formData, image: file });
         }
-    };
-
-    // Convert base64 image to Blob for FormData
-    const dataURItoBlob = (dataURI) => {
-        const byteString = atob(dataURI.split(',')[1]);
-        const arrayBuffer = new ArrayBuffer(byteString.length);
-        const uintArray = new Uint8Array(arrayBuffer);
-        for (let i = 0; i < byteString.length; i++) {
-            uintArray[i] = byteString.charCodeAt(i);
-        }
-        return new Blob([uintArray], { type: 'image/png' });
     };
 
     useEffect(() => {
-        console.log('DATA', formData);
+        console.log('Form Data:', formData);
     }, [formData]);
 
     return (
@@ -99,7 +104,7 @@ function NewsLetterForm({ data, formData, setFormData, handleChange }) {
             <div className="flex flex-col w-full gap-[30px]">
                 <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                        <div onClick={() => setConfigorationsActive((prev) => !prev)} className="flex items-center justify-center w-5 h-5 cursor-pointer">
+                        <div onClick={() => setConfigurationsActive((prev) => !prev)} className="flex items-center justify-center w-5 h-5 cursor-pointer">
                             <svg width="100%" height="100%" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className='text-acn-main-color'>
                                 <path d="M6 9L12 15L18 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                             </svg>
@@ -116,41 +121,37 @@ function NewsLetterForm({ data, formData, setFormData, handleChange }) {
                         Delete
                     </div>
                 </div>
-                {configorationsActive && (
+                {configurationsActive && (
                     <>
-                        <div
+          <div
                             onDragOver={handleDragOver}
                             onDragLeave={handleDragLeave}
                             onDrop={handleImageDrop}
-                            className="border-[1px] border-[#D0D5DD] border-dashed rounded-[11px] py-[19px] text-center w-full flex items-center justify-center flex-col"
+                            className={`border-[1px] border-[#D0D5DD] border-dashed rounded-[11px] py-[19px] text-center flex items-center justify-center flex-col ${
+                                isDragging ? 'bg-gray-100' : ''
+                            }`}
                         >
                             {formData?.image ? (
                                 <div className="relative">
-                                    <img className="w-full h-[300px] object-cover rounded-[6px]" src={formData?.image} alt="Preview" />
+                                    <p className="text-[14px] font-semibold">File Selected: {formData?.image.name}</p>
                                     <button
                                         type="button"
                                         onClick={handleFileDelete}
                                         className="absolute top-2 right-2 bg-white text-red-600 p-2 rounded-full"
                                     >
-                                        <svg width="16" height="16" fill="currentColor" className="bi bi-x" xmlns="http://www.w3.org/2000/svg">
-                                            <path d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 1 1 .708.708L8.707 8l2.647 2.646a.5.5 0 1 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z"/>
-                                        </svg>
+                                        ✕
                                     </button>
                                 </div>
-                            ) : isDragging ? ( 
-                                <>
-                                    <p className="text-[#585858] text-[10px] font-normal">Drop here</p>
-                                </>
                             ) : (
-                                <div className='flex items-center justify-center flex-col gap-[10px]'>
-                                    <p className="text-[#585858] text-[10px] font-normal">Drop an Image here or</p>
+                                <div className="flex items-center justify-center flex-col gap-[10px]">
+                                    <p className="text-[#585858] text-[10px] font-normal">Drop an image here or</p>
                                     <label
                                         htmlFor="file-upload"
-                                        className="border-[1px] cursor-pointer rounded-[16px] p-[10px] inline-block border-[#EBEBEB] text-center"
+                                        className="border-[1px] cursor-pointer rounded-[16px] p-[10px] border-[#EBEBEB] text-center"
                                     >
                                         <span className="text-[12px] font-semibold text-[#929292]">Browse file</span>
                                     </label>
-                                    <p className="text-[#585858] text-[10px] font-normal">Max of 5mb</p>
+                                    <p className="text-[#585858] text-[10px] font-normal">Max of {MAX_FILE_SIZE_MB}MB</p>
                                     <input
                                         id="file-upload"
                                         type="file"

@@ -126,7 +126,7 @@ export async function deleteTestimony({ id }) {
 //NEWS LETTER
 export async function newNewsletter(formData) {
     try {
-        const res = await axios.post('/newsLetter/newNewsletter', formData, {withCredentials: true})
+        const res = await axios.post('/newsLetter/newNewsletter', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to process request'
@@ -136,7 +136,7 @@ export async function newNewsletter(formData) {
 
 export async function editNewsLetter(formData) {
     try {
-        const res = await axios.post('/newsLetter/editNewsLetter', formData, {withCredentials: true})
+        const res = await axios.post('/newsLetter/editNewsLetter', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to process request'

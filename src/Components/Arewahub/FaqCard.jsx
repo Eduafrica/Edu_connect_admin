@@ -10,7 +10,6 @@ function FaqCard({ data, setAcnFaqId, loading: loadingData }) {
   const [current, setCurrent] = useState();
   const [showMoreCard, setShowMoreCard] = useState(false);
   const [cardId, setCardId] = useState();
-
   const handleCurrent = (id) => {
     if (current === id) {
       setCurrent();
