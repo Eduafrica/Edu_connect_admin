@@ -87,7 +87,7 @@ function FaqCard({ data, setEduconnectFaqId, loading: loadingData }) {
           <Spinner />
         </div>
       ) : (
-        data?.faqs?.map((i, idx) => (
+        data[0]?.faqs?.map((i, idx) => (
           <div
             key={idx}
             onClick={() => handleCurrent(idx)}
