@@ -65,7 +65,7 @@ function EduAfricaContactUsInfo() {
         <div className="bg-bgColor pad1 flex flex-col gap-[39px]">
             <div className="flex flex-col gap-[30px]">
 
-              <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
+              <DashBoardLinks name={'eduafrica'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">

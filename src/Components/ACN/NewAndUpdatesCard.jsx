@@ -119,7 +119,7 @@ function NewAndUpdatesCard({ newsData, loading, showFilter, showMenuList, showSe
   ]
 
   const handleNavigate = () => {
-    navigete('/acn/news-and-updates/post-form/noid')
+    navigate('/acn/news-and-updates/post-form/noid')
   }
   
   return (

@@ -25,7 +25,7 @@ function EduAfricaContactUs() {
             {/**TOP */}
             <div className="flex flex-col gap-[30px]">
 
-                <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
+                <DashBoardLinks name={'eduafrica'} color={`text-edu-main-color border-edu-main-color`} />
 
                 <h1 className="title">
                   Contact Us

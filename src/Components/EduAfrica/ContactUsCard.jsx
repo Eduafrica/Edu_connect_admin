@@ -193,7 +193,7 @@ function ContactUsCard({ contactUsData, loading, showFilter, showMenuList, showS
                       <p className="text-[13px] font-normal text-[#717171]">{formattedTime}</p>
                     </td>
                     <td className="px-6 py-4 text-[14px] font-normal text-gray-600 flex gap-4">
-                      <Link to={`/edu-connect/contact-us/info/${item?._id}`} className="">
+                      <Link to={`/edu-africa/contact-us/info/${item?._id}`} className="">
                         {truncateText(item?.message, 9)}
                       </Link>
                     </td>

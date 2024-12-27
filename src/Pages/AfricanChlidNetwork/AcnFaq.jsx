@@ -41,7 +41,7 @@ function AcnFaq({ setAcnFaqId }) {
               <DashBoardLinks name={'acn'} color={`text-acn-main-color border-acn-main-color`} />
 
                 <div className="flex items-center justify-center gap-8 flex-col">
-                    <h2 className="text-gray-900 text-[36px] font-semibold text-center">Annaul report</h2>
+                    <h2 className="text-gray-900 text-[36px] font-semibold text-center">Annual report</h2>
                     <p className="text-gray-600 font-normal text-[20px] text-center">Yearly report of African child network</p>
                 </div>
                 

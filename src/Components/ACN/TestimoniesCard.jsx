@@ -236,7 +236,7 @@ function TestimoniesCard({ testimonytData, loading, showFilter, showMenuList, sh
                         {/* MODAL POPUP, visible only on hover */}
                         <div className="absolute z-50 top-8 flex flex-col gap-3 bg-white border-[1px] border-gray-200 shadow-lg rounded-[8px] p-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-[170px]">
                           <Link
-                            to={`/arewahub/testimonies/info/${item?._id}`}
+                            to={`/acn/testimonies/info/${item?._id}`}
                             className="flex items-center gap-3 text-sm text-primary-color"
                           >
                             <MdOutlineRemoveRedEye />

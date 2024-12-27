@@ -65,7 +65,7 @@ function ArewaEventForm({ setSuccessMsg, setErrorMsg }) {
       {/**HEAD */}
       <div className="flex items-center justify-between">
         <div className="flex gap-6 items-center">
-          <Link to={`/acn/news-and-updates`} className="flex items-center justify-center w-5 h-5">
+          <Link to={`/arewahub/events`} className="flex items-center justify-center w-5 h-5">
             <svg
               width="100%"
               height="100%"

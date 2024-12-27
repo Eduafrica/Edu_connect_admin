@@ -121,7 +121,7 @@ function StoriesCard({ newsData, loading, showFilter, showMenuList, showSearch, 
   ]
 
   const handleNavigate = () => {
-    navigete('/acn/story/story-form/noid')
+    navigate('/acn/story/story-form/noid')
   }
 
 

@@ -78,7 +78,7 @@ function ArewaHubTestimoniesInfo() {
                 const res = await deleteTestimony({ id: pathName })
                 if(res.success){
                     toast.success(res.data)
-                    navigate('/acn/testimonies')
+                    navigate('/arewahub/testimonies')
                 } else {
                     toast.error(res.data)
                 }
@@ -114,7 +114,7 @@ function ArewaHubTestimoniesInfo() {
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
-                        <Link to={`/acn-connect/testimonies`} className="">
+                        <Link to={`/arewahub/testimonies`} className="">
                             <IoIosArrowBack />
                         </Link>
 
