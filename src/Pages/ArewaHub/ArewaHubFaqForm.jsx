@@ -3,7 +3,7 @@ import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/Arewahub/Sidebar";
 import Button from "../../Components/Helpers/Button";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { newFaq, updateFaq } from "../../Helpers/arewahub/api";
 import toast from "react-hot-toast";
 import ErrorCard from "../../Components/Helpers/ErrorCard";
@@ -12,8 +12,23 @@ import { useFetchFaq } from "../../Helpers/arewahub/fetch.hooks";
 
 function ArewaHubFaqForm({ acnFaqId, setAcnFaqId }) {
     const navigate = useNavigate()
-    const { data: educonnectfaq, isFetching } = useFetchFaq(acnFaqId)
-    const faqData = educonnectfaq?.data || {}
+    let faqData = {}
+    useEffect(() => {
+        if (typeof acnFaqId !== 'string') {
+            const hasReloaded = localStorage.getItem('hasReloaded');
+    
+            if (!hasReloaded) {
+                localStorage.setItem('hasReloaded', 'true');
+                window.location.reload();
+            } else {
+                localStorage.removeItem('hasReloaded'); // Clear the flag for future reloads
+            }
+        }
+    }, [acnFaqId]);
+    if (typeof acnFaqId === 'string' && acnFaqId.trim() !== '') {
+        const { data: educonnectfaq, isFetching } = useFetchFaq(acnFaqId);
+        faqData = educonnectfaq?.data || {};
+    }
 
     const [ formData, setFormData ] = useState({ id: acnFaqId ? acnFaqId : '' })
     const handleChange = (e) => {

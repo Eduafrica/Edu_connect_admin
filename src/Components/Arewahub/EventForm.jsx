@@ -95,9 +95,9 @@ function EventForm({ setErrorMsg, data, formData, setFormData, handleChange }) {
                             placeholder='Enter event name'
                             className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
                         />
-                        <EventRichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={`schedule`} placeholder={`Schedule`} />
+                        <EventRichTextEditor data={data?.schedule} handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={`schedule`} placeholder={`Schedule`} />
 
-                        <EventRichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={'eventDescription'} placeholder={'Event Description'} />
+                        <EventRichTextEditor data={data?.eventDescription} handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={'eventDescription'} placeholder={'Event Description'} />
                     </>
                 )}
             </div>

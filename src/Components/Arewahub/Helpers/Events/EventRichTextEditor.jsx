@@ -35,6 +35,7 @@ const EventRichTextEditor = ({ handleChange, setFormData, formDataValue, placeho
         },
       },
       placeholder: placeholder,
+      
     });
 
     quillInstance.current = quill; // Store the Quill instance

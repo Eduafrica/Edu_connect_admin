@@ -3,7 +3,7 @@ import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import Button from "../../Components/Helpers/Button";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { newFaq, updateFaq } from "../../Helpers/educonnect/api";
 import toast from "react-hot-toast";
 import ErrorCard from "../../Components/Helpers/ErrorCard";
@@ -12,8 +12,24 @@ import { useFetchFaq } from "../../Helpers/educonnect/fetch.hooks";
 
 function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
     const navigate = useNavigate()
-    const { data: educonnectfaq, isFetching } = useFetchFaq(educonnectFaqId)
-    const faqData = educonnectfaq?.data || {}
+    let faqData = {}
+    useEffect(() => {
+        if (typeof educonnectFaqId !== 'string') {
+            const hasReloaded = localStorage.getItem('hasReloaded');
+    
+            if (!hasReloaded) {
+                localStorage.setItem('hasReloaded', 'true');
+                window.location.reload();
+            } else {
+                localStorage.removeItem('hasReloaded'); // Clear the flag for future reloads
+            }
+        }
+    }, [educonnectFaqId]);
+    if (typeof educonnectFaqId === 'string' && educonnectFaqId.trim() !== '') {
+        const { data: educonnectfaq, isFetching } = useFetchFaq(educonnectFaqId);
+        faqData = educonnectfaq?.data || {};
+    }
+    console.log('IDS', educonnectFaqId, faqData?._id)
 
     const [ formData, setFormData ] = useState({ id: educonnectFaqId ? educonnectFaqId : '' })
     const handleChange = (e) => {
@@ -25,7 +41,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
         if(loading){
             return
         }
-        if(!educonnectFaqId){
+        if(!faqData?._id){
             if(!formData?.question){
                 setError('Provide a Question')
                 setTimeout(() => {
@@ -43,7 +59,7 @@ function EduConnectFaqForm({ educonnectFaqId, setEduconnectFaqId }) {
         }
         try {
             setLoading(true)
-            const res = educonnectFaqId ? await updateFaq(formData) : await newFaq(formData)
+            const res = faqData?._id ? await updateFaq(formData) : await newFaq(formData)
             if(res?.success){
                 toast.success(res?.data)
                 navigate('/edu-connect/faq')
