@@ -51,7 +51,7 @@ function Stats({ data, loading }) {
                     )
                   }
                 </span>
-              {dataObject?.totalDonations?.percentage}%
+              {dataObject?.totalDonations?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -75,7 +75,7 @@ function Stats({ data, loading }) {
                   )
                 }
               </span>
-              {dataObject?.totalExpense?.percentage}%
+              {dataObject?.totalExpense?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -99,7 +99,7 @@ function Stats({ data, loading }) {
                     )
                   }
                 </span>
-              {dataObject?.totalDonationsAmount?.percentage}%
+              {dataObject?.totalDonationsAmount?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -123,7 +123,7 @@ function Stats({ data, loading }) {
                     )
                   }
                 </span>
-              {dataObject?.totalSuccessfulDonation?.percentage}%
+              {dataObject?.totalSuccessfulDonation?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>

@@ -43,7 +43,7 @@ function Stats() {
                       )
                     }
                   </span>
-                {dataObject?.totalAppDownload?.percentage}%
+                {dataObject?.totalAppDownload?.percentage.toFixed(2)}%
               </span>
             </div>
           </div>
@@ -67,7 +67,7 @@ function Stats() {
                     )
                   }
                 </span>
-                {dataObject?.totalCourseSearch?.percentage}%
+                {dataObject?.totalCourseSearch?.percentage.toFixed(2)}%
               </span>
             </div>
           </div>
@@ -91,7 +91,7 @@ function Stats() {
                       )
                     }
                   </span>
-                {dataObject?.totalClickedCourse?.percentage}%
+                {dataObject?.totalClickedCourse?.percentage.toFixed(2)}%
               </span>
             </div>
           </div>
@@ -115,7 +115,7 @@ function Stats() {
                       )
                     }
                   </span>
-                {dataObject?.totalCourseOnWeb?.percentage}%
+                {dataObject?.totalCourseOnWeb?.percentage.toFixed(2)}%
               </span>
             </div>
           </div>

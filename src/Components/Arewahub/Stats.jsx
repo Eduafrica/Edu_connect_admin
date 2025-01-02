@@ -50,7 +50,7 @@ function Stats({ data, loading }) {
                     )
                   }
                 </span>
-              {dataObject?.totalRevenue?.percentage}%
+              {dataObject?.totalRevenue?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -74,7 +74,7 @@ function Stats({ data, loading }) {
                   )
                 }
               </span>
-              {dataObject?.totalPending?.percentage}%
+              {dataObject?.totalPending?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -98,7 +98,7 @@ function Stats({ data, loading }) {
                     )
                   }
                 </span>
-              {dataObject?.totalApproved?.percentage}%
+              {dataObject?.totalApproved?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -122,7 +122,7 @@ function Stats({ data, loading }) {
                     )
                   }
                 </span>
-              {dataObject?.totalPeopleOrder?.percentage}%
+              {dataObject?.totalPeopleOrder?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>

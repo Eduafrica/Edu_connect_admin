@@ -43,7 +43,7 @@ function Stats() {
                     )
                   }
                 </span>
-              {dataObject?.totalClicks?.percentage}%
+              {dataObject?.totalClicks?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -67,7 +67,7 @@ function Stats() {
                   )
                 }
               </span>
-              {dataObject?.totalEduconnectClicks?.percentage}%
+              {dataObject?.totalEduconnectClicks?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -91,7 +91,7 @@ function Stats() {
                     )
                   }
                 </span>
-              {dataObject?.totalArewahubClicks?.percentage}%
+              {dataObject?.totalArewahubClicks?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
@@ -115,7 +115,7 @@ function Stats() {
                     )
                   }
                 </span>
-              {dataObject?.totatACNClicks?.percentage}%
+              {dataObject?.totatACNClicks?.percentage.toFixed(2)}%
             </span>
           </div>
         </div>
