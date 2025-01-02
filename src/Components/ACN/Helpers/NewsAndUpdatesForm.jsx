@@ -66,7 +66,7 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange, setErro
     useEffect(() => {
         console.log('Form Data:', formData);
     }, [formData]);
-
+    console.log('formData de', formData)
     return (
         <form  className='flex w-full flex-col gap-[30px]'>
             <div className="flex flex-col w-full gap-[30px]">
@@ -91,7 +91,7 @@ function NewsAndUpdatesForm({ data, formData, setFormData, handleChange, setErro
                 </div>
                 {titleActive && (
                     <>
-                        <input id='title' defaultValue={data?.title} value={formData?.title} onChange={handleChange} type="text" placeholder='Enter Title' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
+                        <input id='title'  value={formData?.title} onChange={handleChange} type="text" placeholder='Enter Title' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
                     
                         <div className="">
                             <RichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={'post'} />

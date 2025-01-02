@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
 
-const EventRichTextEditor = ({ handleChange, setFormData, formDataValue, placeholder }) => {
+const EventRichTextEditor = ({ handleChange, setFormData, formDataValue, placeholder, data }) => {
   const editorRef = useRef(null);
   const quillInstance = useRef(null); // To store Quill instance
 
@@ -39,6 +39,10 @@ const EventRichTextEditor = ({ handleChange, setFormData, formDataValue, placeho
     });
 
     quillInstance.current = quill; // Store the Quill instance
+
+    if (data) {
+      quill.clipboard.dangerouslyPasteHTML(data); // Safely initialize with HTML content
+    }
 
     // Listen for text changes and update formData
     quill.on("text-change", () => {

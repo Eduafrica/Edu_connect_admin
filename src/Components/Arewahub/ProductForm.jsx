@@ -94,7 +94,7 @@ function ProductForm({ setErrorMsg, data, formData, setFormData, handleChange })
                             placeholder='Enter product name'
                             className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]'
                         />
-                        <RichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} />
+                        <RichTextEditor data={data?.description} handleChange={handleChange} setFormData={setFormData} formData={formData} />
                     </>
                 )}
             </div>
