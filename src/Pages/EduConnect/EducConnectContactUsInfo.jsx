@@ -48,6 +48,7 @@ function EducConnectContactUsInfo() {
     const { formattedDate, formattedTime } = formatDateAndTime(
         messageData?.createdAt
       );
+      console.log('messageData', messageData)
   return (
     <div className="page flex-row">
 
