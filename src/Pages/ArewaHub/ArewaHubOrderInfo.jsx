@@ -3,17 +3,19 @@ import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Sidebar from "../../Components/Arewahub/Sidebar";
 import Stats from "../../Components/Arewahub/Stats";
 import { useFetchOrders } from "../../Helpers/arewahub/fetch.hooks";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../../Components/Helpers/Spinner";
 import Button from "../../Components/Helpers/Button";
 import { useState } from "react";
-import { toggleOrderActiveStatus, togglePayment } from "../../Helpers/arewahub/api";
+import { deleteOrder, toggleOrderActiveStatus, togglePayment } from "../../Helpers/arewahub/api";
 import ErrorCard from "../../Components/Helpers/ErrorCard";
 import SuccessCard from "../../Components/Helpers/SuccessCard";
 import { truncateText } from "../../Helpers/truncateText";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
+import LoadingBtn from "../../Components/Helpers/LoadingBtn";
 
 function ArewaHubOrderInfo({  }) {
+    const navigate = useNavigate()
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
     const { data: productData, isFetching } = useFetchOrders(pathName)
@@ -93,6 +95,44 @@ function ArewaHubOrderInfo({  }) {
         }
     }
 
+    const handleDeleteOrder = async () => {
+        if(loading){
+            return
+        }
+        if(!pathName){
+            setErrorText('Product Id is requried')
+            setTimeout(() => {
+                setErrorText()
+            }, 2500)
+            return
+        }
+        try {
+            const confirm = window.confirm('Are you sure you want to delete this order. \n This action is irreversible')
+            if(confirm){
+                setLoading(true)
+                const res = await deleteOrder({ id: pathName })
+                console.log(res)
+                if(res.success){
+                    setSuccessText(res.data)
+                    setTimeout(() => {
+                        setSuccessText()
+                    }, 2500)
+                    navigate('/arewahub/orders')
+                } else {
+                    setErrorText(res.data)
+                    setTimeout(() => {
+                        setErrorText()
+                    }, 2500)
+                    return
+                }
+            }
+        } catch (error) {
+            
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const { formattedDate, formattedTime } = formatDateAndTime(data?.createdAt)
 
   return (
@@ -154,9 +194,17 @@ function ArewaHubOrderInfo({  }) {
                             </div>
 
                             <div className="flex items-center gap-5">
-                                <Button disabled={loading} onCLick={handleTogglePayment} text={loading ? 'Updating...' : data?.paid ? 'Unpaid' : `Approve Payment`} style={data?.paid ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
-                                <Button disabled={loading} onCLick={handleToggleOrderDelivered} text={loading ? 'Updating...' : data?.status === 'Pending' ? `Make Successful` : `Make Pending`} style={data?.status === 'Approved' ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
-                            
+                                {
+                                    loading ? (
+                                        <LoadingBtn style={`!bg-arewahub-main-color`} />
+                                    ) : (
+                                        <>
+                                            <Button disabled={loading} onCLick={handleTogglePayment} text={loading ? 'Updating...' : data?.paid ? 'Unpaid' : `Approve Payment`} style={data?.paid ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
+                                            <Button disabled={loading} onCLick={handleToggleOrderDelivered} text={loading ? 'Updating...' : data?.status === 'Pending' ? `Make Successful` : `Make Pending`} style={data?.status === 'Approved' ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
+                                            <Button disabled={loading} onCLick={handleDeleteOrder} text={`Delete`} style={`!bg-error !border-error`} />
+                                        </>
+                                    )
+                                }
                             </div>
                         </div>
 

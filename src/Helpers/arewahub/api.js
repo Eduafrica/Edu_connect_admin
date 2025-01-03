@@ -13,6 +13,17 @@ export async function replyMessage(formData) {
     }
 }
 
+//DELETE CONTACT US MESSAGE
+export async function deleteMessage(formData) {
+    try {
+        const res = await axios.post('/arewahub/contactUs/deleteMessage', formData, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to delete user message'
+        return res?.data
+    }
+}
+
 export async function newFaq(formData) {
     try {
         const res = await axios.post('/arewahub/faq/newFaq', formData, {withCredentials: true})
@@ -110,6 +121,16 @@ export async function togglePayment({ id }) {
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to toggle payment status'
+        return res?.data
+    }
+}
+
+export async function deleteOrder({ id }) {
+    try {
+        const res = await axios.post('/arewahub/orders/deleteOrder', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to delete order'
         return res?.data
     }
 }

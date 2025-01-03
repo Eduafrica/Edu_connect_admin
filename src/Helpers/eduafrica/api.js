@@ -12,6 +12,17 @@ export async function replyMessage(formData) {
     }
 }
 
+//DELETE CONTACT US MESSAGE
+export async function deleteMessage(formData) {
+    try {
+        const res = await axios.post('/eduafrica/contactUs/deleteMessage', formData, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to delete user message'
+        return res?.data
+    }
+}
+
 //TEAM
 export async function newTeam(formData) {
     try {

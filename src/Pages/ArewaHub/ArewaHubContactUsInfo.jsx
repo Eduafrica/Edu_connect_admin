@@ -1,10 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Helpers/Navbar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Button from "../../Components/Helpers/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useState } from "react";
-import { replyMessage } from "../../Helpers/arewahub/api";
+import { deleteMessage, replyMessage } from "../../Helpers/arewahub/api";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import toast from "react-hot-toast";
 import LoadingBtn from "../../Components/Helpers/LoadingBtn";
@@ -13,6 +13,7 @@ import { useFetchContactMessage } from "../../Helpers/arewahub/fetch.hooks";
 import Sidebar from "../../Components/Arewahub/Sidebar";
 
 function ArewaHubContactUsInfo() {
+    const navigate = useNavigate()
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
     const { data, isFetching } = useFetchContactMessage(pathName)
@@ -45,6 +46,29 @@ function ArewaHubContactUsInfo() {
         }
     }
 
+    const handleDeleteMessage = async () => {
+        if(loading){
+            return
+        }
+        try {
+            const confirm = window.confirm('Are you sure you want to delete this message?')
+            if(confirm){
+                setLoading(true)
+                const res = await deleteMessage(formData)
+                if(res.success){
+                    toast.success(res.data)
+                    navigate('/arewahub/contact-us')
+                } else {
+                    toast.error(res.data || 'Unable to delete message')
+                }
+            }
+        } catch (error) {
+            
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const { formattedDate, formattedTime } = formatDateAndTime(
         messageData?.createdAt
       );
@@ -67,7 +91,7 @@ function ArewaHubContactUsInfo() {
 
             <DashBoardLinks name={'arewahub'} color={`text-arewahub-main-color border-arewahub-main-color`} />
 
-                <div className="card1">
+                <div className="card1 flex items-center justify-between">
                     <div className="flex items-center gap-[50px]">
                         <Link to={`/acn/contact-us`} className="">
                             <IoIosArrowBack />
@@ -89,6 +113,10 @@ function ArewaHubContactUsInfo() {
 
                             </div>
                         </div>
+                    </div>
+
+                    <div className="">
+                        <Button disabled={loading} style={`bg-error border-error`} text={`Delete`} onCLick={handleDeleteMessage} />
                     </div>
 
 

@@ -289,11 +289,7 @@ function ProductsCard({ productsData, loading, showFilter, showMenuList, showSea
                             >
                               Edit
                             </Link>
-                            <p
-                                className="flex items-center gap-3 text-sm text-[#F81414]"
-                            >
-                                Delete
-                            </p>
+
                           </div>
 
                       </div>

@@ -3,17 +3,19 @@ import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Sidebar from "../../Components/Arewahub/Sidebar";
 import Stats from "../../Components/Arewahub/Stats";
 import { useFetchProducts } from "../../Helpers/arewahub/fetch.hooks";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Spinner from "../../Components/Helpers/Spinner";
 import Button from "../../Components/Helpers/Button";
 import { useState } from "react";
-import { toggleActive } from "../../Helpers/arewahub/api";
+import { deleteProduct, toggleActive } from "../../Helpers/arewahub/api";
 import ErrorCard from "../../Components/Helpers/ErrorCard";
 import SuccessCard from "../../Components/Helpers/SuccessCard";
 import { truncateText } from "../../Helpers/truncateText";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
+import LoadingBtn from "../../Components/Helpers/LoadingBtn";
 
 function ArewaHubProductInfo({  }) {
+    const navigate = useNavigate()
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
     const { data: productData, isFetching } = useFetchProducts(pathName)
@@ -50,6 +52,45 @@ function ArewaHubProductInfo({  }) {
                     setErrorText()
                 }, 2500)
                 return
+            }
+        } catch (error) {
+            
+        } finally {
+            setLoading(false)
+        }
+    }
+
+    const handleDelete = async () => {
+        if(loading){
+            return
+        }
+        if(!pathName){
+            setErrorText('Product Id is requried')
+            setTimeout(() => {
+                setErrorText()
+            }, 2500)
+            return
+        }
+        try {
+            const confirm = window.confirm('Are you sure you want to delete this product')
+            if(confirm){
+                setLoading(true)
+                const res = await deleteProduct({ id: pathName })
+                console.log(res)
+                if(res.success){
+                    setSuccessText(res.data)
+                    setTimeout(() => {
+                        setSuccessText()
+                    }, 2500)
+                    
+                    navigate('/arewahub/products')
+                } else {
+                    setErrorText(res.data)
+                    setTimeout(() => {
+                        setErrorText()
+                    }, 2500)
+                    return
+                }
             }
         } catch (error) {
             
@@ -118,8 +159,24 @@ function ArewaHubProductInfo({  }) {
                                 </div>
                             </div>
 
-                            <div className="flex items-center gap-5">
-                                <Button disabled={loading} onCLick={handleToggleActive} text={loading ? 'Updating...' : data?.active ? `Make inactive` : `Make Active`} style={data?.active ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
+                            <div className="flex items-center gap-3">
+                                {
+                                    
+                                    loading ? (
+                                        <div className="">
+                                            <LoadingBtn style={`!bg-arewahub-main-color`}  />
+                                        </div>
+                                    ) : (
+                                        <>
+                                            <div className="flex items-center gap-5">
+                                                <Button disabled={loading} onCLick={handleToggleActive} text={loading ? 'Updating...' : data?.active ? `Make inactive` : `Make Active`} style={data?.active ? `!bg-[#8C52FF] !border-[#8C52FF] !text-[#F9F9F9]` : `!bg-transparent !border-[#D0D5DD] !text-[#344054]`} />
+                                            </div>
+                                            <div className="flex items-center gap-5">
+                                                <Button disabled={loading} onCLick={handleDelete} text={loading ? 'Deleting...' :  `Delete`} style={`!bg-error !border-error`} />
+                                            </div>
+                                        </>
+                                    )
+                                }
                             </div>
                         </div>
 

@@ -1,11 +1,11 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import Navbar from "../../Components/Helpers/Navbar";
 import Sidebar from "../../Components/EduConnect/Sidebar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Button from "../../Components/Helpers/Button";
 import { IoIosArrowBack } from "react-icons/io";
 import { useState } from "react";
-import { replyMessage } from "../../Helpers/educonnect/api";
+import { deleteMessage, replyMessage } from "../../Helpers/educonnect/api";
 import { formatDateAndTime } from "../../Helpers/formatDateAndTime";
 import toast from "react-hot-toast";
 import { useFetchContactMessage } from "../../Helpers/educonnect/fetch.hooks";
@@ -13,6 +13,7 @@ import LoadingBtn from "../../Components/Helpers/LoadingBtn";
 import Spinner from "../../Components/Helpers/Spinner";
 
 function EducConnectContactUsInfo() {
+    const navigate = useNavigate()
     const loc = useLocation()
     const pathName = loc.pathname.split('/')[4]
     const { data, isFetching } = useFetchContactMessage(pathName)
@@ -45,6 +46,29 @@ function EducConnectContactUsInfo() {
         }
     }
 
+    const handleDeleteMessage = async () => {
+        if(loading){
+            return
+        }
+        try {
+            const confirm = window.confirm('Are you sure you want to delete this message?')
+            if(confirm){
+                setLoading(true)
+                const res = await deleteMessage(formData)
+                if(res.success){
+                    toast.success(res.data)
+                    navigate('/edu-connect/contact-us')
+                } else {
+                    toast.error(res.data || 'Unable to delete message')
+                }
+            }
+        } catch (error) {
+            
+        } finally {
+            setLoading(false)
+        }
+    }
+
     const { formattedDate, formattedTime } = formatDateAndTime(
         messageData?.createdAt
       );
@@ -68,7 +92,7 @@ function EducConnectContactUsInfo() {
 
               <DashBoardLinks name={'educonnect'} color={`text-edu-main-color border-edu-main-color`} />
 
-                <div className="card1">
+                <div className="card1 flex items-center justify-between">
                     <div className="flex items-center gap-[50px]">
                         <Link to={`/edu-connect/contact-us`} className="">
                             <IoIosArrowBack />
@@ -90,6 +114,10 @@ function EducConnectContactUsInfo() {
 
                             </div>
                         </div>
+                    </div>
+
+                    <div className="">
+                        <Button disabled={loading} style={`bg-error border-error`} text={`Delete`} onCLick={handleDeleteMessage} />
                     </div>
 
 
