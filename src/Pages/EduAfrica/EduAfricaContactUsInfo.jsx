@@ -69,7 +69,7 @@ function EduAfricaContactUsInfo() {
 
                 <div className="card1">
                     <div className="flex items-center gap-[50px]">
-                        <Link to={`/edu-connect/contact-us`} className="">
+                        <Link to={`/edu-africa/contact-us`} className="">
                             <IoIosArrowBack />
                         </Link>
 
