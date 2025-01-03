@@ -1,20 +1,12 @@
 import Navbar from "../../Components/Helpers/Navbar";
 import DashBoardLinks from "../../Components/Helpers/DashBoardLinks";
 import Sidebar from "../../Components/ACN/Sidebar";
-import { useFetchNewsAndUpdates } from "../../Helpers/acn/fetch.hooks";
-import Stats from "../../Components/ACN/Stats";
-import NewAndUpdatesCard from "../../Components/ACN/NewAndUpdatesCard";
-import { newsandupdates } from "../../Data/newsandupdates";
-import AcnNewsForm from "../../Components/ACN/AcnNewsForm";
 import { useState } from "react";
 import SuccessCard from "../../Components/Helpers/SuccessCard";
 import ErrorCard from "../../Components/Helpers/ErrorCard";
 import AcnStoryFormInput from "../../Components/ACN/AcnStoryFormInput";
 
 function AcnStoryForm() {
-  const { data: newsAndUpdateData, isFetching } = useFetchNewsAndUpdates()
-  const data = newsAndUpdateData?.data || newsandupdates || []
-  
   const [ successMsg, setSuccessMsg ] = useState()
   const [ errorMsg, setErrorMsg ] = useState()
 

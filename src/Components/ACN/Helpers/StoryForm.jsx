@@ -94,7 +94,7 @@ function StoryForm({ data, formData, setFormData, handleChange, setErrorMsg }) {
                         <input id='title' defaultValue={data?.title} value={formData?.title} onChange={handleChange} type="text" placeholder='Enter Title' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
                     
                         <div className="">
-                            <RichTextEditor handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={'story'} placeholder={'Start typing story'} />
+                            <RichTextEditor data={data?.story} handleChange={handleChange} setFormData={setFormData} formData={formData} formDataValue={'story'} placeholder={'Start typing story'} />
                         </div>
                     </>
                 )}
@@ -163,9 +163,9 @@ function StoryForm({ data, formData, setFormData, handleChange, setErrorMsg }) {
                             )}
                         </div>
 
-                        <input id='category' value={formData?.category} onChange={handleChange} type="text" placeholder='Enter category seprated bg coma,' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
+                        <input id='category' defaultValue={data?.category} value={formData?.category} onChange={handleChange} type="text" placeholder='Enter category seprated bg coma,' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
 
-                        <input id='caption' value={formData?.caption} onChange={handleChange} type="text" placeholder='Enter caption text' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
+                        <input id='caption' defaultValue={data?.caption} value={formData?.caption} onChange={handleChange} type="text" placeholder='Enter caption text' className='rounded-[5px] border-[1px] border-[#E6E6E6] h-[63px] py-[19px] px-[20px] outline-none text-[#585858] placeholder:text-[#585858]' />
 
                     </>
                 )}

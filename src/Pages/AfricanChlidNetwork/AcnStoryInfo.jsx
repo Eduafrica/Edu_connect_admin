@@ -199,7 +199,7 @@ function AcnStoryInfo() {
                             <p className="text-start text-sm font-medium text-[#1F2A37]">{storyData?.writers}</p>
                         </div>
                         <div className="flex items-center gap-4">
-                            <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Post Id</p>
+                            <p className="text-start text-sm font-medium text-[#929292] min-w-[200px]">Stroy Id</p>
                             <p className="text-start text-sm font-medium text-[#1F2A37]">{storyData?.postId}</p>
                         </div>
                         <div className="flex items-center gap-4">

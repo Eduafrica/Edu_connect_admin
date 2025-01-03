@@ -32,7 +32,7 @@ function AcnDonationInfo() {
         }
         try {
             setLoading(true)
-            const res = await toggleDonationActiveStatus({ pathName })
+            const res = await toggleDonationActiveStatus({ id: pathName })
             if(res.success){
                 toast.success(res.data)
                 window.location.reload()
@@ -46,6 +46,7 @@ function AcnDonationInfo() {
         }
     }
 
+    console.log('donationData', donationData)
   return (
     <div className="page flex-row">
 
@@ -90,7 +91,7 @@ function AcnDonationInfo() {
                     </div>
 
                     <div className="">
-                        <Button disabled={loading} onCLick={handleDonationActiveStatus} text={loading ? 'Updating...': 'Update Status'} style={`!bg-acn-main-color border-acn-main-color`} />
+                        <Button disabled={loading} onCLick={handleDonationActiveStatus} text={loading ? 'Updating...' : donationData?.status ? 'Unapprove' : 'Approve'} style={`!bg-acn-main-color border-acn-main-color`} />
                     </div>
 
                 </div>

@@ -9,12 +9,12 @@ import TopExpense from "../../Components/ACN/TopExpense";
 import { useFetchDonations, useFetchDonationStats, useFetchExpense } from "../../Helpers/acn/fetch.hooks";
 
 function AcnDasboard() {
-  const { data: donationData, isFetching: loadingDonations } = useFetchDonations()
+  const { data: donationsData, isFetching: loadingDonations } = useFetchDonations()
   const { data: expenseData, isFetching: loadingExpense } = useFetchExpense()
 
-
-  const topDonationsData = donationData?.data?.splice(0, 5) || [].splice(0, 5)
-  const topExpenseData = expenseData?.data.splice(0, 6) || [].splice(0, 6)
+  const donationData = donationsData?.data || []
+  const topDonationsData = donationData || []
+  const topExpenseData = expenseData?.data.splice(0, 6) || []
   const [ selectedDate, setSelectedDate ] = useState()
   
   const { data: donationStatsData, isFetching: loadingDonationStats } = useFetchDonationStats(selectedDate || '30days')
@@ -53,7 +53,7 @@ function AcnDasboard() {
 
             <div className="flex  items-start gap-[66px] justify-between">
                 {/**fetch dat table two table */}
-                <TopDonations data={topDonationsData} loading={loadingDonations}  />
+                <TopDonations data={topDonationsData?.splice(0, 3)} loading={loadingDonations}  />
                 <TopExpense data={topExpenseData} loading={loadingExpense}  />
             </div>
 
