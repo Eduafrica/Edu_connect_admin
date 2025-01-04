@@ -153,3 +153,13 @@ export async function deleteNewsLetter({ id }) {
         return res?.data
     }
 }
+
+export async function markNotificationAsRead(formData) {
+    try {
+        const res = await axios.post('/notification/markAsRead', formData, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to mark notification as read'
+        return res?.data
+    }
+}

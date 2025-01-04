@@ -46,8 +46,7 @@ function AcnDonationInfo() {
         }
     }
 
-    console.log('donationData', donationData)
-  return (
+    return (
     <div className="page flex-row">
 
       {/* Sidebar */}

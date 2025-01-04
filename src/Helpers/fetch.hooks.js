@@ -55,3 +55,27 @@ export function useFetchNewsLetter(query){
 
     return nesLetterData
 }
+
+//FETCH NOTIFICATIONS
+export function useFetchNotifications(query){
+    const [ notificationsData, setNotificationsData] = useState({ isFetching: true, data: null, status: null, serverError: null, })
+    useEffect(() => {
+        const fetchNotificationData = async () => {
+            try {
+                const { data, status} = !query ? await axios.get(`/notification/getNotifications`, {withCredentials: true}) : await axios.get(`/notifications/getNotification/${query}`, {withCredentials: true})
+                //console.log('Data from Hooks>>>', data, 'STATUS', status)
+
+                if(status === 200){
+                    setNotificationsData({ isFetching: false, data: data, status: status, serverError: null})
+                } else{
+                    setNotificationsData({ isFetching: false, data: null, status: status, serverError: null})
+                }
+            } catch (error) {
+                setNotificationsData({ isFetching: false, data: null, status: null, serverError: error})
+            }
+        }
+        fetchNotificationData()
+    }, [query])
+
+    return notificationsData
+}
