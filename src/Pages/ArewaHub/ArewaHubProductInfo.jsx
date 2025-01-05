@@ -211,7 +211,7 @@ function ArewaHubProductInfo({  }) {
                                 </div>
                                 <div className="flex items-center">
                                     <div className="min-w-[200px] text-sm font-medium text-[#929292]">Amount</div>
-                                    <div className="text-sm font-normal text-[#121212]">₦{data?.price.toLocaleString()}</div>
+                                    <div className="text-sm font-normal text-[#121212]">{data?.priceCurrency}{data?.price.toLocaleString()}</div>
                                 </div>
                                 <div className="flex items-center">
                                     <div className="min-w-[200px] text-sm font-medium text-[#929292]">Status</div>
