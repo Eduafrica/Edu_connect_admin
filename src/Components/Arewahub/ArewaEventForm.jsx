@@ -38,8 +38,26 @@ function ArewaEventForm({ setSuccessMsg, setErrorMsg }) {
       
       try {
         setSubmitting(true)
+        const { eventGallery, ...finalData } = formData; // Remove eventGallery before sending
+        const formDataToSend = new FormData();
 
-        const res = pathName === 'noid' ? await newEvent(formData) : await updateEvent(formData)
+        // Append each file individually under 'eventGalleryFile' field
+        if (formData.eventGalleryFile) {
+            formData.eventGalleryFile.forEach((fileObj) => {
+                formDataToSend.append('eventGalleryFile', fileObj.eventGalleryFile);
+            });
+        }
+
+        // Append other form fields
+        Object.entries(finalData).forEach(([key, value]) => {
+            formDataToSend.append(key, value);
+        });
+
+        // Use the appropriate function based on pathName
+        const res = pathName === 'noid'
+            ? await newEvent(formDataToSend)
+            : await updateEvent(formDataToSend);
+            
         if(res.success){
           setSuccessMsg(res.data)
           setTimeout(() => {

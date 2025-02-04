@@ -30,31 +30,35 @@ function AddGallery({ setErrorMsg, formData, setFormData }) {
         processFiles(files);
     };
 
-    // Process files (validate size)
+    // Process files (validate size & update formData)
     const processFiles = (files) => {
         const validFiles = files.filter((file) => {
             if (file.size > MAX_FILE_SIZE_MB * 1024 * 1024) {
                 setErrorMsg(`File ${file.name} exceeds the maximum size of ${MAX_FILE_SIZE_MB}MB.`);
-                setTimeout(() => {
-                    setErrorMsg('');
-                }, 2500);
+                setTimeout(() => setErrorMsg(''), 2500);
                 return false;
             }
             return true;
         });
 
-        setFormData((prev) => ({
-            ...prev,
-            eventGallery: [...(prev.eventGallery || []), ...validFiles],
-        }));
+        setFormData((prev) => {
+            const updatedGallery = [...(prev.eventGallery || []), ...validFiles];
+            const updatedGalleryFiles = [...(prev.eventGalleryFile || []), ...validFiles.map(file => ({ eventGalleryFile: file }))];
+
+            return { ...prev, eventGallery: updatedGallery, eventGalleryFile: updatedGalleryFiles };
+        });
     };
 
     // Remove file from the gallery
     const handleFileDelete = (index) => {
         setFormData((prev) => {
             const updatedGallery = [...(prev.eventGallery || [])];
+            const updatedGalleryFiles = [...(prev.eventGalleryFile || [])];
+
             updatedGallery.splice(index, 1);
-            return { ...prev, eventGallery: updatedGallery };
+            updatedGalleryFiles.splice(index, 1);
+
+            return { ...prev, eventGallery: updatedGallery, eventGalleryFile: updatedGalleryFiles };
         });
     };
 
@@ -73,7 +77,7 @@ function AddGallery({ setErrorMsg, formData, setFormData }) {
                         <div key={index} className="relative">
                             <img
                                 className="w-full h-[100px] object-cover rounded-[6px]"
-                                src={URL.createObjectURL(file)} // Preview the file using URL.createObjectURL
+                                src={URL.createObjectURL(file)}
                                 alt={`Preview ${index + 1}`}
                             />
                             <button

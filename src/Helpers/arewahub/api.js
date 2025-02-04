@@ -136,10 +136,10 @@ export async function deleteOrder({ id }) {
 }
 
 //EVENTS
-export async function newEvent(formData) {
+export async function newEvent(formDataToSend) {
     try {
-        console.log('DATA FORM', formData)
-        const res = await axios.post('/arewahub/events/newEvent', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
+        console.log('DATA FORM', formDataToSend)
+        const res = await axios.post('/arewahub/events/newEvent', formDataToSend, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to create new event'
@@ -147,9 +147,9 @@ export async function newEvent(formData) {
     }
 }
 
-export async function updateEvent(formData) {
+export async function updateEvent(formDataToSend) {
     try {
-        const res = await axios.post('/arewahub/events/updateEvent', formData, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
+        const res = await axios.post('/arewahub/events/updateEvent', formDataToSend, { headers: { "Content-Type": "multipart/form-data" }, withCredentials: true})
         return res.data
     } catch (error) {
         const res = error.response || 'Unable to update event'
