@@ -72,6 +72,7 @@ import EduAfricaTestimonies from "./Pages/EduAfrica/EduAfricaTestimonies"
 import EduAfricaTestimoniesInfo from "./Pages/EduAfrica/EduAfricaTestimoniesInfo"
 import AcnNewAmbassador from "./Pages/AfricanChlidNetwork/AcnNewAmbassador"
 import EduConnectNewsletterList from "./Pages/EduConnect/EduConnectNewsletterList"
+import BecomeMemberForm from "./Test/Arewahubmember"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -170,6 +171,8 @@ function App() {
           <Route path="/edu-africa/settings" element={<EduAfricaSettings />} />
 
           
+          {/**TEST */}
+          <Route path="/test/arewahub-member" element={<BecomeMemberForm />} />
           
         </Routes>
       </BrowserRouter>
