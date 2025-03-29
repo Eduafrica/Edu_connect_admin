@@ -73,6 +73,8 @@ import EduAfricaTestimoniesInfo from "./Pages/EduAfrica/EduAfricaTestimoniesInfo
 import AcnNewAmbassador from "./Pages/AfricanChlidNetwork/AcnNewAmbassador"
 import EduConnectNewsletterList from "./Pages/EduConnect/EduConnectNewsletterList"
 import BecomeMemberForm from "./Test/Arewahubmember"
+import ArewaHubMembers from "./Pages/ArewaHub/ArewahubMembers"
+import ArewaHubMemberInfo from "./Pages/ArewaHub/ArewaHubMemberInfo"
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
@@ -145,6 +147,8 @@ function App() {
           <Route path="/arewahub/orders" element={<ArewaHubOrders />} />
           <Route path="/arewahub/order/info/:id" element={<ArewaHubOrderInfo />} />
           <Route path="/arewahub/events" element={<ArewaHubEvents />} />
+          <Route path="/arewahub/members" element={<ArewaHubMembers />} />
+          <Route path="/arewahub/view-member/:id" element={<ArewaHubMemberInfo />} />
           <Route path="/arewahub/new-event/:id" element={<ArewaHubNewEvent />} />
           <Route path="/arewahub/testimonies" element={<ArewaHubTestimonies />} />
           <Route path="/arewahub/testimonies/info/:id" element={<ArewaHubTestimoniesInfo />} />

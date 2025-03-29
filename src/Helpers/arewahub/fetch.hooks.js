@@ -75,6 +75,30 @@ export function useFetchEvents(query){
     return eventData
 }
 
+//FETCH AREWA HUB CRAFT MEMBERS
+export function useFetchCraftsMembers(query){
+    const [ membersData, setMembersData] = useState({ isFetching: true, data: null, status: null, serverError: null, })
+    useEffect(() => {
+        const fetchMembersData = async () => {
+            try {
+                const { data, status} = !query ? await axios.get(`/arewahub/becomeAMember/getMembers`, {withCredentials: true}) : await axios.get(`/arewahub/becomeAMember/getAMember/${query}`, {withCredentials: true})
+                //console.log('Data from Hooks>>>', data, 'STATUS', status)
+
+                if(status === 200){
+                    setMembersData({ isFetching: false, data: data, status: status, serverError: null})
+                } else{
+                    setMembersData({ isFetching: false, data: null, status: status, serverError: null})
+                }
+            } catch (error) {
+                setMembersData({ isFetching: false, data: null, status: null, serverError: error})
+            }
+        }
+        fetchMembersData()
+    }, [query])
+
+    return membersData
+}
+
 //FETCH AREWA HUB FAQ
 export function useFetchFaq(query){
     const [ faqData, setFaqData] = useState({ isFetching: true, data: null, status: null, serverError: null, })

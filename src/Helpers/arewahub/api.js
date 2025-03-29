@@ -167,6 +167,26 @@ export async function deleteEvent({ id }) {
     }
 }
 
+export async function downloadPDF({ id }) {
+    try {
+        const res = await axios.post('/arewahub/becomeAMember/downloadPDF', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to download pdf'
+        return res?.data
+    }
+}
+
+export async function downloadCSV({ id }) {
+    try {
+        const res = await axios.post('/arewahub/becomeAMember/downloadCSV', { id }, {withCredentials: true})
+        return res.data
+    } catch (error) {
+        const res = error.response || 'Unable to download csv'
+        return res?.data
+    }
+}
+
 //TEAM
 export async function newTeam(formData) {
     try {
