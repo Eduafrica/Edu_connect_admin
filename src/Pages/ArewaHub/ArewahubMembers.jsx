@@ -7,6 +7,7 @@ import MembersCard from "../../Components/Arewahub/MembersCard";
 function ArewaHubMembers() {
     const { data: membersData, isFetching } = useFetchCraftsMembers()
     const data =  membersData?.data || []
+    console.log('DATA', data)
 
   return (
     <div className="page flex-row">

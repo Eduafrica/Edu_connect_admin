@@ -123,17 +123,17 @@ function MembersCard({ memberData, loading, showFilter, showMenuList, showSearch
     if (confirm) {
       try {
         setDownloadingPDF(true);
+        console.log('handleDownLoadPdf')
         const res = await downloadPDF();
         if (res.success) {
           toast.success(res.data);
           //window.location.reload();
-        } else {
-          toast.error(res.data);
         }
-      } catch (error) {
-      } finally {
-        setDownloadingPDF(false);
-      }
+        } catch (error) {
+            toast.error(res.data);
+        } finally {
+            setDownloadingPDF(false);
+        }
     }
   };
 

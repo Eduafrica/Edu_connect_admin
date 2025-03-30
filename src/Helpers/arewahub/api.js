@@ -167,23 +167,55 @@ export async function deleteEvent({ id }) {
     }
 }
 
-export async function downloadPDF({ id }) {
+export async function downloadPDF() {
     try {
-        const res = await axios.post('/arewahub/becomeAMember/downloadPDF', { id }, {withCredentials: true})
-        return res.data
+        const res = await axios.get('/arewahub/becomeAMember/downloadPDF', {
+            withCredentials: true,
+            responseType: 'blob', // Ensures the response is treated as a file
+        });
+
+        // Create a blob from the response
+        const blob = new Blob([res.data], { type: 'application/pdf' });
+
+        // Create a download link
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'members.pdf'; // File name for download
+        document.body.appendChild(link);
+        link.click();
+
+        // Cleanup
+        document.body.removeChild(link);
+        URL.revokeObjectURL(link.href);
+
+        return { success: true, message: 'PDF downloaded successfully' };
     } catch (error) {
-        const res = error.response || 'Unable to download pdf'
-        return res?.data
+        console.log('ERROR', error);
+        return { success: false, message: 'Unable to download PDF' };
     }
 }
 
-export async function downloadCSV({ id }) {
+export async function downloadCSV() {
     try {
-        const res = await axios.post('/arewahub/becomeAMember/downloadCSV', { id }, {withCredentials: true})
-        return res.data
+        const response = await axios.get('/arewahub/becomeAMember/downloadCSV', {
+            responseType: 'blob', // Expect a file (CSV)
+            withCredentials: true
+        });
+
+        // Create a Blob from the response
+        const blob = new Blob([response.data], { type: 'text/csv' });
+
+        // Create a download link and trigger click
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'members.csv';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
     } catch (error) {
-        const res = error.response || 'Unable to download csv'
-        return res?.data
+        console.error('Unable to download CSV:', error);
+        alert('Failed to download CSV file');
     }
 }
 
