@@ -176,7 +176,10 @@ function App() {
 
           
           {/**TEST */}
+          {/**
+           * 
           <Route path="/test/arewahub-member" element={<BecomeMemberForm />} />
+           */}
           
         </Routes>
       </BrowserRouter>
