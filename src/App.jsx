@@ -72,9 +72,11 @@ import EduAfricaTestimonies from "./Pages/EduAfrica/EduAfricaTestimonies"
 import EduAfricaTestimoniesInfo from "./Pages/EduAfrica/EduAfricaTestimoniesInfo"
 import AcnNewAmbassador from "./Pages/AfricanChlidNetwork/AcnNewAmbassador"
 import EduConnectNewsletterList from "./Pages/EduConnect/EduConnectNewsletterList"
-import BecomeMemberForm from "./Test/Arewahubmember"
 import ArewaHubMembers from "./Pages/ArewaHub/ArewahubMembers"
 import ArewaHubMemberInfo from "./Pages/ArewaHub/ArewaHubMemberInfo"
+{/**
+import BecomeMemberForm from "./Test/Arewahubmember"
+*/}
 
 function App() {
   const [ educonnectFaqId, setEduconnectFaqId ] = useState()
